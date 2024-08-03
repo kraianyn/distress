@@ -21,7 +21,7 @@ class App extends HookWidget {
 						label: section.name
 					)).toList(),
 					selectedIndex: sectionIndex.value,
-					onDestinationSelected: (index) => sectionIndex.value = index,
+					onDestinationSelected: (index) => sectionIndex.value = index
 				)
 			)
 		);
