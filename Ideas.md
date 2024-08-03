@@ -1,8 +1,8 @@
 # Name
 
+
 - Дистрес
 - Розряд
-- Бачу, чую, відчуваю
 
 # Sections
 
@@ -13,15 +13,15 @@ instructor, instructors by the role).
 
 This section is for the scheduled courses. It has a subsection for all the 
 courses, and another one for the courses the user is an instructor on.
-Multiple views (list, calendar) and are available.
+Multiple views (list, calendar) are available.
 
-The page of a scheduled course contains the name, the date, the location, and 
-the instructors. 
+The page of a scheduled course contains the name, the date, the location, 
+the instructors, and an optional note. 
 
 ## Course types
 
-This section is for what courses there are, i.e. the course types (Trauma care, 
-BLS, TCCC ASM...).
+This section is for what courses there are, i.e. the course types: Trauma care, 
+BLS, TCCC ASM...
 
 The page of a course type contains the name, the duration, the instructors 
 needed, the price, and the capacity.
@@ -43,10 +43,19 @@ contains the name, the link on the map, and the courses scheduled there.
 Besides adding courses one by one, there is a way to add a whole course schedule, 
 i.e. multiple courses at once.
 
-## Course actions
+## Course students
 
-The page of a scheduled course also contains the students (trainees?).
+The page of a scheduled course also contains the students. It's also possible 
+to mark who is not present on the course.
 
-A mode for checking who is present on the course.
+## Certificates
 
-An ability to create certificates for the students.
+Certificates are generated automatically as PDF files for the students present 
+on the course.
+
+## Feedback responses
+
+A page for the feedback responses of a course.
+
+When a new response is submitted, a notification is sent to the instructors of 
+the course.
