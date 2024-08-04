@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:distress/src/domain/course.dart';
-
+import '../date_time.dart';
 import '../providers/courses.dart';
+import '../widgets/entity_tile.dart';
 import '../widgets/error_page.dart';
 import '../widgets/loading_page.dart';
+
+import 'pages/course.dart';
 
 
 class ScheduleSection extends ConsumerWidget {
@@ -16,16 +18,15 @@ class ScheduleSection extends ConsumerWidget {
 		final courses = ref.watch(coursesNotifierProvider);
 
 		return courses.when(
-			data: (courses) => _listWidget(courses),
+			data: (courses) => ListView(
+				children: courses.map((course) => EntityTile(
+					title: course.type.name,
+					trailing: course.date.dateString,
+					pageBuilder: (context) => CoursePage(course),
+				)).toList()
+			),
 			loading: () => const LoadingPage(),
 			error: (error, _) => ErrorPage(error)
 		);
 	}
-
-	Widget _listWidget(List<Course> courses) => ListView(
-		children: courses.map((course) => ListTile(
-			title: Text(course.type.name),
-			trailing: Text("${course.date.day}.${course.date.month}")
-		)).toList()
-	);
 }

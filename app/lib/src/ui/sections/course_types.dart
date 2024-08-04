@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:distress/src/domain/course_type.dart';
-
 import '../providers/course_types.dart';
+import '../widgets/entity_tile.dart';
 import '../widgets/error_page.dart';
 import '../widgets/loading_page.dart';
+
+import 'pages/course_type.dart';
 
 
 class CourseTypesSection extends ConsumerWidget {
@@ -16,15 +17,14 @@ class CourseTypesSection extends ConsumerWidget {
 		final types = ref.watch(courseTypesNotifierProvider);
 
 		return types.when(
-			data: (courses) => _listWidget(courses),
+			data: (types) => ListView(
+				children: types.map((type) => EntityTile(
+					title: type.name,
+					pageBuilder: (context) => CourseTypePage(type)
+				)).toList()
+			),
 			loading: () => const LoadingPage(),
 			error: (error, _) => ErrorPage(error)
 		);
 	}
-
-	Widget _listWidget(List<CourseType> types) => ListView(
-		children: types.map((type) => ListTile(
-			title: Text(type.name),
-		)).toList()
-	);
 }

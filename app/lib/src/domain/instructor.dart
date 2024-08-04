@@ -6,4 +6,7 @@ class Instructor {
 
 	final String id;
 	final String codeName;
+
+	@override
+	String toString() => codeName;
 }

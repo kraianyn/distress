@@ -2,6 +2,7 @@ name: distress
 description: "A mobile app for the Hospitallers Training Center."
 publish_to: 'none'
 version: 0.1.0
+repository: https://github.com/kraianyn/distress
 
 environment:
   sdk: ^3.4.3
