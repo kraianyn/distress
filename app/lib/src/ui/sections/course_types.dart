@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 
-class CoursesSection extends StatelessWidget {
-	const CoursesSection();
+class CourseTypesSection extends StatelessWidget {
+	const CourseTypesSection();
 
 	@override
 	Widget build(BuildContext context) {

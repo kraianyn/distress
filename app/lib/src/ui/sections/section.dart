@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'courses.dart';
+import 'course_types.dart';
 import 'instructors.dart';
 import 'locations.dart';
 import 'schedule.dart';
@@ -15,7 +15,7 @@ enum Section {
 	courses(
 		name: "Курси",
 		icon: Icons.school,
-		widget: CoursesSection()
+		widget: CourseTypesSection()
 	),
 	instructors(
 		name: "Інструктори",
