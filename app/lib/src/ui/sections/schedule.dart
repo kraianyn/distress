@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:distress/src/domain/course.dart';
+
 import '../providers/courses.dart';
+import '../widgets/error_page.dart';
+import '../widgets/loading_page.dart';
 
 
 class ScheduleSection extends ConsumerWidget {
@@ -14,8 +17,8 @@ class ScheduleSection extends ConsumerWidget {
 
 		return courses.when(
 			data: (courses) => _listWidget(courses),
-			loading: () => const Icon(Icons.cloudy_snowing),
-			error: (error, stack) => const Icon(Icons.sentiment_dissatisfied)
+			loading: () => const LoadingPage(),
+			error: (error, _) => ErrorPage(error)
 		);
 	}
 

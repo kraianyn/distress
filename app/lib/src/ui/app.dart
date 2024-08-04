@@ -10,11 +10,14 @@ class App extends HookWidget {
 	@override
 	Widget build(BuildContext context) {
 		final sectionIndex = useState(0);
+		final section = Section.values[sectionIndex.value];
 
 		return MaterialApp(
+			debugShowCheckedModeBanner: false,
 			title: "Дистрес",
 			home: Scaffold(
-				body: Section.values[sectionIndex.value].widget,
+				appBar: AppBar(title: Text(section.name)),
+				body: section.widget,
 				bottomNavigationBar: NavigationBar(
 					destinations: Section.values.map((section) => NavigationDestination(
 						icon: Icon(section.icon),
