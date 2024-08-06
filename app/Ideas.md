@@ -12,7 +12,7 @@ Remove the labels in the navigation bar.
 
 ## Consider
 
-The sections have something in common.
+Reduce duplication across the entity `AsyncNotifier`s.
 
 ## Read
 
@@ -20,7 +20,7 @@ The sections have something in common.
 
 # Domain
 
-The entities have something in common.
+Reduce duplication across the entities.
 
 # Data
 

@@ -5,6 +5,7 @@ import '../providers/locations.dart';
 import '../widgets/entity_tile.dart';
 
 import 'entities_section.dart';
+import 'forms/location.dart';
 import 'pages/location.dart';
 
 
@@ -21,7 +22,8 @@ class LocationsSection extends ConsumerWidget {
 				title: location.name,
 				subtitle: location.link,
 				pageBuilder: (context) => LocationPage(location)
-			)
+			),
+			formBuilder: (context) => const LocationForm(),
 		);
 	}
 }
