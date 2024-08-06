@@ -1,5 +1,7 @@
 import 'package:distress/src/domain/instructor.dart';
+
 import '../field.dart';
+import '../types.dart';
 
 
 class InstructorModel extends Instructor {
@@ -8,11 +10,17 @@ class InstructorModel extends Instructor {
 		required super.codeName
 	});
 
-	InstructorModel.fromCloudFormat({
-		required String id,
-		required Map<String, dynamic> object
-	}) : this(
-		id: id,
-		codeName: object[Field.codeName] as String
+	InstructorModel.fromEntry(MapEntry<String, ObjectMap> entry) : this(
+		id: entry.key,
+		codeName: entry.value[Field.codeName] as String
 	);
+
+	InstructorModel.fromEntity(Instructor type) : this(
+		id: type.id,
+		codeName: type.codeName
+	);
+
+	MapEntry<String, ObjectMap> get entry => MapEntry(id, {
+		Field.codeName: codeName
+	});
 }

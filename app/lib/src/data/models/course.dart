@@ -6,6 +6,7 @@ import 'package:distress/src/domain/instructor.dart';
 import 'package:distress/src/domain/location.dart';
 
 import '../field.dart';
+import '../types.dart';
 
 
 class CourseModel extends Course {
@@ -17,23 +18,38 @@ class CourseModel extends Course {
 		required super.instructors
 	});
 
-	factory CourseModel.fromCloudFormat({
-		required String id,
-		required Map<String, dynamic> object,
-		required List<CourseType> types,
-		required List<Location> locations,
-		required List<Instructor> instructors
+	factory CourseModel.fromEntry(
+		MapEntry<String, ObjectMap> entry, {
+			required List<CourseType> types,
+			required List<Location> locations,
+			required List<Instructor> instructors
 	}) {
-		final typeId = object[Field.type] as String;
-		final locationId = object[Field.location] as String;
-		final instructorIds = List<String>.from(object[Field.instructors]);
+		final typeId = entry.value[Field.type] as String;
+		final timestamp = entry.value[Field.date] as Timestamp;
+		final locationId = entry.value[Field.location] as String;
+		final instructorIds = List<String>.from(entry.value[Field.instructors]);
 
 		return CourseModel(
-			id: id,
+			id: entry.key,
 			type: types.firstWhere((t) => t.id == typeId),
-			date: (object[Field.date] as Timestamp).toDate(),
+			date: timestamp.toDate(),
 			location: locations.firstWhere((l) => l.id == locationId),
 			instructors: instructors.where((i) => instructorIds.contains(i.id)).toList()
 		);
 	}
+
+	CourseModel.fromEntity(Course course) : this(
+		id: course.id,
+		type: course.type,
+		date: course.date,
+		location: course.location,
+		instructors: course.instructors
+	);
+
+	MapEntry<String, ObjectMap> get entry => MapEntry(id, {
+		Field.type: type.id,
+		Field.date: date,
+		Field.location: location.id,
+		Field.instructors: instructors.map((i) => i.id)
+	});
 }

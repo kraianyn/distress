@@ -1,5 +1,7 @@
 import 'package:distress/src/domain/location.dart';
+
 import '../field.dart';
+import '../types.dart';
 
 
 class LocationModel extends Location {
@@ -9,12 +11,20 @@ class LocationModel extends Location {
 		required super.link
 	});
 
-	LocationModel.fromCloudFormat({
-		required String id,
-		required Map<String, dynamic> object
-	}) : this(
-		id: id,
-		name: object[Field.name] as String,
-		link: object[Field.link] as String
+	LocationModel.fromEntry(MapEntry<String, ObjectMap> entry) : this(
+		id: entry.key,
+		name: entry.value[Field.name] as String,
+		link: entry.value[Field.link] as String
 	);
+
+	LocationModel.fromEntity(Location location) : this(
+		id: location.id,
+		name: location.name,
+		link: location.link
+	);
+
+	MapEntry<String, ObjectMap> get entry => MapEntry(id, {
+		Field.name: name,
+		Field.link : link
+	});
 }

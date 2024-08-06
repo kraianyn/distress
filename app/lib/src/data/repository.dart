@@ -34,9 +34,8 @@ class Repository {
 		final locations = await locationsFuture;
 
 		final data = DocumentMap.from(snapshot.data() as ObjectMap);
-		_courses = data.entries.map((entry) => CourseModel.fromCloudFormat(
-			id: entry.key,
-			object: entry.value,
+		_courses = data.entries.map((entry) => CourseModel.fromEntry(
+			entry,
 			types: courseTypes,
 			instructors: instructors,
 			locations: locations
@@ -50,10 +49,7 @@ class Repository {
 		final snapshot = await Document.courseTypes.ref.get();
 		final data = DocumentMap.from(snapshot.data() as ObjectMap);
 
-		_courseTypes = data.entries.map((entry) => CourseTypeModel.fromCloudFormat(
-			id: entry.key,
-			object: entry.value
-		)).toList();
+		_courseTypes = data.entries.map(CourseTypeModel.fromEntry).toList();
 		return _courseTypes!;
 	}
 
@@ -63,10 +59,7 @@ class Repository {
 		final snapshot = await Document.locations.ref.get();
 		final data = DocumentMap.from(snapshot.data() as ObjectMap);
 
-		_locations = data.entries.map((entry) => LocationModel.fromCloudFormat(
-			id: entry.key,
-			object: entry.value
-		)).toList();
+		_locations = data.entries.map(LocationModel.fromEntry).toList();
 		return _locations!;
 	}
 
@@ -76,10 +69,7 @@ class Repository {
 		final snapshot = await Document.instructors.ref.get();
 		final data = DocumentMap.from(snapshot.data() as ObjectMap);
 
-		_instructors = data.entries.map((entry) => InstructorModel.fromCloudFormat(
-			id: entry.key,
-			object: entry.value
-		)).toList();
+		_instructors = data.entries.map(InstructorModel.fromEntry).toList();
 		return _instructors!;
 	}
 }
