@@ -9,7 +9,7 @@ part 'course_types.g.dart';
 @Riverpod(keepAlive: true)
 class CourseTypesNotifier extends _$CourseTypesNotifier {
 	@override
-	FutureOr<List<CourseType>> build() async {
-		return ref.watch(repositoryProvider).courseTypes();
+	Future<List<CourseType>> build() async {
+		return await ref.watch(repositoryProvider).courseTypes();
 	}
 }

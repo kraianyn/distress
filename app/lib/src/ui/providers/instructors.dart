@@ -9,7 +9,7 @@ part 'instructors.g.dart';
 @Riverpod(keepAlive: true)
 class InstructorsNotifier extends _$InstructorsNotifier {
 	@override
-	FutureOr<List<Instructor>> build() async {
-		return ref.watch(repositoryProvider).instructors();
+	Future<List<Instructor>> build() async {
+		return await ref.watch(repositoryProvider).instructors();
 	}
 }

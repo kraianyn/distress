@@ -7,7 +7,7 @@ part of 'instructors.dart';
 // **************************************************************************
 
 String _$instructorsNotifierHash() =>
-    r'75efeddd0171706b17955c18c27a635d5a4e3ce5';
+    r'7b39a8a05b2cee9eb0b792119149af44fbc94e09';
 
 /// See also [InstructorsNotifier].
 @ProviderFor(InstructorsNotifier)

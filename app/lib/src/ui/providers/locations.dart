@@ -9,7 +9,7 @@ part 'locations.g.dart';
 @Riverpod(keepAlive: true)
 class LocationsNotifier extends _$LocationsNotifier {
 	@override
-	FutureOr<List<Location>> build() async {
-		return ref.watch(repositoryProvider).locations();
+	Future<List<Location>> build() async {
+		return await ref.watch(repositoryProvider).locations();
 	}
 }
