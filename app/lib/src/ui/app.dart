@@ -12,6 +12,10 @@ class App extends HookWidget {
 		final sectionIndex = useState(0);
 		final section = Section.values[sectionIndex.value];
 
+		final theme = ThemeData(
+			colorSchemeSeed: const HSLColor.fromAHSL(1, 70, .5, .5).toColor()
+		);
+
 		return MaterialApp(
 			debugShowCheckedModeBanner: false,
 			title: "Дистрес",
@@ -27,9 +31,9 @@ class App extends HookWidget {
 					onDestinationSelected: (index) => sectionIndex.value = index
 				)
 			),
-			theme: ThemeData(
-				colorSchemeSeed: const HSLColor.fromAHSL(1, 70, .5, .5).toColor()
-			)
+			theme: theme.copyWith(listTileTheme: ListTileThemeData(
+				selectedTileColor: theme.colorScheme.inversePrimary
+			))
 		);
 	}
 }

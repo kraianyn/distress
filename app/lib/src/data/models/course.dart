@@ -52,6 +52,7 @@ class CourseModel extends Course implements EntityModel {
 		Field.type: type.id,
 		Field.date: date,
 		Field.location: location.id,
-		Field.instructors: instructors.map((i) => i.id)
+		Field.instructors: instructors.map((i) => i.id),
+		if (note != null) Field.note: note
 	});
 }

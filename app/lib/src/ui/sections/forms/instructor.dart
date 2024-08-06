@@ -29,7 +29,7 @@ class InstructorForm extends HookConsumerWidget {
 
 	void _add(BuildContext context, WidgetRef ref, String codeName) {
 		ref.read(instructorsNotifierProvider.notifier).add(Instructor(
-			id: codeName.replaceAll(' ', '').toLowerCase(),
+			id: codeName.replaceAll('.', '').replaceAll(' ', ''),
 			codeName: codeName
 		));
 		Navigator.of(context).pop();

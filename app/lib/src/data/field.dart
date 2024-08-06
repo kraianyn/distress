@@ -5,5 +5,6 @@ class Field {
 	static const link = 'link';
 	static const location = 'location';
 	static const name = 'name';
+	static const note = 'note';
 	static const type = 'type';
 }
