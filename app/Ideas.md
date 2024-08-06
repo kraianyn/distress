@@ -2,6 +2,12 @@
 
 ## Do
 
+Validate new entities.
+
+Generate real entity ids.
+
+Sort and/or group course types.
+
 Remove the labels in the navigation bar.
 
 ## Consider

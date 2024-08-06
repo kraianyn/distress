@@ -5,6 +5,7 @@ import '../providers/course_types.dart';
 import '../widgets/entity_tile.dart';
 
 import 'entities_section.dart';
+import 'forms/course_type.dart';
 import 'pages/course_type.dart';
 
 
@@ -20,7 +21,8 @@ class CourseTypesSection extends ConsumerWidget {
 			tileBuilder: (type) => EntityTile(
 				title: type.name,
 				pageBuilder: (context) => CourseTypePage(type)
-			)
+			),
+			formBuilder: (context) => const CourseTypeForm(),
 		);
 	}
 }

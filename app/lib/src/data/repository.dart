@@ -72,6 +72,13 @@ class Repository {
 		_instructors = data.entries.map(InstructorModel.fromEntry).toList();
 		return _instructors!;
 	}
+
+	Future<void> addCourseType(CourseType type) async {
+		final entry = CourseTypeModel.fromEntity(type).entry;
+		await Document.courseTypes.ref.update({
+			entry.key: entry.value
+		});
+	}
 }
 
 enum Document {
