@@ -26,6 +26,9 @@ class App extends HookWidget {
 					selectedIndex: sectionIndex.value,
 					onDestinationSelected: (index) => sectionIndex.value = index
 				)
+			),
+			theme: ThemeData(
+				colorSchemeSeed: const HSLColor.fromAHSL(1, 70, .5, .5).toColor()
 			)
 		);
 	}

@@ -1,23 +1,6 @@
 import 'package:flutter/material.dart';
+import '../open_page.dart';
 
-
-// class EntityList<E> extends StatelessWidget {
-// 	const EntityList(
-// 		this.entities, {
-// 			required this.tileBuilder
-// 		}
-// 	);
-
-// 	final List<E> entities;
-// 	final Widget Function(E) tileBuilder;
-
-// 	@override
-// 	Widget build(BuildContext context) {
-// 		return ListView(
-// 			children: entities.map(tileBuilder).toList()
-// 		);
-// 	}
-// }
 
 class EntityTile extends StatelessWidget {
 	const EntityTile({
@@ -37,7 +20,7 @@ class EntityTile extends StatelessWidget {
 		return ListTile(
 			title: Text(title),
 			trailing: trailing != null ? Text(trailing!) : null,
-			onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: pageBuilder))
+			onTap: () => openPage(context, pageBuilder)
 		);
 	}
 }
