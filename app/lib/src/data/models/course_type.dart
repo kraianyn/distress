@@ -16,9 +16,9 @@ class CourseTypeModel extends CourseType implements EntityModel {
 		name: entry.value[Field.name] as String
 	);
 
-	CourseTypeModel.fromEntity(CourseType type) : this(
-		id: type.id,
-		name: type.name
+	CourseTypeModel.fromEntity(CourseType entity) : this(
+		id: entity.id,
+		name: entity.name
 	);
 
 	@override

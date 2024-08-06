@@ -26,18 +26,18 @@ class Repository {
 		if (_courses != null) return _courses!;
 
 		final dataFuture = Document.courses.data();
-		final courseTypesFuture = this.courseTypes();
+		final typesFuture = courseTypes();
 		final instructorsFuture = this.instructors();
 		final locationsFuture = this.locations();
 
 		final data = await dataFuture;
-		final courseTypes = await courseTypesFuture;
+		final types = await typesFuture;
 		final instructors = await instructorsFuture;
 		final locations = await locationsFuture;
 
 		_courses = data.entries.map((entry) => CourseModel.fromEntry(
 			entry,
-			types: courseTypes,
+			types: types,
 			instructors: instructors,
 			locations: locations
 		)).toList();
@@ -67,6 +67,10 @@ class Repository {
 		_instructors = data.entries.map(InstructorModel.fromEntry).toList();
 		return _instructors!;
 	}
+
+	Future<void> addCourse(Course course) => Document.courses.add(
+		CourseModel.fromEntity(course)
+	);
 
 	Future<void> addCourseType(CourseType type) => Document.courseTypes.add(
 		CourseTypeModel.fromEntity(type)

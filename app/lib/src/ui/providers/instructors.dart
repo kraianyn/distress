@@ -2,6 +2,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:distress/src/data/repository.dart';
 import 'package:distress/src/domain/instructor.dart';
+
 import 'repository.dart';
 
 part 'instructors.g.dart';

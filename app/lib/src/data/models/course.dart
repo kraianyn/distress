@@ -39,12 +39,12 @@ class CourseModel extends Course implements EntityModel {
 		);
 	}
 
-	CourseModel.fromEntity(Course course) : this(
-		id: course.id,
-		type: course.type,
-		date: course.date,
-		location: course.location,
-		instructors: course.instructors
+	CourseModel.fromEntity(Course entity) : this(
+		id: entity.id,
+		type: entity.type,
+		date: entity.date,
+		location: entity.location,
+		instructors: entity.instructors
 	);
 
 	@override

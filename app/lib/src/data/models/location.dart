@@ -18,10 +18,10 @@ class LocationModel extends Location implements EntityModel {
 		link: entry.value[Field.link] as String
 	);
 
-	LocationModel.fromEntity(Location location) : this(
-		id: location.id,
-		name: location.name,
-		link: location.link
+	LocationModel.fromEntity(Location entity) : this(
+		id: entity.id,
+		name: entity.name,
+		link: entity.link
 	);
 
 	@override

@@ -18,7 +18,8 @@ class CoursePage extends StatelessWidget {
 				Text(course.type.name),
 				Text(course.date.dateString),
 				Text(course.location.name),
-				Text(course.instructors.join(', '))
+				Text(course.instructors.join(', ')),
+				if (course.note != null) Text(course.note!),
 			]
 		));
 	}

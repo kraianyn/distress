@@ -16,9 +16,9 @@ class InstructorModel extends Instructor implements EntityModel {
 		codeName: entry.value[Field.codeName] as String
 	);
 
-	InstructorModel.fromEntity(Instructor type) : this(
-		id: type.id,
-		codeName: type.codeName
+	InstructorModel.fromEntity(Instructor entity) : this(
+		id: entity.id,
+		codeName: entity.codeName
 	);
 
 	@override
