@@ -5,6 +5,7 @@ import '../providers/instructors.dart';
 import '../widgets/entity_tile.dart';
 
 import 'entities_section.dart';
+import 'forms/instructor.dart';
 import 'pages/instructor.dart';
 
 
@@ -19,8 +20,9 @@ class InstructorsSection extends ConsumerWidget {
 			entities: instructors,
 			tileBuilder: (instructor) => EntityTile(
 				title: instructor.codeName,
-				pageBuilder: (context) => InstructorPage(instructor),
-			)
+				pageBuilder: (context) => InstructorPage(instructor)
+			),
+			formBuilder: (context) => const InstructorForm()
 		);
 	}
 }

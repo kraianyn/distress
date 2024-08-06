@@ -80,6 +80,13 @@ class Repository {
 		});
 	}
 
+	Future<void> addInstructor(Instructor instructor) async {
+		final entry = InstructorModel.fromEntity(instructor).entry;
+		await Document.instructors.ref.update({
+			entry.key: entry.value
+		});
+	}
+
 	Future<void> addLocation(Location location) async {
 		final entry = LocationModel.fromEntity(location).entry;
 		await Document.locations.ref.update({
