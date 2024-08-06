@@ -2,9 +2,10 @@ import 'package:distress/src/domain/course_type.dart';
 
 import '../field.dart';
 import '../types.dart';
+import 'entity.dart';
 
 
-class CourseTypeModel extends CourseType {
+class CourseTypeModel extends CourseType implements EntityModel {
 	const CourseTypeModel({
 		required super.id,
 		required super.name
@@ -20,6 +21,7 @@ class CourseTypeModel extends CourseType {
 		name: type.name
 	);
 
+	@override
 	MapEntry<String, ObjectMap> get entry => MapEntry(id, {
 		Field.name: name
 	});

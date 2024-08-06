@@ -2,9 +2,10 @@ import 'package:distress/src/domain/location.dart';
 
 import '../field.dart';
 import '../types.dart';
+import 'entity.dart';
 
 
-class LocationModel extends Location {
+class LocationModel extends Location implements EntityModel {
 	const LocationModel({
 		required super.id,
 		required super.name,
@@ -23,6 +24,7 @@ class LocationModel extends Location {
 		link: location.link
 	);
 
+	@override
 	MapEntry<String, ObjectMap> get entry => MapEntry(id, {
 		Field.name: name,
 		Field.link : link
