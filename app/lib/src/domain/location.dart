@@ -1,11 +1,16 @@
-class Location {
+import 'entity.dart';
+
+
+class Location extends Entity {
 	const Location({
-		required this.id,
+		required super.id,
 		required this.name,
 		required this.link
 	});
 
-	final String id;
 	final String name;
 	final String link;
+	
+	@override
+	String toString() => name;
 }

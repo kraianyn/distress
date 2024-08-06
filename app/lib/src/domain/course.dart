@@ -1,11 +1,12 @@
 import 'course_type.dart';
+import 'entity.dart';
 import 'instructor.dart';
 import 'location.dart';
 
 
-class Course {
+class Course extends Entity {
 	const Course({
-		required this.id,
+		required super.id,
 		required this.type,
 		required this.date,
 		required this.location,
@@ -13,7 +14,6 @@ class Course {
 		this.note
 	});
 
-	final String id;
 	final CourseType type;
 	final DateTime date;
 	final Location location;

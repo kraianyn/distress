@@ -1,9 +1,14 @@
-class CourseType {
+import 'entity.dart';
+
+
+class CourseType extends Entity {
 	const CourseType({
-		required this.id,
+		required super.id,
 		required this.name
 	});
 
-	final String id;
 	final String name;
+	
+	@override
+	String toString() => name;
 }

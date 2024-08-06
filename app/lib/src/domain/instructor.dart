@@ -1,10 +1,12 @@
-class Instructor {
+import 'entity.dart';
+
+
+class Instructor extends Entity {
 	const Instructor({
-		required this.id,
+		required super.id,
 		required this.codeName
 	});
 
-	final String id;
 	final String codeName;
 
 	@override
