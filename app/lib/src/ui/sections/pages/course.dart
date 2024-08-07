@@ -1,26 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import 'package:distress/src/domain/course.dart';
 
 import '../../date_time.dart';
+import '../../providers/courses.dart';
 
 
-class CoursePage extends StatelessWidget {
+class CoursePage extends ConsumerWidget {
 	const CoursePage(this.course);
 
 	final Course course;
 
 	@override
-	Widget build(BuildContext context) {
-		return Scaffold(body: Column(
-			mainAxisAlignment: MainAxisAlignment.center,
-			crossAxisAlignment: CrossAxisAlignment.start,
+	Widget build(BuildContext context, WidgetRef ref) {
+		return Scaffold(body: Stack(
 			children: [
-				Text(course.type.name),
-				Text(course.date.dateString),
-				Text(course.location.name),
-				Text(course.instructors.join(', ')),
-				if (course.note != null) Text(course.note!),
-			]
+				Column(
+					mainAxisAlignment: MainAxisAlignment.center,
+					crossAxisAlignment: CrossAxisAlignment.start,
+					children: [
+						Text(course.type.name),
+						Text(course.date.dateString),
+						Text(course.location.name),
+						Text(course.instructors.join(', ')),
+						if (course.note != null) Text(course.note!)
+					]
+				),
+				SafeArea(
+					child: Row(
+						mainAxisAlignment: MainAxisAlignment.end,
+						children: [
+							IconButton(
+								icon: const Icon(Icons.edit),
+								tooltip: "Змінити",
+								onPressed: () {}
+							),
+							IconButton(
+								icon: const Icon(Icons.event_busy),
+								tooltip: "Видалити",
+								onPressed: () => _delete(context, ref, course)
+							)
+						]
+					)
+				)
+			]	
 		));
+	}
+
+	void _delete(BuildContext context, WidgetRef ref, Course course) {
+		ref.read(coursesNotifierProvider.notifier).delete(course);
+		Navigator.of(context).pop();
 	}
 }

@@ -83,6 +83,10 @@ class Repository {
 	Future<void> addLocation(Location location) => Document.locations.add(
 		LocationModel.fromEntity(location)
 	);
+
+	Future<void> deleteCourse(Course course) => Document.courses.delete(
+		CourseModel.fromEntity(course)
+	);
 }
 
 enum Document {
@@ -119,6 +123,12 @@ enum Document {
 		final entry = model.entry;
 		await _ref.update({
 			entry.key: entry.value
+		});
+	}
+
+	Future<void> delete(EntityModel model) async {
+		await _ref.update({
+			model.entry.key: FieldValue.delete()
 		});
 	}
 
