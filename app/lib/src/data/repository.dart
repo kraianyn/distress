@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:distress/src/domain/course.dart';
 import 'package:distress/src/domain/course_type.dart';
+import 'package:distress/src/domain/entity.dart';
 import 'package:distress/src/domain/instructor.dart';
 import 'package:distress/src/domain/location.dart';
 
@@ -89,19 +90,29 @@ class Repository {
 		CourseModel.fromEntity(course)
 	);
 
-	Future<void> deleteCoursesWithType(CourseType type) async {
+	Future<void> deleteCoursesWithType(CourseType type) =>
+		_deleteCoursesWithEntity(type, Field.type);
+
+	Future<void> deleteCoursesWithLocation(Location location) =>
+		_deleteCoursesWithEntity(location, Field.location);
+
+	Future<void> _deleteCoursesWithEntity(Entity entity, String field) async {
 		final coursesDocument = await Document.courses.data();
-		final typeCoursesEntries = coursesDocument.entries.where(
-			(entry) => entry.value[Field.type] == type.id
+		final entityCoursesEntries = coursesDocument.entries.where(
+			(entry) => entry.value[field] == entity.id
 		);
 		await Document.courses._ref.update({
-			for(final entry in typeCoursesEntries)
+			for(final entry in entityCoursesEntries)
 				entry.key: FieldValue.delete()
 		});
 	}
 
 	Future<void> deleteCourseType(CourseType type) => Document.courseTypes.delete(
 		CourseTypeModel.fromEntity(type)
+	);
+
+	Future<void> deleteLocation(Location type) => Document.locations.delete(
+		LocationModel.fromEntity(type)
 	);
 }
 

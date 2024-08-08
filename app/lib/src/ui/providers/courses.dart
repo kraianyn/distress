@@ -4,6 +4,7 @@ import 'package:distress/src/data/repository.dart';
 
 import 'package:distress/src/domain/course.dart';
 import 'package:distress/src/domain/course_type.dart';
+import 'package:distress/src/domain/location.dart';
 
 import 'repository.dart';
 
@@ -31,6 +32,11 @@ class CoursesNotifier extends _$CoursesNotifier {
 	Future<void> deleteWithType(CourseType type) async {
 		await _repository.deleteCoursesWithType(type);
 		state = AsyncValue.data(state.value!..removeWhere((c) => c.type == type));
+	}
+
+	Future<void> deleteWithLocation(Location location) async {
+		await _repository.deleteCoursesWithLocation(location);
+		state = AsyncValue.data(state.value!..removeWhere((c) => c.location == location));
 	}
 
 	Repository get _repository => ref.watch(repositoryProvider);

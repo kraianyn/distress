@@ -21,5 +21,10 @@ class LocationsNotifier extends _$LocationsNotifier {
 		state = AsyncValue.data([...currentState, location]);
 	}
 
+	Future<void> delete(Location location) async {
+		await _repository.deleteLocation(location);
+		state = AsyncValue.data(state.value!..remove(location));
+	}
+
 	Repository get _repository => ref.watch(repositoryProvider);
 }

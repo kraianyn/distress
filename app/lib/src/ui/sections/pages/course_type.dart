@@ -26,15 +26,15 @@ class CourseTypePage extends ConsumerWidget {
 					onPressed: () {}
 				),
 				IconButton(
-					icon: const Icon(Icons.event_busy),
+					icon: const Icon(Icons.delete),
 					tooltip: "Видалити",
-					onPressed: () => _delete(context, ref, type)
+					onPressed: () => _delete(context, ref)
 				)
 			]
 		);
 	}
 
-	void _delete(BuildContext context, WidgetRef ref, CourseType type) {
+	void _delete(BuildContext context, WidgetRef ref) {
 		ref.read(coursesNotifierProvider.notifier).deleteWithType(type);
 		ref.read(courseTypesNotifierProvider.notifier).delete(type);
 		Navigator.of(context).pop();
