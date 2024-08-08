@@ -7,6 +7,7 @@ import 'package:distress/src/domain/course_type.dart';
 import 'package:distress/src/domain/instructor.dart';
 import 'package:distress/src/domain/location.dart';
 
+import 'field.dart';
 import 'types.dart';
 
 import 'models/course.dart';
@@ -86,6 +87,21 @@ class Repository {
 
 	Future<void> deleteCourse(Course course) => Document.courses.delete(
 		CourseModel.fromEntity(course)
+	);
+
+	Future<void> deleteCoursesWithType(CourseType type) async {
+		final coursesDocument = await Document.courses.data();
+		final typeCoursesEntries = coursesDocument.entries.where(
+			(entry) => entry.value[Field.type] == type.id
+		);
+		await Document.courses._ref.update({
+			for(final entry in typeCoursesEntries)
+				entry.key: FieldValue.delete()
+		});
+	}
+
+	Future<void> deleteCourseType(CourseType type) => Document.courseTypes.delete(
+		CourseTypeModel.fromEntity(type)
 	);
 }
 

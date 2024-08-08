@@ -21,5 +21,10 @@ class CourseTypesNotifier extends _$CourseTypesNotifier {
 		state = AsyncValue.data([...currentState, type]);
 	}
 
+	Future<void> delete(CourseType type) async {
+		await _repository.deleteCourseType(type);
+		state = AsyncValue.data(state.value!..remove(type));
+	}
+
 	Repository get _repository => ref.watch(repositoryProvider);
 }

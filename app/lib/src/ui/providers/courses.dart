@@ -1,7 +1,9 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:distress/src/data/repository.dart';
+
 import 'package:distress/src/domain/course.dart';
+import 'package:distress/src/domain/course_type.dart';
 
 import 'repository.dart';
 
@@ -24,6 +26,11 @@ class CoursesNotifier extends _$CoursesNotifier {
 	Future<void> delete(Course course) async {
 		await _repository.deleteCourse(course);
 		state = AsyncValue.data(state.value!..remove(course));
+	}
+
+	Future<void> deleteWithType(CourseType type) async {
+		await _repository.deleteCoursesWithType(type);
+		state = AsyncValue.data(state.value!..removeWhere((c) => c.type == type));
 	}
 
 	Repository get _repository => ref.watch(repositoryProvider);
