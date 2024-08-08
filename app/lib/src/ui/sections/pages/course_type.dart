@@ -5,6 +5,7 @@ import 'package:distress/src/domain/course_type.dart';
 
 import '../../providers/course_types.dart';
 import '../../providers/courses.dart';
+import 'entity.dart';
 
 
 class CourseTypePage extends ConsumerWidget {
@@ -14,34 +15,23 @@ class CourseTypePage extends ConsumerWidget {
 
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
-		return Scaffold(body: Stack(
-			children: [
-				Column(
-					mainAxisAlignment: MainAxisAlignment.center,
-					crossAxisAlignment: CrossAxisAlignment.start,
-					children: [
-						Text(type.name)
-					]
+		return EntityPage(
+			content: [
+				Text(type.name)
+			],
+			actions: [
+				IconButton(
+					icon: const Icon(Icons.edit),
+					tooltip: "Змінити",
+					onPressed: () {}
 				),
-				SafeArea(
-					child: Row(
-						mainAxisAlignment: MainAxisAlignment.end,
-						children: [
-							IconButton(
-								icon: const Icon(Icons.edit),
-								tooltip: "Змінити",
-								onPressed: () {}
-							),
-							IconButton(
-								icon: const Icon(Icons.event_busy),
-								tooltip: "Видалити",
-								onPressed: () => _delete(context, ref, type)
-							)
-						]
-					)
+				IconButton(
+					icon: const Icon(Icons.event_busy),
+					tooltip: "Видалити",
+					onPressed: () => _delete(context, ref, type)
 				)
-			]	
-		));
+			]
+		);
 	}
 
 	void _delete(BuildContext context, WidgetRef ref, CourseType type) {

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'package:distress/src/domain/instructor.dart';
+
+import 'entity.dart';
 
 
 class InstructorPage extends StatelessWidget {
@@ -9,12 +12,10 @@ class InstructorPage extends StatelessWidget {
 
 	@override
 	Widget build(BuildContext context) {
-		return Scaffold(body: Column(
-			mainAxisAlignment: MainAxisAlignment.center,
-			crossAxisAlignment: CrossAxisAlignment.start,
-			children: [
+		return EntityPage(
+			content: [
 				Text(instructor.codeName)
 			]
-		));
+		);
 	}
 }

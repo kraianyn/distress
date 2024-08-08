@@ -6,6 +6,8 @@ import 'package:distress/src/domain/course.dart';
 import '../../date_time.dart';
 import '../../providers/courses.dart';
 
+import 'entity.dart';
+
 
 class CoursePage extends ConsumerWidget {
 	const CoursePage(this.course);
@@ -14,38 +16,27 @@ class CoursePage extends ConsumerWidget {
 
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
-		return Scaffold(body: Stack(
-			children: [
-				Column(
-					mainAxisAlignment: MainAxisAlignment.center,
-					crossAxisAlignment: CrossAxisAlignment.start,
-					children: [
-						Text(course.type.name),
-						Text(course.date.dateString),
-						Text(course.location.name),
-						Text(course.instructors.join(', ')),
-						if (course.note != null) Text(course.note!)
-					]
+		return EntityPage(
+			content: [
+				Text(course.type.name),
+				Text(course.date.dateString),
+				Text(course.location.name),
+				Text(course.instructors.join(', ')),
+				if (course.note != null) Text(course.note!)
+			],
+			actions: [
+				IconButton(
+					icon: const Icon(Icons.edit),
+					tooltip: "Змінити",
+					onPressed: () {}
 				),
-				SafeArea(
-					child: Row(
-						mainAxisAlignment: MainAxisAlignment.end,
-						children: [
-							IconButton(
-								icon: const Icon(Icons.edit),
-								tooltip: "Змінити",
-								onPressed: () {}
-							),
-							IconButton(
-								icon: const Icon(Icons.event_busy),
-								tooltip: "Видалити",
-								onPressed: () => _delete(context, ref, course)
-							)
-						]
-					)
+				IconButton(
+					icon: const Icon(Icons.event_busy),
+					tooltip: "Видалити",
+					onPressed: () => _delete(context, ref, course)
 				)
-			]	
-		));
+			]
+		);
 	}
 
 	void _delete(BuildContext context, WidgetRef ref, Course course) {

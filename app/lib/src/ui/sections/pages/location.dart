@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'package:distress/src/domain/location.dart';
+
+import 'entity.dart';
 
 
 class LocationPage extends StatelessWidget {
@@ -9,13 +12,11 @@ class LocationPage extends StatelessWidget {
 
 	@override
 	Widget build(BuildContext context) {
-		return Scaffold(body: Column(
-			mainAxisAlignment: MainAxisAlignment.center,
-			crossAxisAlignment: CrossAxisAlignment.start,
-			children: [
+		return EntityPage(
+			content: [
 				Text(location.name),
 				Text(location.link)
 			]
-		));
+		);
 	}
 }
