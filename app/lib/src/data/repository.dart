@@ -53,29 +53,31 @@ class Repository {
 		return _courseTypesFuture!;
 	}
 
-	Future<List<CourseType>> _courseTypes() async {
-		final data = await Document.courseTypes.data();
-		return data.entries.map(CourseTypeModel.fromEntry).toList();
-	}
+	Future<List<CourseType>> _courseTypes() =>
+		_simpleEntities(Document.courseTypes, CourseTypeModel.fromEntry);
 
 	Future<List<Location>> locations() async {
 		_locationsFuture ??= _locations();
 		return _locationsFuture!;
 	}
 
-	Future<List<Location>> _locations() async {
-		final data = await Document.locations.data();
-		return data.entries.map(LocationModel.fromEntry).toList();
-	}
+	Future<List<Location>> _locations() =>
+		_simpleEntities(Document.locations, LocationModel.fromEntry);
 
 	Future<List<Instructor>> instructors() async {
 		_instructorsFuture ??= _instructors();
 		return _instructorsFuture!;
 	}
 
-	Future<List<Instructor>> _instructors() async {
-		final data = await Document.instructors.data();
-		return data.entries.map(InstructorModel.fromEntry).toList();
+	Future<List<Instructor>> _instructors() =>
+		_simpleEntities(Document.instructors, InstructorModel.fromEntry);
+
+	Future<List<E>> _simpleEntities<E>(
+		Document document,
+		E Function(DocumentEntry) constructor
+	) async {
+		final data = await document.data();
+		return data.entries.map(constructor).toList();
 	}
 
 	Future<void> addCourse(Course course) => Document.courses.add(
@@ -166,7 +168,7 @@ enum Document {
 	/// 	link: string
 	/// }, ...`
 	locations;
-	
+
 	Future<DocumentMap> data() async {
 		final snapshot = await ref.get();
 		return DocumentMap.from(snapshot.data() as ObjectMap);

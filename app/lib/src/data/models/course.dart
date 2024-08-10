@@ -20,7 +20,7 @@ class CourseModel extends Course implements EntityModel {
 	});
 
 	factory CourseModel.fromEntry(
-		MapEntry<String, ObjectMap> entry, {
+		DocumentEntry entry, {
 			required List<CourseType> types,
 			required List<Location> locations,
 			required List<Instructor> instructors
@@ -48,7 +48,7 @@ class CourseModel extends Course implements EntityModel {
 	);
 
 	@override
-	MapEntry<String, ObjectMap> get entry => MapEntry(id, {
+	DocumentEntry get entry => MapEntry(id, {
 		Field.type: type.id,
 		Field.date: date,
 		Field.location: location.id,

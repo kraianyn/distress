@@ -11,7 +11,7 @@ class CourseTypeModel extends CourseType implements EntityModel {
 		required super.name
 	});
 
-	CourseTypeModel.fromEntry(MapEntry<String, ObjectMap> entry) : this(
+	CourseTypeModel.fromEntry(DocumentEntry entry) : this(
 		id: entry.key,
 		name: entry.value[Field.name] as String
 	);
@@ -22,7 +22,7 @@ class CourseTypeModel extends CourseType implements EntityModel {
 	);
 
 	@override
-	MapEntry<String, ObjectMap> get entry => MapEntry(id, {
+	DocumentEntry get entry => MapEntry(id, {
 		Field.name: name
 	});
 }

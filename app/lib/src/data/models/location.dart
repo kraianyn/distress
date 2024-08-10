@@ -12,7 +12,7 @@ class LocationModel extends Location implements EntityModel {
 		required super.link
 	});
 
-	LocationModel.fromEntry(MapEntry<String, ObjectMap> entry) : this(
+	LocationModel.fromEntry(DocumentEntry entry) : this(
 		id: entry.key,
 		name: entry.value[Field.name] as String,
 		link: entry.value[Field.link] as String
@@ -25,7 +25,7 @@ class LocationModel extends Location implements EntityModel {
 	);
 
 	@override
-	MapEntry<String, ObjectMap> get entry => MapEntry(id, {
+	DocumentEntry get entry => MapEntry(id, {
 		Field.name: name,
 		Field.link : link
 	});

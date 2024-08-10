@@ -32,7 +32,8 @@ class App extends HookWidget {
 				)
 			),
 			theme: theme.copyWith(listTileTheme: ListTileThemeData(
-				selectedTileColor: theme.colorScheme.inversePrimary
+				selectedTileColor: theme.colorScheme.inversePrimary,
+				selectedColor: theme.colorScheme.onSurface
 			))
 		);
 	}

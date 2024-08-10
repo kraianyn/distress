@@ -11,7 +11,7 @@ class InstructorModel extends Instructor implements EntityModel {
 		required super.codeName
 	});
 
-	InstructorModel.fromEntry(MapEntry<String, ObjectMap> entry) : this(
+	InstructorModel.fromEntry(DocumentEntry entry) : this(
 		id: entry.key,
 		codeName: entry.value[Field.codeName] as String
 	);
@@ -22,7 +22,7 @@ class InstructorModel extends Instructor implements EntityModel {
 	);
 
 	@override
-	MapEntry<String, ObjectMap> get entry => MapEntry(id, {
+	DocumentEntry get entry => MapEntry(id, {
 		Field.codeName: codeName
 	});
 }
