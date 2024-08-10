@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../date_time.dart';
-import '../widgets/entity_tile.dart';
-
 import '../providers/courses.dart';
 import '../providers/course_types.dart';
 import '../providers/instructors.dart';
 import '../providers/locations.dart';
 
+import '../widgets/course_tile.dart';
 import 'entities_section.dart';
 import 'forms/course.dart';
-import 'pages/course.dart';
 
 
 class ScheduleSection extends ConsumerWidget {
@@ -27,11 +24,7 @@ class ScheduleSection extends ConsumerWidget {
 
 		return EntitiesSection(
 			entities: courses,
-			tileBuilder: (course) => EntityTile(
-				title: course.type.name,
-				trailing: course.date.dateString,
-				pageBuilder: (context) => CoursePage(course)
-			),
+			tileBuilder: CourseTile.new,
 			formBuilder: canAdd ? (context) => const CourseForm() : null,
 		);
 	}

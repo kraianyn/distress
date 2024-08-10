@@ -6,6 +6,7 @@ import 'package:distress/src/domain/instructor.dart';
 import '../../providers/courses.dart';
 import '../../providers/instructors.dart';
 
+import '../../widgets/course_tile.dart';
 import 'entity.dart';
 
 
@@ -16,9 +17,13 @@ class InstructorPage extends ConsumerWidget {
 
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
+		final courses = ref.watch(coursesNotifierProvider).value!;
+		final relevantCourses = courses.where((c) => c.instructors.contains(instructor));
+
 		return EntityPage(
 			content: [
-				Text(instructor.codeName)
+				Text(instructor.codeName),
+				...relevantCourses.map(CourseTile.new)
 			],
 			actions: [
 				IconButton(

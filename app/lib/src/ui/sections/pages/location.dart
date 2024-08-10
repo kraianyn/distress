@@ -6,6 +6,7 @@ import 'package:distress/src/domain/location.dart';
 import '../../providers/courses.dart';
 import '../../providers/locations.dart';
 
+import '../../widgets/course_tile.dart';
 import 'entity.dart';
 
 
@@ -16,10 +17,14 @@ class LocationPage extends ConsumerWidget {
 
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
+		final courses = ref.watch(coursesNotifierProvider).value!;
+		final relevantCourses = courses.where((c) => c.location == location);
+
 		return EntityPage(
 			content: [
 				Text(location.name),
-				Text(location.link)
+				Text(location.link),
+				...relevantCourses.map(CourseTile.new)
 			],
 			actions: [
 				IconButton(

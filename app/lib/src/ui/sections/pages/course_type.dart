@@ -6,6 +6,7 @@ import 'package:distress/src/domain/course_type.dart';
 import '../../providers/course_types.dart';
 import '../../providers/courses.dart';
 
+import '../../widgets/course_tile.dart';
 import 'entity.dart';
 
 
@@ -16,9 +17,15 @@ class CourseTypePage extends ConsumerWidget {
 
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
+		final courses = ref.watch(coursesNotifierProvider).value!;
+		final relevantCourses = courses.where((c) => c.type == type);
+
 		return EntityPage(
 			content: [
-				Text(type.name)
+				Text(type.name),
+				...relevantCourses.map(
+					(course) => CourseTile(course, title: course.location.name)
+				)
 			],
 			actions: [
 				IconButton(

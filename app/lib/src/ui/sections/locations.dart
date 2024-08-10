@@ -23,7 +23,7 @@ class LocationsSection extends ConsumerWidget {
 				subtitle: location.link,
 				pageBuilder: (context) => LocationPage(location)
 			),
-			formBuilder: (context) => const LocationForm(),
+			formBuilder: (context) => const LocationForm()
 		);
 	}
 }

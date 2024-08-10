@@ -20,7 +20,7 @@ the instructors, and an optional note.
 ## Course types
 
 This section is for what courses there are, i.e. the course types: Trauma care, 
-BLS, TCCC ASM...
+BLS, TCCC ASM... They are split into military and non-military ones.
 
 The page of a course type contains the name, the duration, the instructors 
 needed, the price, and the capacity.

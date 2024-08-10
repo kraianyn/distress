@@ -14,6 +14,7 @@ import '../../providers/courses.dart';
 import '../../providers/course_types.dart';
 import '../../providers/instructors.dart';
 import '../../providers/locations.dart';
+
 import '../section.dart';
 
 
@@ -135,12 +136,12 @@ class CourseForm extends HookConsumerWidget {
 		ObjectRef<DateTime?> object,
 		TextEditingController field
 	) async {
-		final now = DateTime.now();
+		final today = DateTime.now();
 		object.value = await showDatePicker(
 			context: context,
 			initialDate: object.value,
-			firstDate: now,
-			lastDate: now.add(const Duration(days: 365))
+			firstDate: today,
+			lastDate: today.add(const Duration(days: 365))
 		);
 		field.text = object.value != null ? object.value!.dateString : '';
 	}

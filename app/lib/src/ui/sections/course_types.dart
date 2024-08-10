@@ -22,7 +22,7 @@ class CourseTypesSection extends ConsumerWidget {
 				title: type.name,
 				pageBuilder: (context) => CourseTypePage(type)
 			),
-			formBuilder: (context) => const CourseTypeForm(),
+			formBuilder: (context) => const CourseTypeForm()
 		);
 	}
 }
