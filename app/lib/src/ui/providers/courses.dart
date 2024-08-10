@@ -16,13 +16,13 @@ part 'courses.g.dart';
 class CoursesNotifier extends _$CoursesNotifier {
 	@override
 	Future<List<Course>> build() async {
-		return await ref.watch(repositoryProvider).courses();
+		return await ref.watch(repositoryProvider).courses()..sort();
 	}
 
 	Future<void> add(Course course) async {
 		await _repository.addCourse(course);
 		final currentCourses = await future;
-		state = AsyncValue.data([...currentCourses, course]);
+		state = AsyncValue.data([...currentCourses, course]..sort());
 	}
 
 	Future<void> delete(Course course) async {

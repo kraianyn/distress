@@ -12,13 +12,13 @@ part 'course_types.g.dart';
 class CourseTypesNotifier extends _$CourseTypesNotifier {
 	@override
 	Future<List<CourseType>> build() async {
-		return await _repository.courseTypes();
+		return await _repository.courseTypes()..sort();
 	}
 
 	Future<void> add(CourseType type) async {
 		await _repository.addCourseType(type);
 		final currentState = await future;
-		state = AsyncValue.data([...currentState, type]);
+		state = AsyncValue.data([...currentState, type]..sort());
 	}
 
 	Future<void> delete(CourseType type) async {

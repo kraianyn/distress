@@ -10,5 +10,8 @@ class Instructor extends Entity {
 	final String codeName;
 
 	@override
+	int compareTo(covariant Instructor other) => codeName.compareTo(other.codeName);
+
+	@override
 	String toString() => codeName;
 }

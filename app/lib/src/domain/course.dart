@@ -19,4 +19,7 @@ class Course extends Entity {
 	final Location location;
 	final List<Instructor> instructors;
 	final String? note;
+
+	@override
+	int compareTo(covariant Course other) => date.compareTo(other.date);
 }

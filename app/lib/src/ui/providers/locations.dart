@@ -12,13 +12,13 @@ part 'locations.g.dart';
 class LocationsNotifier extends _$LocationsNotifier {
 	@override
 	Future<List<Location>> build() async {
-		return await ref.watch(repositoryProvider).locations();
+		return await ref.watch(repositoryProvider).locations()..sort();
 	}
 
 	Future<void> add(Location location) async {
 		await _repository.addLocation(location);
 		final currentState = await future;
-		state = AsyncValue.data([...currentState, location]);
+		state = AsyncValue.data([...currentState, location]..sort());
 	}
 
 	Future<void> delete(Location location) async {

@@ -29,14 +29,8 @@ single-item list.
 
 # Domain
 
-Reduce duplication across the entities.
-
 # Data
 
-Reduce duplication in `Repository`.
-
 # Code
-
-In widget methods, take the `context` and `ref` parameters last.
 
 Define `IcondData.widget/icon => Icon(this)`

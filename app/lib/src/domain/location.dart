@@ -10,7 +10,10 @@ class Location extends Entity {
 
 	final String name;
 	final String link;
-	
+
+	@override
+	int compareTo(covariant Location other) => name.compareTo(other.name);
+
 	@override
 	String toString() => name;
 }
