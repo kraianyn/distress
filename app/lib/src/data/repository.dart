@@ -111,10 +111,12 @@ class Repository {
 		final entityCoursesEntries = coursesDocument.entries.where(
 			(entry) => entry.value[field] == entity.id
 		);
-		await Document.courses.ref.update({
-			for(final entry in entityCoursesEntries)
-				entry.key: FieldValue.delete()
-		});
+		if (entityCoursesEntries.isNotEmpty) {
+			await Document.courses.ref.update({
+				for(final entry in entityCoursesEntries)
+					entry.key: FieldValue.delete()
+			});
+		}
 	}
 
 	Future<void> removeInstructorFromCourses(Instructor instructor) async {
