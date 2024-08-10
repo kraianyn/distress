@@ -14,6 +14,14 @@ class Course extends Entity {
 		this.note
 	});
 
+	Course.created({
+		required this.type,
+		required this.date,
+		required this.location,
+		required this.instructors,
+		this.note
+	}) : super.created(core: [type, date, location]);
+
 	final CourseType type;
 	final DateTime date;
 	final Location location;

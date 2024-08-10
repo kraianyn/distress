@@ -16,7 +16,8 @@ class CourseModel extends Course implements EntityModel {
 		required super.type,
 		required super.date,
 		required super.location,
-		required super.instructors
+		required super.instructors,
+		required super.note
 	});
 
 	factory CourseModel.fromEntry(
@@ -35,7 +36,8 @@ class CourseModel extends Course implements EntityModel {
 			type: types.firstWhere((t) => t.id == typeId),
 			date: timestamp.toDate(),
 			location: locations.firstWhere((l) => l.id == locationId),
-			instructors: instructors.where((i) => instructorIds.contains(i.id)).toList()
+			instructors: instructors.where((i) => instructorIds.contains(i.id)).toList(),
+			note: entry.value[Field.note] as String?
 		);
 	}
 
@@ -44,7 +46,8 @@ class CourseModel extends Course implements EntityModel {
 		type: entity.type,
 		date: entity.date,
 		location: entity.location,
-		instructors: entity.instructors
+		instructors: entity.instructors,
+		note: entity.note
 	);
 
 	@override

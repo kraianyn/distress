@@ -7,6 +7,8 @@ class CourseType extends Entity {
 		required this.name
 	});
 
+	CourseType.created({required this.name}) : super.created(core: [name]);
+
 	final String name;
 
 	@override

@@ -125,8 +125,8 @@ class CourseForm extends HookConsumerWidget {
 							);
 						}
 					)).toList()
-				)
-			));
+				))
+			);
 		});
 	}
 
@@ -196,14 +196,14 @@ class CourseForm extends HookConsumerWidget {
 	) {
 		if (type == null || date == null || location == null || instructors.isEmpty) return;
 
-		ref.read(coursesNotifierProvider.notifier).add(Course(
-			id: '${type.id}$date${location.id}'.replaceAll('.', '').replaceAll(' ', ''),
+		final course = Course.created(
 			type: type,
 			date: date,
 			location: location,
 			instructors: instructors,
 			note: note.isNotEmpty ? note : null
-		));
+		);
+		ref.read(coursesNotifierProvider.notifier).add(course);
 		Navigator.of(context).pop();
 	}
 }

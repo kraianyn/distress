@@ -28,10 +28,8 @@ class CourseTypeForm extends HookConsumerWidget {
 	}
 
 	void _add(BuildContext context, WidgetRef ref, String name) {
-		ref.read(courseTypesNotifierProvider.notifier).add(CourseType(
-			id: name.replaceAll('.', '').replaceAll(' ', ''),
-			name: name
-		));
+		final type = CourseType.created(name: name);
+		ref.read(courseTypesNotifierProvider.notifier).add(type);
 		Navigator.of(context).pop();
 	}
 }

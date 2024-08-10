@@ -8,6 +8,11 @@ class Location extends Entity {
 		required this.link
 	});
 
+	Location.created({
+		required this.name,
+		required this.link
+	}) : super.created(core: [name]);
+
 	final String name;
 	final String link;
 
