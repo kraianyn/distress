@@ -128,7 +128,9 @@ class Repository {
 				updatedCourses[key] = instructors..remove(instructor.id);
 			}
 		}
-		await Document.courses.ref.update(updatedCourses);
+		if (updatedCourses.isNotEmpty) {
+			await Document.courses.ref.update(updatedCourses);
+		}
 	}
 
 	Future<void> deleteCourseType(CourseType type) => Document.courseTypes.delete(
