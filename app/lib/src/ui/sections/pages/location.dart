@@ -1,10 +1,11 @@
-import 'package:distress/src/ui/providers/courses.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:distress/src/domain/location.dart';
 
+import '../../providers/courses.dart';
 import '../../providers/locations.dart';
+
 import 'entity.dart';
 
 

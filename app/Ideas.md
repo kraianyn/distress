@@ -33,6 +33,10 @@ Reduce duplication across the entities.
 
 # Data
 
+Fix: each document is still fetched twice, because the condition for not 
+fetching them is the variables not being null, which is still the case if the 
+future of the first call has not yet completed.
+
 Reduce duplication in `Repository`.
 
 # Code

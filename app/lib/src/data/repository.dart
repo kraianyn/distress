@@ -101,10 +101,24 @@ class Repository {
 		final entityCoursesEntries = coursesDocument.entries.where(
 			(entry) => entry.value[field] == entity.id
 		);
-		await Document.courses._ref.update({
+		await Document.courses.ref.update({
 			for(final entry in entityCoursesEntries)
 				entry.key: FieldValue.delete()
 		});
+	}
+
+	Future<void> removeInstructorFromCourses(Instructor instructor) async {
+		final coursesDocument = await Document.courses.data();
+
+		final updatedCourses = <String, List<String>>{};
+		for (final entry in coursesDocument.entries) {
+			final instructors = List<String>.from(entry.value[Field.instructors]);
+			if (instructors.contains(instructor.id)) {
+				final key = '${entry.key}.${Field.instructors}';
+				updatedCourses[key] = instructors..remove(instructor.id);
+			}
+		}
+		await Document.courses.ref.update(updatedCourses);
 	}
 
 	Future<void> deleteCourseType(CourseType type) => Document.courseTypes.delete(
@@ -113,6 +127,10 @@ class Repository {
 
 	Future<void> deleteLocation(Location type) => Document.locations.delete(
 		LocationModel.fromEntity(type)
+	);
+
+	Future<void> deleteInstructor(Instructor instructor) => Document.instructors.delete(
+		InstructorModel.fromEntity(instructor)
 	);
 }
 
@@ -142,23 +160,23 @@ enum Document {
 	locations;
 	
 	Future<DocumentMap> data() async {
-		final snapshot = await _ref.get();
+		final snapshot = await ref.get();
 		return DocumentMap.from(snapshot.data() as ObjectMap);
 	}
 
 	Future<void> add(EntityModel model) async {
 		final entry = model.entry;
-		await _ref.update({
+		await ref.update({
 			entry.key: entry.value
 		});
 	}
 
 	Future<void> delete(EntityModel model) async {
-		await _ref.update({
+		await ref.update({
 			model.entry.key: FieldValue.delete()
 		});
 	}
 
-	DocumentReference get _ref =>
+	DocumentReference get ref =>
 		FirebaseFirestore.instance.collection('data').doc(name);
 }

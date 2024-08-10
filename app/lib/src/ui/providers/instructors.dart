@@ -21,5 +21,10 @@ class InstructorsNotifier extends _$InstructorsNotifier {
 		state = AsyncValue.data([...currentState, instructor]);
 	}
 
+	Future<void> delete(Instructor instructor) async {
+		await _repository.deleteInstructor(instructor);
+		state = AsyncValue.data(state.value!..remove(instructor));
+	}
+
 	Repository get _repository => ref.watch(repositoryProvider);
 }
