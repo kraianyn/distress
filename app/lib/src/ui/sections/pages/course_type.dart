@@ -5,6 +5,7 @@ import 'package:distress/src/domain/course_type.dart';
 
 import '../../providers/course_types.dart';
 import '../../providers/courses.dart';
+
 import 'entity.dart';
 
 

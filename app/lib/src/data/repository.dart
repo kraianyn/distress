@@ -19,14 +19,17 @@ import 'models/location.dart';
 
 
 class Repository {
-	List<Course>? _courses;
-	List<CourseType>? _courseTypes;
-	List<Location>? _locations;
-	List<Instructor>? _instructors;
+	Future<List<Course>>? _coursesFuture;
+	Future<List<CourseType>>? _courseTypesFuture;
+	Future<List<Location>>? _locationsFuture;
+	Future<List<Instructor>>? _instructorsFuture;
 
 	Future<List<Course>> courses() async {
-		if (_courses != null) return _courses!;
+		_coursesFuture ??= _courses();
+		return _coursesFuture!;
+	}
 
+	Future<List<Course>> _courses() async {
 		final dataFuture = Document.courses.data();
 		final typesFuture = courseTypes();
 		final instructorsFuture = this.instructors();
@@ -37,37 +40,42 @@ class Repository {
 		final instructors = await instructorsFuture;
 		final locations = await locationsFuture;
 
-		_courses = data.entries.map((entry) => CourseModel.fromEntry(
+		return data.entries.map((entry) => CourseModel.fromEntry(
 			entry,
 			types: types,
 			instructors: instructors,
 			locations: locations
 		)).toList();
-		return _courses!;
 	}
 
 	Future<List<CourseType>> courseTypes() async {
-		if (_courseTypes != null) return _courseTypes!;
+		_courseTypesFuture ??= _courseTypes();
+		return _courseTypesFuture!;
+	}
 
+	Future<List<CourseType>> _courseTypes() async {
 		final data = await Document.courseTypes.data();
-		_courseTypes = data.entries.map(CourseTypeModel.fromEntry).toList();
-		return _courseTypes!;
+		return data.entries.map(CourseTypeModel.fromEntry).toList();
 	}
 
 	Future<List<Location>> locations() async {
-		if (_locations != null) return _locations!;
+		_locationsFuture ??= _locations();
+		return _locationsFuture!;
+	}
 
+	Future<List<Location>> _locations() async {
 		final data = await Document.locations.data();
-		_locations = data.entries.map(LocationModel.fromEntry).toList();
-		return _locations!;
+		return data.entries.map(LocationModel.fromEntry).toList();
 	}
 
 	Future<List<Instructor>> instructors() async {
-		if (_instructors != null) return _instructors!;
+		_instructorsFuture ??= _instructors();
+		return _instructorsFuture!;
+	}
 
+	Future<List<Instructor>> _instructors() async {
 		final data = await Document.instructors.data();
-		_instructors = data.entries.map(InstructorModel.fromEntry).toList();
-		return _instructors!;
+		return data.entries.map(InstructorModel.fromEntry).toList();
 	}
 
 	Future<void> addCourse(Course course) => Document.courses.add(
