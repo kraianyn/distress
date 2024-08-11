@@ -21,9 +21,9 @@ class LocationsSection extends ConsumerWidget {
 			tileBuilder: (location) => EntityTile(
 				title: location.name,
 				subtitle: location.link,
-				pageBuilder: (context) => LocationPage(location)
+				pageBuilder: (_) => LocationPage(location)
 			),
-			formBuilder: (context) => const LocationForm()
+			formBuilder: (_) => const LocationForm()
 		);
 	}
 }

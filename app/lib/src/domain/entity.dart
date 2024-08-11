@@ -8,5 +8,8 @@ abstract class Entity implements Comparable<Entity> {
 	final String id;
 
 	@override
-	int compareTo(Entity other);
+	bool operator ==(covariant Entity other) => id == other.id;
+
+	@override
+	int get hashCode => id.hashCode;
 }

@@ -25,7 +25,7 @@ class ScheduleSection extends ConsumerWidget {
 		return EntitiesSection(
 			entities: courses,
 			tileBuilder: CourseTile.new,
-			formBuilder: canAdd ? (context) => const CourseForm() : null,
+			formBuilder: canAdd ? (_) => const CourseForm() : null,
 		);
 	}
 }

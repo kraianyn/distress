@@ -35,7 +35,7 @@ class LocationPage extends ConsumerWidget {
 				IconButton(
 					icon: const Icon(Icons.edit),
 					tooltip: "Змінити",
-					onPressed: () => openPage(context, (context) => LocationForm(location))
+					onPressed: () => openPage(context, (_) => LocationForm(location))
 				),
 				IconButton(
 					icon: const Icon(Icons.delete),

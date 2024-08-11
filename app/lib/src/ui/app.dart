@@ -17,24 +17,30 @@ class App extends HookWidget {
 		);
 
 		return MaterialApp(
-			debugShowCheckedModeBanner: false,
 			title: "Дистрес",
 			home: Scaffold(
 				appBar: AppBar(title: Text(section.name)),
 				body: section.widget,
 				bottomNavigationBar: NavigationBar(
+					selectedIndex: sectionIndex.value,
+					labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
 					destinations: Section.values.map((section) => NavigationDestination(
 						icon: Icon(section.icon),
 						label: section.name
 					)).toList(),
-					selectedIndex: sectionIndex.value,
 					onDestinationSelected: (index) => sectionIndex.value = index
 				)
 			),
-			theme: theme.copyWith(listTileTheme: ListTileThemeData(
-				selectedTileColor: theme.colorScheme.inversePrimary,
-				selectedColor: theme.colorScheme.onSurface
-			))
+			theme: theme.copyWith(
+				appBarTheme: AppBarTheme(
+					backgroundColor: theme.colorScheme.surfaceContainer
+				),
+				listTileTheme: ListTileThemeData(
+					selectedTileColor: theme.colorScheme.inversePrimary,
+					selectedColor: theme.colorScheme.onSurface
+				)
+			),
+			debugShowCheckedModeBanner: false
 		);
 	}
 }

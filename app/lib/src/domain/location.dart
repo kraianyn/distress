@@ -26,11 +26,5 @@ class Location extends Entity {
 	int compareTo(covariant Location other) => name.compareTo(other.name);
 
 	@override
-	bool operator ==(covariant Location other) => id == other.id;
-
-	@override
-	int get hashCode => id.hashCode;
-
-	@override
 	String toString() => name;
 }

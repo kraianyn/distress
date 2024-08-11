@@ -36,7 +36,7 @@ class CourseTypePage extends ConsumerWidget {
 				IconButton(
 					icon: const Icon(Icons.edit),
 					tooltip: "Змінити",
-					onPressed: () => openPage(context, (context) => CourseTypeForm(type))
+					onPressed: () => openPage(context, (_) => CourseTypeForm(type))
 				),
 				IconButton(
 					icon: const Icon(Icons.delete),

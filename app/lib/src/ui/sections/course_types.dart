@@ -20,9 +20,9 @@ class CourseTypesSection extends ConsumerWidget {
 			entities: types,
 			tileBuilder: (type) => EntityTile(
 				title: type.name,
-				pageBuilder: (context) => CourseTypePage(type)
+				pageBuilder: (_) => CourseTypePage(type)
 			),
-			formBuilder: (context) => const CourseTypeForm()
+			formBuilder: (_) => const CourseTypeForm()
 		);
 	}
 }

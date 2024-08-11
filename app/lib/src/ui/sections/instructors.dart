@@ -20,9 +20,9 @@ class InstructorsSection extends ConsumerWidget {
 			entities: instructors,
 			tileBuilder: (instructor) => EntityTile(
 				title: instructor.codeName,
-				pageBuilder: (context) => InstructorPage(instructor)
+				pageBuilder: (_) => InstructorPage(instructor)
 			),
-			formBuilder: (context) => const InstructorForm()
+			formBuilder: (_) => const InstructorForm()
 		);
 	}
 }
