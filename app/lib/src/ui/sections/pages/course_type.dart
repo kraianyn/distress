@@ -5,8 +5,12 @@ import 'package:distress/src/domain/course_type.dart';
 
 import '../../providers/course_types.dart';
 import '../../providers/courses.dart';
+import '../../providers/pages/course_type.dart';
 
+import '../../open_page.dart';
 import '../../widgets/course_tile.dart';
+
+import '../forms/course_type.dart';
 import 'entity.dart';
 
 
@@ -17,6 +21,7 @@ class CourseTypePage extends ConsumerWidget {
 
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
+		final type = ref.watch(courseTypePageNotifierProvider(this.type));
 		final courses = ref.watch(coursesNotifierProvider).value!;
 		final relevantCourses = courses.where((c) => c.type == type);
 
@@ -31,7 +36,7 @@ class CourseTypePage extends ConsumerWidget {
 				IconButton(
 					icon: const Icon(Icons.edit),
 					tooltip: "Змінити",
-					onPressed: () {}
+					onPressed: () => openPage(context, (context) => CourseTypeForm(type))
 				),
 				IconButton(
 					icon: const Icon(Icons.delete),

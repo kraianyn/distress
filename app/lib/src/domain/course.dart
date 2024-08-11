@@ -28,6 +28,14 @@ class Course extends Entity {
 	final List<Instructor> instructors;
 	final String? note;
 
+	Course copyWith({CourseType? type}) => Course(
+		id: id,
+		type: type ?? this.type,
+		date: date,
+		location: location,
+		instructors: instructors
+	);
+
 	@override
 	int compareTo(covariant Course other) => date.compareTo(other.date);
 }

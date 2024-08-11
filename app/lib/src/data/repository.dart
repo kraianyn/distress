@@ -40,7 +40,7 @@ class Repository {
 		final instructors = await instructorsFuture;
 		final locations = await locationsFuture;
 
-		return data.entries.map((entry) => CourseModel.fromEntry(
+		return data.entries.map<Course>((entry) => CourseModel.fromEntry(
 			entry,
 			types: types,
 			instructors: instructors,
@@ -77,23 +77,27 @@ class Repository {
 		E Function(DocumentEntry) constructor
 	) async {
 		final data = await document.data();
-		return data.entries.map(constructor).toList();
+		return data.entries.map<E>(constructor).toList();
 	}
 
-	Future<void> addCourse(Course course) => Document.courses.add(
+	Future<void> addCourse(Course course) => Document.courses.update(
 		CourseModel.fromEntity(course)
 	);
 
-	Future<void> addCourseType(CourseType type) => Document.courseTypes.add(
+	Future<void> addCourseType(CourseType type) => Document.courseTypes.update(
 		CourseTypeModel.fromEntity(type)
 	);
 
-	Future<void> addInstructor(Instructor instructor) => Document.instructors.add(
+	Future<void> addInstructor(Instructor instructor) => Document.instructors.update(
 		InstructorModel.fromEntity(instructor)
 	);
 
-	Future<void> addLocation(Location location) => Document.locations.add(
+	Future<void> addLocation(Location location) => Document.locations.update(
 		LocationModel.fromEntity(location)
+	);
+
+	Future<void> updateCourseType(CourseType type) => Document.courseTypes.update(
+		CourseTypeModel.fromEntity(type)
 	);
 
 	Future<void> deleteCourse(Course course) => Document.courses.delete(
@@ -178,7 +182,7 @@ enum Document {
 		return DocumentMap.from(snapshot.data() as ObjectMap);
 	}
 
-	Future<void> add(EntityModel model) async {
+	Future<void> update(EntityModel model) async {
 		final entry = model.entry;
 		await ref.update({
 			entry.key: entry.value

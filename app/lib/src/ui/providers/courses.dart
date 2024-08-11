@@ -21,34 +21,40 @@ class CoursesNotifier extends _$CoursesNotifier {
 
 	Future<void> add(Course course) async {
 		await _repository.addCourse(course);
-		final currentCourses = await future;
-		state = AsyncValue.data([...currentCourses, course]..sort());
+		final courses = await future;
+		state = AsyncValue.data(courses..add(course)..sort());
+	}
+
+	void updateType(CourseType type) {
+		final indexedTypeCourses = _courses.indexed.where((c) => c.$2.type == type);
+		for (final (index, course) in indexedTypeCourses) {
+			_courses[index] = course.copyWith(type: type);
+		}
 	}
 
 	Future<void> delete(Course course) async {
 		await _repository.deleteCourse(course);
-		state = AsyncValue.data(state.value!..remove(course));
+		state = AsyncValue.data(_courses..remove(course));
 	}
 
 	Future<void> deleteWithType(CourseType type) async {
 		await _repository.deleteCoursesWithType(type);
-		state = AsyncValue.data(state.value!..removeWhere((c) => c.type == type));
+		state = AsyncValue.data(_courses..removeWhere((c) => c.type == type));
 	}
 
 	Future<void> deleteWithLocation(Location location) async {
 		await _repository.deleteCoursesWithLocation(location);
-		state = AsyncValue.data(state.value!..removeWhere((c) => c.location == location));
+		state = AsyncValue.data(_courses..removeWhere((c) => c.location == location));
 	}
 
 	Future<void> removeInstructor(Instructor instructor) async {
 		await _repository.removeInstructorFromCourses(instructor);
-
-		final courses = state.value!;
-		for (final course in courses) {
+		for (final course in _courses) {
 			course.instructors.remove(instructor);
 		}
-		state = AsyncValue.data(courses);
 	}
+
+	List<Course> get _courses => state.value!;
 
 	Repository get _repository => ref.watch(repositoryProvider);
 }

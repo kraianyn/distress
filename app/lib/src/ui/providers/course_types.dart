@@ -17,14 +17,23 @@ class CourseTypesNotifier extends _$CourseTypesNotifier {
 
 	Future<void> add(CourseType type) async {
 		await _repository.addCourseType(type);
-		final currentState = await future;
-		state = AsyncValue.data([...currentState, type]..sort());
+		final types = await future;
+		state = AsyncValue.data(types..add(type)..sort());
+	}
+
+	// the 'update' name is reserved by the super class
+	Future<void> updateType(CourseType type) async {
+		await _repository.updateCourseType(type);
+		_types[_types.indexOf(type)] = type;
+		state = AsyncValue.data(_types);
 	}
 
 	Future<void> delete(CourseType type) async {
 		await _repository.deleteCourseType(type);
-		state = AsyncValue.data(state.value!..remove(type));
+		state = AsyncValue.data(_types..remove(type));
 	}
+
+	List<CourseType> get _types => state.value!;
 
 	Repository get _repository => ref.watch(repositoryProvider);
 }
