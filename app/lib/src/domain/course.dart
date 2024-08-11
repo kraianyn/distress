@@ -28,12 +28,19 @@ class Course extends Entity {
 	final List<Instructor> instructors;
 	final String? note;
 
-	Course copyWith({CourseType? type, Location? location}) => Course(
+	Course copyWith({
+		CourseType? type,
+		DateTime? date,
+		Location? location,
+		List<Instructor>? instructors,
+		String? note
+	}) => Course(
 		id: id,
 		type: type ?? this.type,
-		date: date,
+		date: date ?? this.date,
 		location: location ?? this.location,
-		instructors: instructors
+		instructors: instructors ?? this.instructors,
+		note: note ?? this.note
 	);
 
 	@override

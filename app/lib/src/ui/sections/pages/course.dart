@@ -3,9 +3,13 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:distress/src/domain/course.dart';
 
+import '../../open_page.dart';
 import '../../date_time.dart';
-import '../../providers/courses.dart';
 
+import '../../providers/courses.dart';
+import '../../providers/pages/course.dart';
+
+import '../forms/course.dart';
 import 'entity.dart';
 
 
@@ -16,6 +20,8 @@ class CoursePage extends ConsumerWidget {
 
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
+		final course = ref.watch(coursePageNotifierProvider(this.course));
+
 		return EntityPage(
 			content: [
 				Text(course.type.name),
@@ -28,7 +34,7 @@ class CoursePage extends ConsumerWidget {
 				IconButton(
 					icon: const Icon(Icons.edit),
 					tooltip: "Змінити",
-					onPressed: () {}
+					onPressed: () => openPage(context, (_) => CourseForm(course))
 				),
 				IconButton(
 					icon: const Icon(Icons.event_busy),

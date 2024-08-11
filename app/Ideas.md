@@ -15,6 +15,8 @@ the desired one.
 
 ## Consider
 
+Move sorting to widgets.
+
 Reduce duplication across entity actions.
 
 Reduce duplication across the entity `AsyncNotifier`s.

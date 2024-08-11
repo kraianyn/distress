@@ -96,6 +96,10 @@ class Repository {
 		LocationModel.fromEntity(location)
 	);
 
+	Future<void> updateCourse(Course course) => Document.courses.update(
+		CourseModel.fromEntity(course)
+	);
+
 	Future<void> updateCourseType(CourseType type) => Document.courseTypes.update(
 		CourseTypeModel.fromEntity(type)
 	);

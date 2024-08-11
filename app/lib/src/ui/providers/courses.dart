@@ -25,6 +25,12 @@ class CoursesNotifier extends _$CoursesNotifier {
 		state = AsyncValue.data(courses..add(course)..sort());
 	}
 
+	Future<void> updateCourse(Course course) async {
+		await _repository.updateCourse(course);
+		_courses[_courses.indexOf(course)] = course;
+		state = AsyncValue.data(_courses);
+	}
+
 	void updateType(CourseType type) {
 		final indexedTypeCourses = _courses.indexed.where(
 			(indexedCourse) => indexedCourse.$2.type == type

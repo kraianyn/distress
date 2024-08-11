@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -14,25 +15,28 @@ import '../../providers/courses.dart';
 import '../../providers/course_types.dart';
 import '../../providers/instructors.dart';
 import '../../providers/locations.dart';
+import '../../providers/pages/course.dart';
 
 import '../section.dart';
 
 
 class CourseForm extends HookConsumerWidget {
-	const CourseForm();
+	const CourseForm([this.course]);
+
+	final Course? course;
 
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
-		final typeField = useTextEditingController();
-		final dateField = useTextEditingController();
-		final locationField = useTextEditingController();
-		final instructorsField = useTextEditingController();
-		final noteField = useTextEditingController();
+		final typeField = useTextEditingController(text: course?.type.name);
+		final dateField = useTextEditingController(text: course?.date.dateString);
+		final locationField = useTextEditingController(text: course?.location.name);
+		final instructorsField = useTextEditingController(text: course?.instructors.join(', '));
+		final noteField = useTextEditingController(text: course?.note);
 
-		final type = useRef<CourseType?>(null);
-		final date = useRef<DateTime?>(null);
-		final location = useRef<Location?>(null);
-		final selectedInstructors = useRef(<Instructor>[]);
+		final type = useRef<CourseType?>(course?.type);
+		final date = useRef<DateTime?>(course?.date);
+		final location = useRef<Location?>(course?.location);
+		final selectedInstructors = useRef(course?.instructors.toList() ?? <Instructor>[]);
 
 		// ensured not to be null in ScheduleSection
 		final types = ref.watch(courseTypesNotifierProvider).value!;
@@ -87,15 +91,25 @@ class CourseForm extends HookConsumerWidget {
 			),
 			floatingActionButton: FloatingActionButton(
 				child: const Icon(Icons.done),
-				onPressed: () => _add(
-					context,
-					ref,
-					type.value,
-					date.value,
-					location.value,
-					selectedInstructors.value,
-					noteField.text
-				)
+				onPressed: course == null
+					? () => _add(
+						context,
+						ref,
+						type.value,
+						date.value,
+						location.value,
+						selectedInstructors.value,
+						noteField.text
+					)
+					: () => _update(
+						context,
+						ref,
+						type.value!,
+						date.value!,
+						location.value!,
+						selectedInstructors.value,
+						noteField.text
+					)
 			)
 		);
 	}
@@ -170,9 +184,7 @@ class CourseForm extends HookConsumerWidget {
 									else {
 										object.value.remove(instructor);
 									}
-
 									isSelected.value = !isSelected.value;
-									field.text = object.value.join(', ');
 								}
 							);
 						}
@@ -180,7 +192,11 @@ class CourseForm extends HookConsumerWidget {
 				)),
 				floatingActionButton: FloatingActionButton(
 					child: const Icon(Icons.done),
-					onPressed: () => Navigator.of(context).pop()
+					onPressed: () {
+						object.value.sort();
+						field.text = object.value.join(', ');
+						Navigator.of(context).pop();
+					}
 				)
 			);
 		});
@@ -193,7 +209,7 @@ class CourseForm extends HookConsumerWidget {
 		DateTime? date,
 		Location? location,
 		List<Instructor> instructors,
-		String note
+		String noteString
 	) {
 		if (type == null || date == null || location == null || instructors.isEmpty) return;
 
@@ -202,9 +218,41 @@ class CourseForm extends HookConsumerWidget {
 			date: date,
 			location: location,
 			instructors: instructors,
-			note: note.isNotEmpty ? note : null
+			note: _note(noteString)
 		);
 		ref.read(coursesNotifierProvider.notifier).add(course);
 		Navigator.of(context).pop();
 	}
+
+	void _update(
+		BuildContext context,
+		WidgetRef ref,
+		CourseType type,
+		DateTime date,
+		Location location,
+		List<Instructor> instructors,
+		String noteString
+	) {
+		final note = _note(noteString);
+		if (
+			type == course!.type
+			&& date == course!.date
+			&& location == course!.location
+			&& const ListEquality().equals(instructors, course!.instructors)
+			&& note == course!.note
+		) return;
+
+		final updatedCourse = course!.copyWith(
+			type: type,
+			date: date,
+			location: location,
+			instructors: instructors,
+			note: note
+		);
+		ref.read(coursePageNotifierProvider(course!).notifier).update(updatedCourse);
+		ref.read(coursesNotifierProvider.notifier).updateCourse(updatedCourse);
+		Navigator.of(context).pop();
+	}
+
+	String? _note(String string) => string.isNotEmpty ? string : null;
 }
