@@ -17,14 +17,23 @@ class LocationsNotifier extends _$LocationsNotifier {
 
 	Future<void> add(Location location) async {
 		await _repository.addLocation(location);
-		final currentState = await future;
-		state = AsyncValue.data([...currentState, location]..sort());
+		final locations = await future;
+		state = AsyncValue.data(locations..add(location)..sort());
+	}
+
+	// the 'update' name is reserved by the super class
+	Future<void> updateLocation(Location location) async {
+		await _repository.updateLocation(location);
+		_locations[_locations.indexOf(location)] = location;
+		state = AsyncValue.data(_locations);
 	}
 
 	Future<void> delete(Location location) async {
 		await _repository.deleteLocation(location);
 		state = AsyncValue.data(state.value!..remove(location));
 	}
+
+	List<Location> get _locations => state.value!;
 
 	Repository get _repository => ref.watch(repositoryProvider);
 }

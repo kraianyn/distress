@@ -26,9 +26,20 @@ class CoursesNotifier extends _$CoursesNotifier {
 	}
 
 	void updateType(CourseType type) {
-		final indexedTypeCourses = _courses.indexed.where((c) => c.$2.type == type);
+		final indexedTypeCourses = _courses.indexed.where(
+			(indexedCourse) => indexedCourse.$2.type == type
+		);
 		for (final (index, course) in indexedTypeCourses) {
 			_courses[index] = course.copyWith(type: type);
+		}
+	}
+
+	void updateLocation(Location location) {
+		final indexedLocationCourses = _courses.indexed.where(
+			(indexedCourse) => indexedCourse.$2.location == location
+		);
+		for (final (index, course) in indexedLocationCourses) {
+			_courses[index] = course.copyWith(location: location);
 		}
 	}
 
@@ -39,12 +50,12 @@ class CoursesNotifier extends _$CoursesNotifier {
 
 	Future<void> deleteWithType(CourseType type) async {
 		await _repository.deleteCoursesWithType(type);
-		state = AsyncValue.data(_courses..removeWhere((c) => c.type == type));
+		_courses.removeWhere((c) => c.type == type);
 	}
 
 	Future<void> deleteWithLocation(Location location) async {
 		await _repository.deleteCoursesWithLocation(location);
-		state = AsyncValue.data(_courses..removeWhere((c) => c.location == location));
+		_courses.removeWhere((c) => c.location == location);
 	}
 
 	Future<void> removeInstructor(Instructor instructor) async {

@@ -16,8 +16,20 @@ class Location extends Entity {
 	final String name;
 	final String link;
 
+	Location copyWith({String? name, String? link}) => Location(
+		id: id,
+		name: name ?? this.name,
+		link: link ?? this.link
+	);
+
 	@override
 	int compareTo(covariant Location other) => name.compareTo(other.name);
+
+	@override
+	bool operator ==(covariant Location other) => id == other.id;
+
+	@override
+	int get hashCode => id.hashCode;
 
 	@override
 	String toString() => name;

@@ -5,8 +5,12 @@ import 'package:distress/src/domain/location.dart';
 
 import '../../providers/courses.dart';
 import '../../providers/locations.dart';
+import '../../providers/pages/location.dart';
 
+import '../../open_page.dart';
 import '../../widgets/course_tile.dart';
+
+import '../forms/location.dart';
 import 'entity.dart';
 
 
@@ -17,6 +21,7 @@ class LocationPage extends ConsumerWidget {
 
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
+		final location = ref.watch(locationPageNotifierProvider(this.location));
 		final courses = ref.watch(coursesNotifierProvider).value!;
 		final relevantCourses = courses.where((c) => c.location == location);
 
@@ -30,7 +35,7 @@ class LocationPage extends ConsumerWidget {
 				IconButton(
 					icon: const Icon(Icons.edit),
 					tooltip: "Змінити",
-					onPressed: () {}
+					onPressed: () => openPage(context, (context) => LocationForm(location))
 				),
 				IconButton(
 					icon: const Icon(Icons.delete),

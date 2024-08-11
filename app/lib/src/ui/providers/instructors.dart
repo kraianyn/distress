@@ -17,8 +17,8 @@ class InstructorsNotifier extends _$InstructorsNotifier {
 
 	Future<void> add(Instructor instructor) async {
 		await _repository.addInstructor(instructor);
-		final currentState = await future;
-		state = AsyncValue.data([...currentState, instructor]..sort());
+		final instructors = await future;
+		state = AsyncValue.data(instructors..add(instructor)..sort());
 	}
 
 	Future<void> delete(Instructor instructor) async {

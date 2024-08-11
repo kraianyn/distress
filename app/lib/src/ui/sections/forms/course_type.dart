@@ -27,9 +27,9 @@ class CourseTypeForm extends HookConsumerWidget {
 			),
 			floatingActionButton: FloatingActionButton(
 				child: const Icon(Icons.done),
-				onPressed: () => type == null ?
-					_add(context, ref, nameField.text) :
-					_update(context, ref, nameField.text)
+				onPressed: type == null
+					? () => _add(context, ref, nameField.text)
+					: () => _update(context, ref, nameField.text)
 			)
 		);
 	}

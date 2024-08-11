@@ -100,6 +100,10 @@ class Repository {
 		CourseTypeModel.fromEntity(type)
 	);
 
+	Future<void> updateLocation(Location type) => Document.locations.update(
+		LocationModel.fromEntity(type)
+	);
+
 	Future<void> deleteCourse(Course course) => Document.courses.delete(
 		CourseModel.fromEntity(course)
 	);
