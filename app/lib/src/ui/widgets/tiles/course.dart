@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'package:distress/src/domain/course.dart';
 
-import '../date_time.dart';
-import '../sections/pages/course.dart';
-import 'entity_tile.dart';
+import '../../date_time.dart';
+import '../../sections/pages/course.dart';
+
+import 'entity.dart';
 
 
 class CourseTile extends StatelessWidget {

@@ -6,7 +6,7 @@ import 'package:distress/src/domain/instructor.dart';
 import '../../providers/courses.dart';
 import '../../providers/instructors.dart';
 
-import '../../widgets/course_tile.dart';
+import '../../widgets/tiles/course.dart';
 import 'entity.dart';
 
 

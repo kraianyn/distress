@@ -8,7 +8,7 @@ import '../../providers/locations.dart';
 import '../../providers/pages/location.dart';
 
 import '../../open_page.dart';
-import '../../widgets/course_tile.dart';
+import '../../widgets/tiles/course.dart';
 
 import '../forms/location.dart';
 import 'entity.dart';

@@ -1,7 +1,9 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:distress/src/domain/course.dart';
+import 'package:distress/src/domain/instructor.dart';
 
 import '../../open_page.dart';
 import '../../date_time.dart';
@@ -9,8 +11,12 @@ import '../../date_time.dart';
 import '../../providers/courses.dart';
 import '../../providers/pages/course.dart';
 
+import '../../widgets/tiles/course_type.dart';
+import '../../widgets/tiles/location.dart';
+
 import '../forms/course.dart';
 import 'entity.dart';
+import 'instructor.dart';
 
 
 class CoursePage extends ConsumerWidget {
@@ -24,10 +30,19 @@ class CoursePage extends ConsumerWidget {
 
 		return EntityPage(
 			content: [
-				Text(course.type.name),
+				CourseTypeTile(course.type),
 				Text(course.date.dateString),
-				Text(course.location.name),
-				Text(course.instructors.join(', ')),
+				LocationTile(course.location),
+				if (course.instructors.isNotEmpty) RichText(text: TextSpan(
+					style: Theme.of(context).textTheme.titleMedium,
+					children: [
+						_instructorLink(context, course.instructors.first),
+						for (final instructor in course.instructors.skip(1)) ...[
+							const TextSpan(text: ', '),
+							_instructorLink(context, instructor)
+						]
+					]
+				)),
 				if (course.note != null) Text(course.note!)
 			],
 			actions: [
@@ -44,6 +59,12 @@ class CoursePage extends ConsumerWidget {
 			]
 		);
 	}
+
+	TextSpan _instructorLink(BuildContext context, Instructor instructor) => TextSpan(
+		text: instructor.codeName,
+		recognizer: TapGestureRecognizer()
+			..onTap = () => openPage(context, (_) => InstructorPage(instructor))
+	);
 
 	void _delete(BuildContext context, WidgetRef ref) {
 		ref.read(coursesNotifierProvider.notifier).delete(course);

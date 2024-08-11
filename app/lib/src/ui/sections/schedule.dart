@@ -6,7 +6,7 @@ import '../providers/course_types.dart';
 import '../providers/instructors.dart';
 import '../providers/locations.dart';
 
-import '../widgets/course_tile.dart';
+import '../widgets/tiles/course.dart';
 import 'entities_section.dart';
 import 'forms/course.dart';
 

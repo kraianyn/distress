@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../open_page.dart';
+
+import '../../open_page.dart';
 
 
 class EntityTile extends StatelessWidget {
@@ -19,6 +20,7 @@ class EntityTile extends StatelessWidget {
 	Widget build(BuildContext context) {
 		return ListTile(
 			title: Text(title),
+			subtitle: subtitle != null ? Text(subtitle!) : null,
 			trailing: trailing != null ? Text(trailing!) : null,
 			onTap: () => openPage(context, pageBuilder)
 		);
