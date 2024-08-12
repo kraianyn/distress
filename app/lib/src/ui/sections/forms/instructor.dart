@@ -3,6 +3,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:distress/src/domain/instructor.dart';
+
+import '../../app_icon.dart';
 import '../../providers/instructors.dart';
 
 
@@ -21,7 +23,7 @@ class InstructorForm extends HookConsumerWidget {
 				)
 			),
 			floatingActionButton: FloatingActionButton(
-				child: const Icon(Icons.done),
+				child: const Icon(AppIcon.confirm),
 				onPressed: () => _add(context, ref, codeNameField.text)
 			)
 		);

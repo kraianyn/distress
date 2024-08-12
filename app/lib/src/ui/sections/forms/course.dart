@@ -8,6 +8,7 @@ import 'package:distress/src/domain/course_type.dart';
 import 'package:distress/src/domain/instructor.dart';
 import 'package:distress/src/domain/location.dart';
 
+import '../../app_icon.dart';
 import '../../date_time.dart';
 import '../../open_page.dart';
 
@@ -16,8 +17,6 @@ import '../../providers/course_types.dart';
 import '../../providers/instructors.dart';
 import '../../providers/locations.dart';
 import '../../providers/pages/course.dart';
-
-import '../section.dart';
 
 
 class CourseForm extends HookConsumerWidget {
@@ -55,8 +54,8 @@ class CourseForm extends HookConsumerWidget {
 					),
 					TextField(
 						controller: dateField,
-						decoration: InputDecoration(
-							icon: Icon(Section.schedule.icon),
+						decoration: const InputDecoration(
+							icon: Icon(AppIcon.date),
 							hintText: "Дата"
 						),
 						readOnly: true,
@@ -64,8 +63,8 @@ class CourseForm extends HookConsumerWidget {
 					),
 					TextField(
 						controller: locationField,
-						decoration: InputDecoration(
-							icon: Icon(Section.locations.icon),
+						decoration: const InputDecoration(
+							icon: Icon(AppIcon.location),
 							hintText: "Локація"
 						),
 						readOnly: true,
@@ -73,8 +72,8 @@ class CourseForm extends HookConsumerWidget {
 					),
 					TextField(
 						controller: instructorsField,
-						decoration: InputDecoration(
-							icon: Icon(Section.instructors.icon),
+						decoration: const InputDecoration(
+							icon: Icon(AppIcon.instructors),
 							hintText: "Інструктори"
 						),
 						readOnly: true,
@@ -83,14 +82,14 @@ class CourseForm extends HookConsumerWidget {
 					TextField(
 						controller: noteField,
 						decoration: const InputDecoration(
-							icon: Icon(Icons.short_text),
+							icon: Icon(AppIcon.note),
 							hintText: "Нотатка"
 						)
 					)
 				]
 			),
 			floatingActionButton: FloatingActionButton(
-				child: const Icon(Icons.done),
+				child: const Icon(AppIcon.confirm),
 				onPressed: course == null
 					? () => _add(
 						context,
@@ -191,7 +190,7 @@ class CourseForm extends HookConsumerWidget {
 					)).toList()
 				)),
 				floatingActionButton: FloatingActionButton(
-					child: const Icon(Icons.done),
+					child: const Icon(AppIcon.confirm),
 					onPressed: () {
 						object.value.sort();
 						field.text = object.value.join(', ');

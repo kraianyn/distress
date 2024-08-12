@@ -5,15 +5,16 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:distress/src/domain/course.dart';
 import 'package:distress/src/domain/instructor.dart';
 
+import '../../app_icon.dart';
 import '../../open_page.dart';
 import '../../date_time.dart';
+
 import '../../widgets/entity_title.dart';
 
 import '../../providers/courses.dart';
 import '../../providers/pages/course.dart';
 
 import '../forms/course.dart';
-import '../section.dart';
 
 import 'course_type.dart';
 import 'entity.dart';
@@ -37,11 +38,11 @@ class CoursePage extends ConsumerWidget {
 				),
 				ListTile(
 					title: Text(course.date.dateString),
-					leading: const Icon(Icons.today)
+					leading: const Icon(AppIcon.date)
 				),
 				ListTile(
 					title: Text(course.location.name),
-					leading: Icon(Section.locations.icon)
+					leading: const Icon(AppIcon.location)
 				),
 				if (course.instructors.isNotEmpty) ListTile(
 					title: RichText(text: TextSpan(
@@ -54,18 +55,21 @@ class CoursePage extends ConsumerWidget {
 							]
 						]
 					)),
-					leading: Icon(Section.instructors.icon)
+					leading: const Icon(AppIcon.instructors)
 				),
-				if (course.note != null) Text(course.note!)
+				if (course.note != null) ListTile(
+					title: Text(course.note!),
+					leading: const Icon(AppIcon.note)
+				),
 			],
 			actions: [
 				IconButton(
-					icon: const Icon(Icons.edit),
+					icon: const Icon(AppIcon.change),
 					tooltip: "Змінити",
 					onPressed: () => openPage(context, (_) => CourseForm(course))
 				),
 				IconButton(
-					icon: const Icon(Icons.event_busy),
+					icon: const Icon(AppIcon.deleteEvent),
 					tooltip: "Видалити",
 					onPressed: () => _delete(context, ref)
 				)

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../app_icon.dart';
 import '../open_page.dart';
+
 import '../widgets/error_page.dart';
 import '../widgets/loading_page.dart';
 
@@ -25,7 +27,7 @@ class EntitiesSection<E> extends ConsumerWidget {
 					children: entities.map(tileBuilder).toList()
 				),
 				floatingActionButton: formBuilder != null ? FloatingActionButton(
-					child: const Icon(Icons.add),
+					child: const Icon(AppIcon.add),
 					onPressed: () => openPage(context, formBuilder!)
 				) : null
 			),

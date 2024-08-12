@@ -1,4 +1,4 @@
-class Field {
+abstract class Field {
 	static const codeName = 'codeName';
 	static const date = 'date';
 	static const instructors = 'instructors';

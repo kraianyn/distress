@@ -4,6 +4,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:distress/src/domain/course_type.dart';
 
+import '../../app_icon.dart';
+
 import '../../providers/courses.dart';
 import '../../providers/course_types.dart';
 import '../../providers/pages/course_type.dart';
@@ -26,7 +28,7 @@ class CourseTypeForm extends HookConsumerWidget {
 				)
 			),
 			floatingActionButton: FloatingActionButton(
-				child: const Icon(Icons.done),
+				child: const Icon(AppIcon.confirm),
 				onPressed: type == null
 					? () => _add(context, ref, nameField.text)
 					: () => _update(context, ref, nameField.text)

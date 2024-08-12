@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:distress/src/domain/course_type.dart';
 
+import '../../app_icon.dart';
 import '../../open_page.dart';
 
 import '../../providers/course_types.dart';
@@ -38,12 +39,12 @@ class CourseTypePage extends ConsumerWidget {
 			],
 			actions: [
 				IconButton(
-					icon: const Icon(Icons.edit),
+					icon: const Icon(AppIcon.change),
 					tooltip: "Змінити",
 					onPressed: () => openPage(context, (_) => CourseTypeForm(type))
 				),
 				IconButton(
-					icon: const Icon(Icons.delete),
+					icon: const Icon(AppIcon.delete),
 					tooltip: "Видалити",
 					onPressed: () => _delete(context, ref)
 				)

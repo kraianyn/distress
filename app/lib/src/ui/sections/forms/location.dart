@@ -4,6 +4,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:distress/src/domain/location.dart';
 
+import '../../app_icon.dart';
+
 import '../../providers/courses.dart';
 import '../../providers/locations.dart';
 import '../../providers/pages/location.dart';
@@ -29,12 +31,15 @@ class LocationForm extends HookConsumerWidget {
 					),
 					TextField(
 						controller: linkField,
-						decoration: const InputDecoration(hintText: "Посилання")
+						decoration: const InputDecoration(
+							icon: Icon(AppIcon.link),
+							hintText: "Посилання"
+						)
 					)
 				]
 			),
 			floatingActionButton: FloatingActionButton(
-				child: const Icon(Icons.done),
+				child: const Icon(AppIcon.confirm),
 				onPressed: location ==  null
 					? () => _add(context, ref, nameField.text, linkField.text)
 					: () => _update(context, ref, nameField.text, linkField.text)

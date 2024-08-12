@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../app_icon.dart';
+
 import 'course_types.dart';
 import 'instructors.dart';
 import 'locations.dart';
@@ -9,22 +11,22 @@ import 'schedule.dart';
 enum Section {
 	schedule(
 		name: "Розклад",
-		icon: Icons.calendar_month,
+		icon: AppIcon.schedule,
 		widget: ScheduleSection()
 	),
-	courses(
+	courseTypes(
 		name: "Курси",
-		icon: Icons.school,
+		icon: AppIcon.courseType,
 		widget: CourseTypesSection()
 	),
 	instructors(
 		name: "Інструктори",
-		icon: Icons.group,
+		icon: AppIcon.instructors,
 		widget: InstructorsSection()
 	),
 	locations(
 		name: "Локації",
-		icon: Icons.place,
+		icon: AppIcon.location,
 		widget: LocationsSection()
 	);
 

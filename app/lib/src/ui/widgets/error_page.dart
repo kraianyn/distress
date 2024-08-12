@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../app_icon.dart';
+
+
 class ErrorPage extends StatelessWidget {
 	const ErrorPage(this.error);
 
@@ -13,7 +16,7 @@ class ErrorPage extends StatelessWidget {
 			child: Column(
 				mainAxisAlignment: MainAxisAlignment.center,
 				children: [
-					const Icon(Icons.sentiment_dissatisfied),
+					const Icon(AppIcon.error),
 					Text(error.toString())
 				],
 			),

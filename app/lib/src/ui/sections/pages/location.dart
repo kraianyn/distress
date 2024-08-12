@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:distress/src/domain/location.dart';
 
+import '../../app_icon.dart';
 import '../../open_page.dart';
 
 import '../../providers/courses.dart';
@@ -32,19 +33,19 @@ class LocationPage extends ConsumerWidget {
 				EntityTitle(location.name),
 				ListTile(
 					title: Text(location.link),
-					leading: const Icon(Icons.link)
+					leading: const Icon(AppIcon.link)
 				),
 				const ListTile(),
 				...relevantCourses.map(CourseTile.new)
 			],
 			actions: [
 				IconButton(
-					icon: const Icon(Icons.edit),
+					icon: const Icon(AppIcon.change),
 					tooltip: "Змінити",
 					onPressed: () => openPage(context, (_) => LocationForm(location))
 				),
 				IconButton(
-					icon: const Icon(Icons.delete),
+					icon: const Icon(AppIcon.delete),
 					tooltip: "Видалити",
 					onPressed: () => _delete(context, ref)
 				)

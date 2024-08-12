@@ -3,6 +3,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:distress/src/domain/instructor.dart';
 
+import '../../app_icon.dart';
+
 import '../../providers/courses.dart';
 import '../../providers/instructors.dart';
 
@@ -30,7 +32,7 @@ class InstructorPage extends ConsumerWidget {
 			],
 			actions: [
 				IconButton(
-					icon: const Icon(Icons.delete),
+					icon: const Icon(AppIcon.delete),
 					tooltip: "Видалити",
 					onPressed: () => _delete(context, ref)
 				)
