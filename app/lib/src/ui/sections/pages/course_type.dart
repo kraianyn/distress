@@ -3,12 +3,14 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:distress/src/domain/course_type.dart';
 
+import '../../open_page.dart';
+
 import '../../providers/course_types.dart';
 import '../../providers/courses.dart';
 import '../../providers/pages/course_type.dart';
 
-import '../../open_page.dart';
 import '../../widgets/tiles/course.dart';
+import '../../widgets/entity_title.dart';
 
 import '../forms/course_type.dart';
 import 'entity.dart';
@@ -27,7 +29,8 @@ class CourseTypePage extends ConsumerWidget {
 
 		return EntityPage(
 			content: [
-				Text(type.name),
+				EntityTitle(type.name),
+				const ListTile(),
 				...relevantCourses.map((course) => CourseTile(
 					course,
 					title: course.location.name

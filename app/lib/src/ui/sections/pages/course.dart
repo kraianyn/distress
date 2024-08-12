@@ -7,14 +7,15 @@ import 'package:distress/src/domain/instructor.dart';
 
 import '../../open_page.dart';
 import '../../date_time.dart';
+import '../../widgets/entity_title.dart';
 
 import '../../providers/courses.dart';
 import '../../providers/pages/course.dart';
 
-import '../../widgets/tiles/course_type.dart';
-import '../../widgets/tiles/location.dart';
-
 import '../forms/course.dart';
+import '../section.dart';
+
+import 'course_type.dart';
 import 'entity.dart';
 import 'instructor.dart';
 
@@ -30,19 +31,31 @@ class CoursePage extends ConsumerWidget {
 
 		return EntityPage(
 			content: [
-				CourseTypeTile(course.type),
-				Text(course.date.dateString),
-				LocationTile(course.location),
-				if (course.instructors.isNotEmpty) RichText(text: TextSpan(
-					style: Theme.of(context).textTheme.titleMedium,
-					children: [
-						_instructorLink(context, course.instructors.first),
-						for (final instructor in course.instructors.skip(1)) ...[
-							const TextSpan(text: ', '),
-							_instructorLink(context, instructor)
+				EntityTitle(
+					course.type.name,
+					pageBuilder: (_) => CourseTypePage(course.type)
+				),
+				ListTile(
+					title: Text(course.date.dateString),
+					leading: const Icon(Icons.today)
+				),
+				ListTile(
+					title: Text(course.location.name),
+					leading: Icon(Section.locations.icon)
+				),
+				if (course.instructors.isNotEmpty) ListTile(
+					title: RichText(text: TextSpan(
+						style: Theme.of(context).textTheme.titleMedium,
+						children: [
+							_instructorLink(context, course.instructors.first),
+							for (final instructor in course.instructors.skip(1)) ...[
+								const TextSpan(text: ', '),
+								_instructorLink(context, instructor)
+							]
 						]
-					]
-				)),
+					)),
+					leading: Icon(Section.instructors.icon)
+				),
 				if (course.note != null) Text(course.note!)
 			],
 			actions: [

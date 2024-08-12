@@ -3,11 +3,13 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:distress/src/domain/location.dart';
 
+import '../../open_page.dart';
+
 import '../../providers/courses.dart';
 import '../../providers/locations.dart';
 import '../../providers/pages/location.dart';
 
-import '../../open_page.dart';
+import '../../widgets/entity_title.dart';
 import '../../widgets/tiles/course.dart';
 
 import '../forms/location.dart';
@@ -27,8 +29,12 @@ class LocationPage extends ConsumerWidget {
 
 		return EntityPage(
 			content: [
-				Text(location.name),
-				Text(location.link),
+				EntityTitle(location.name),
+				ListTile(
+					title: Text(location.link),
+					leading: const Icon(Icons.link)
+				),
+				const ListTile(),
 				...relevantCourses.map(CourseTile.new)
 			],
 			actions: [

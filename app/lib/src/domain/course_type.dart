@@ -18,7 +18,7 @@ class CourseType extends Entity {
 
 	@override
 	int compareTo(covariant CourseType other) => name.compareTo(other.name);
-	
+
 	@override
 	String toString() => name;
 }

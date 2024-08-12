@@ -8,12 +8,24 @@ Make it impossible to access the course form if the need entities are empty.
 
 Do not imply that the courses have been fetched on entity pages.
 
-Remove the labels in the navigation bar.
-
 Add an ability to add entities when adding a course. Imply the added entity as 
 the desired one.
 
+## Fix
+
+When selecting instructors and closing the page by a gesture instead of the 
+button, the instructors are added to the list, but not to the field. The options are:
+- Treat the gesture as an alternative way to confirm the selection. Then update 
+the field when an instructor is selected, not when the button is pressed.
+- Treat the gesture as canceling the selection. Then create a separate list for the 
+selected instructors and only add them to the page list when the button is pressed.
+
+When updating an entity from a page opened from another entity page, the change 
+is not reflected on the first page.
+
 ## Consider
+
+Move icons to entities.
 
 Move sorting to widgets.
 
@@ -35,4 +47,4 @@ single-item list.
 
 # Code
 
-Define `IcondData.widget/icon => Icon(this)`
+Define `IconData.widget/icon => Icon(this)`

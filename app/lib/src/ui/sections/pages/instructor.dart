@@ -6,7 +6,9 @@ import 'package:distress/src/domain/instructor.dart';
 import '../../providers/courses.dart';
 import '../../providers/instructors.dart';
 
+import '../../widgets/entity_title.dart';
 import '../../widgets/tiles/course.dart';
+
 import 'entity.dart';
 
 
@@ -22,7 +24,8 @@ class InstructorPage extends ConsumerWidget {
 
 		return EntityPage(
 			content: [
-				Text(instructor.codeName),
+				EntityTitle(instructor.codeName),
+				const ListTile(),
 				...relevantCourses.map(CourseTile.new)
 			],
 			actions: [
