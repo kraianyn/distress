@@ -1,9 +1,9 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import 'package:distress/src/data/repository.dart';
+import 'package:distress/src/data/schedule_repository.dart';
 import 'package:distress/src/domain/instructor.dart';
 
-import 'repository.dart';
+import 'schedule_repository.dart';
 
 part 'instructors.g.dart';
 
@@ -26,5 +26,5 @@ class InstructorsNotifier extends _$InstructorsNotifier {
 		state = AsyncValue.data(state.value!..remove(instructor));
 	}
 
-	Repository get _repository => ref.watch(repositoryProvider);
+	ScheduleRepository get _repository => ref.watch(repositoryProvider);
 }

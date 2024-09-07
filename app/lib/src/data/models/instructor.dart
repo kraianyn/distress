@@ -1,7 +1,8 @@
 import 'package:distress/src/domain/instructor.dart';
 
 import '../field.dart';
-import '../types.dart';
+import '../schedule_repository.dart';
+
 import 'entity.dart';
 
 
@@ -22,7 +23,7 @@ class InstructorModel extends Instructor implements EntityModel {
 	);
 
 	@override
-	DocumentEntry get entry => MapEntry(id, {
+	ObjectMap get object => {
 		Field.codeName: codeName
-	});
+	};
 }

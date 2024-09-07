@@ -1,9 +1,9 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import 'package:distress/src/data/repository.dart';
+import 'package:distress/src/data/schedule_repository.dart';
 import 'package:distress/src/domain/course_type.dart';
 
-import 'repository.dart';
+import 'schedule_repository.dart';
 
 part 'course_types.g.dart';
 
@@ -35,5 +35,5 @@ class CourseTypesNotifier extends _$CourseTypesNotifier {
 
 	List<CourseType> get _types => state.value!;
 
-	Repository get _repository => ref.watch(repositoryProvider);
+	ScheduleRepository get _repository => ref.watch(repositoryProvider);
 }

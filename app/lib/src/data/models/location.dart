@@ -1,7 +1,8 @@
 import 'package:distress/src/domain/location.dart';
 
 import '../field.dart';
-import '../types.dart';
+import '../schedule_repository.dart';
+
 import 'entity.dart';
 
 
@@ -25,8 +26,8 @@ class LocationModel extends Location implements EntityModel {
 	);
 
 	@override
-	DocumentEntry get entry => MapEntry(id, {
+	ObjectMap get object => {
 		Field.name: name,
 		Field.link : link
-	});
+	};
 }

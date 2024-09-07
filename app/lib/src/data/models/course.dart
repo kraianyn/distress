@@ -6,7 +6,8 @@ import 'package:distress/src/domain/instructor.dart';
 import 'package:distress/src/domain/location.dart';
 
 import '../field.dart';
-import '../types.dart';
+import '../schedule_repository.dart';
+
 import 'entity.dart';
 
 
@@ -51,11 +52,11 @@ class CourseModel extends Course implements EntityModel {
 	);
 
 	@override
-	DocumentEntry get entry => MapEntry(id, {
+	ObjectMap get object => {
 		Field.type: type.id,
 		Field.date: date,
 		Field.location: location.id,
 		Field.instructors: instructors.map((i) => i.id),
 		if (note != null) Field.note: note
-	});
+	};
 }

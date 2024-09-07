@@ -1,8 +1,8 @@
 import 'package:distress/src/domain/entity.dart';
 
-import '../types.dart';
+import '../schedule_repository.dart';
 
 
 abstract interface class EntityModel implements Entity {
-	DocumentEntry get entry;
+	ObjectMap get object;
 }

@@ -1,9 +1,9 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import 'package:distress/src/data/repository.dart';
+import 'package:distress/src/data/schedule_repository.dart';
 import 'package:distress/src/domain/location.dart';
 
-import 'repository.dart';
+import 'schedule_repository.dart';
 
 part 'locations.g.dart';
 
@@ -35,5 +35,5 @@ class LocationsNotifier extends _$LocationsNotifier {
 
 	List<Location> get _locations => state.value!;
 
-	Repository get _repository => ref.watch(repositoryProvider);
+	ScheduleRepository get _repository => ref.watch(repositoryProvider);
 }
