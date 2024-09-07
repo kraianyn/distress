@@ -3,10 +3,7 @@
 - Дистрес
 - Розряд
 
-# Sections
-
-Where applicable, the sections provide filtering options (courses by the 
-instructor, instructors by the role).
+# UI Sections
 
 ## Schedule
 
@@ -34,6 +31,14 @@ instructor contains the name, the role, the contact info (phone number, email).
 
 This section is for the locations where courses are held. The page of a location 
 contains the name, the link on the map, and the courses scheduled there.
+
+# Users
+
+Permissions:
+- managing the schedule
+- calculating salaries
+- updating registration forms
+- managing gift cards
 
 # Future features
 

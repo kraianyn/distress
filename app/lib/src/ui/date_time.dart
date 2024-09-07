@@ -1,5 +1,25 @@
 extension Date on DateTime {
-	String get dateString => "${day.twoDigitString}.${month.twoDigitString}";
+	String dateString({monthAsName = false}) {
+		if (!monthAsName) {
+			return "${day.twoDigitString}.${month.twoDigitString}";
+		}
+		
+		final monthString = switch (month) {
+			DateTime.january => "січня",
+			DateTime.february => "лютого",
+			DateTime.march => "березня",
+			DateTime.april => "квітня",
+			DateTime.may => "травня",
+			DateTime.june => "червня",
+			DateTime.july => "липня",
+			DateTime.august => "серпня",
+			DateTime.september => "вересня",
+			DateTime.october => "жовтня",
+			DateTime.november => "листопада",
+			_ => "грудня"
+		};
+		return "$day $monthString";
+	}
 }
 
 extension on int {

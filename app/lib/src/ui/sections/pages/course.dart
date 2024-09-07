@@ -37,7 +37,7 @@ class CoursePage extends ConsumerWidget {
 					pageBuilder: (_) => CourseTypePage(course.type)
 				),
 				ListTile(
-					title: Text(course.date.dateString),
+					title: Text(course.date.dateString(monthAsName: true)),
 					leading: const Icon(AppIcon.date)
 				),
 				ListTile(

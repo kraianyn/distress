@@ -18,7 +18,7 @@ class CourseTile extends StatelessWidget {
 	Widget build(BuildContext context) {
 		return EntityTile(
 			title: title ?? course.type.name,
-			trailing: course.date.dateString,
+			trailing: course.date.dateString(),
 			pageBuilder: (_) => CoursePage(course)
 		);
 	}

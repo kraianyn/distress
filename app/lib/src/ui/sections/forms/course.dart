@@ -27,7 +27,7 @@ class CourseForm extends HookConsumerWidget {
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
 		final typeField = useTextEditingController(text: course?.type.name);
-		final dateField = useTextEditingController(text: course?.date.dateString);
+		final dateField = useTextEditingController(text: course?.date.dateString(monthAsName: true));
 		final locationField = useTextEditingController(text: course?.location.name);
 		final instructorsField = useTextEditingController(text: course?.instructors.join(', '));
 		final noteField = useTextEditingController(text: course?.note);
@@ -156,7 +156,7 @@ class CourseForm extends HookConsumerWidget {
 			firstDate: today,
 			lastDate: today.add(const Duration(days: 365))
 		);
-		field.text = object.value != null ? object.value!.dateString : '';
+		field.text = object.value != null ? object.value!.dateString(monthAsName: true) : '';
 	}
 
 	Future<void> _askInstructors(

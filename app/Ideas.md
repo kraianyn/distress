@@ -25,7 +25,7 @@ is not reflected on the first page.
 
 ## Consider
 
-Move icons to entities.
+Move icons to entities. 
 
 Move sorting to widgets.
 
