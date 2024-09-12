@@ -25,6 +25,8 @@ is not reflected on the first page.
 
 ## Consider
 
+Use regular buttons instead of FABs if the page is dedicated to an action.
+
 Move icons to entities. 
 
 Move sorting to widgets.
@@ -45,6 +47,8 @@ single-item list.
 
 # Data
 
+Consider making access codes only valid for a period of time.
+
 # Code
 
-Define `IconData.widget/icon => Icon(this)`
+Define `IconData.widget => Icon(this)`

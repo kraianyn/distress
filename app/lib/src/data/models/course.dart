@@ -5,9 +5,7 @@ import 'package:distress/src/domain/course_type.dart';
 import 'package:distress/src/domain/instructor.dart';
 import 'package:distress/src/domain/location.dart';
 
-import '../field.dart';
-import '../schedule_repository.dart';
-
+import '../types.dart';
 import 'entity.dart';
 
 
@@ -22,7 +20,7 @@ class CourseModel extends Course implements EntityModel {
 	});
 
 	factory CourseModel.fromEntry(
-		DocumentEntry entry, {
+		EntityEntry entry, {
 			required List<CourseType> types,
 			required List<Location> locations,
 			required List<Instructor> instructors

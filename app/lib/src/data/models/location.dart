@@ -1,8 +1,6 @@
 import 'package:distress/src/domain/location.dart';
 
-import '../field.dart';
-import '../schedule_repository.dart';
-
+import '../types.dart';
 import 'entity.dart';
 
 
@@ -13,7 +11,7 @@ class LocationModel extends Location implements EntityModel {
 		required super.link
 	});
 
-	LocationModel.fromEntry(DocumentEntry entry) : this(
+	LocationModel.fromEntry(EntityEntry entry) : this(
 		id: entry.key,
 		name: entry.value[Field.name] as String,
 		link: entry.value[Field.link] as String

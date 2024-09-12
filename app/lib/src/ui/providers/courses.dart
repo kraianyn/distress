@@ -1,6 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import 'package:distress/src/data/schedule_repository.dart';
+import 'package:distress/src/data/repositories/schedule_repository.dart';
 
 import 'package:distress/src/domain/course.dart';
 import 'package:distress/src/domain/course_type.dart';
@@ -16,7 +16,7 @@ part 'courses.g.dart';
 class CoursesNotifier extends _$CoursesNotifier {
 	@override
 	Future<List<Course>> build() async {
-		return await ref.watch(repositoryProvider).courses()..sort();
+		return await ref.watch(scheduleRepositoryProvider).courses()..sort();
 	}
 
 	Future<void> add(Course course) async {
@@ -73,5 +73,5 @@ class CoursesNotifier extends _$CoursesNotifier {
 
 	List<Course> get _courses => state.value!;
 
-	ScheduleRepository get _repository => ref.watch(repositoryProvider);
+	ScheduleRepository get _repository => ref.watch(scheduleRepositoryProvider);
 }

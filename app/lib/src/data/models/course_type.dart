@@ -1,8 +1,6 @@
 import 'package:distress/src/domain/course_type.dart';
 
-import '../field.dart';
-import '../schedule_repository.dart';
-
+import '../types.dart';
 import 'entity.dart';
 
 
@@ -12,7 +10,7 @@ class CourseTypeModel extends CourseType implements EntityModel {
 		required super.name
 	});
 
-	CourseTypeModel.fromEntry(DocumentEntry entry) : this(
+	CourseTypeModel.fromEntry(EntityEntry entry) : this(
 		id: entry.key,
 		name: entry.value[Field.name] as String
 	);

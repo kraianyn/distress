@@ -6,6 +6,7 @@ abstract class AppIcon {
 	static const courseType = Icons.school;
 	static const instructors = Icons.group;
 	static const location = Icons.place;
+	static const settings = Icons.settings;
 
 	static const date = Icons.today;
 	static const note = Icons.short_text;

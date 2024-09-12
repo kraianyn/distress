@@ -8,13 +8,13 @@ import 'package:distress/src/domain/entity.dart';
 import 'package:distress/src/domain/instructor.dart';
 import 'package:distress/src/domain/location.dart';
 
-import 'field.dart';
+import '../types.dart';
 
-import 'models/course.dart';
-import 'models/course_type.dart';
-import 'models/entity.dart';
-import 'models/instructor.dart';
-import 'models/location.dart';
+import '../models/course.dart';
+import '../models/course_type.dart';
+import '../models/entity.dart';
+import '../models/instructor.dart';
+import '../models/location.dart';
 
 
 class ScheduleRepository {
@@ -29,7 +29,7 @@ class ScheduleRepository {
 	}
 
 	Future<List<Course>> _courses() async {
-		final dataFuture = EntitiesDocument.courses.data();
+		final dataFuture = _Document.courses.data();
 		final typesFuture = courseTypes();
 		final instructorsFuture = this.instructors();
 		final locationsFuture = this.locations();
@@ -53,7 +53,7 @@ class ScheduleRepository {
 	}
 
 	Future<List<CourseType>> _courseTypes() =>
-		_simpleEntities(EntitiesDocument.courseTypes, CourseTypeModel.fromEntry);
+		_simpleEntities(_Document.courseTypes, CourseTypeModel.fromEntry);
 
 	Future<List<Location>> locations() async {
 		_locationsFuture ??= _locations();
@@ -61,7 +61,7 @@ class ScheduleRepository {
 	}
 
 	Future<List<Location>> _locations() =>
-		_simpleEntities(EntitiesDocument.locations, LocationModel.fromEntry);
+		_simpleEntities(_Document.locations, LocationModel.fromEntry);
 
 	Future<List<Instructor>> instructors() async {
 		_instructorsFuture ??= _instructors();
@@ -69,45 +69,45 @@ class ScheduleRepository {
 	}
 
 	Future<List<Instructor>> _instructors() =>
-		_simpleEntities(EntitiesDocument.instructors, InstructorModel.fromEntry);
+		_simpleEntities(_Document.instructors, InstructorModel.fromEntry);
 
 	Future<List<E>> _simpleEntities<E>(
-		EntitiesDocument document,
-		E Function(DocumentEntry) constructor
+		_Document document,
+		E Function(EntityEntry) constructor
 	) async {
 		final data = await document.data();
 		return data.entries.map<E>(constructor).toList();
 	}
 
-	Future<void> addCourse(Course course) => EntitiesDocument.courses.update(
+	Future<void> addCourse(Course course) => _Document.courses.update(
 		CourseModel.fromEntity(course)
 	);
 
-	Future<void> addCourseType(CourseType type) => EntitiesDocument.courseTypes.update(
+	Future<void> addCourseType(CourseType type) => _Document.courseTypes.update(
 		CourseTypeModel.fromEntity(type)
 	);
 
-	Future<void> addInstructor(Instructor instructor) => EntitiesDocument.instructors.update(
+	Future<void> addInstructor(Instructor instructor) => _Document.instructors.update(
 		InstructorModel.fromEntity(instructor)
 	);
 
-	Future<void> addLocation(Location location) => EntitiesDocument.locations.update(
+	Future<void> addLocation(Location location) => _Document.locations.update(
 		LocationModel.fromEntity(location)
 	);
 
-	Future<void> updateCourse(Course course) => EntitiesDocument.courses.update(
+	Future<void> updateCourse(Course course) => _Document.courses.update(
 		CourseModel.fromEntity(course)
 	);
 
-	Future<void> updateCourseType(CourseType type) => EntitiesDocument.courseTypes.update(
+	Future<void> updateCourseType(CourseType type) => _Document.courseTypes.update(
 		CourseTypeModel.fromEntity(type)
 	);
 
-	Future<void> updateLocation(Location type) => EntitiesDocument.locations.update(
+	Future<void> updateLocation(Location type) => _Document.locations.update(
 		LocationModel.fromEntity(type)
 	);
 
-	Future<void> deleteCourse(Course course) => EntitiesDocument.courses.delete(
+	Future<void> deleteCourse(Course course) => _Document.courses.delete(
 		CourseModel.fromEntity(course)
 	);
 
@@ -118,12 +118,12 @@ class ScheduleRepository {
 		_deleteCoursesWithEntity(location, Field.location);
 
 	Future<void> _deleteCoursesWithEntity(Entity entity, String field) async {
-		final coursesDocument = await EntitiesDocument.courses.data();
+		final coursesDocument = await _Document.courses.data();
 		final entityCoursesEntries = coursesDocument.entries.where(
 			(entry) => entry.value[field] == entity.id
 		);
 		if (entityCoursesEntries.isNotEmpty) {
-			await EntitiesDocument.courses.ref.update({
+			await _Document.courses.ref.update({
 				for(final entry in entityCoursesEntries)
 					entry.key: FieldValue.delete()
 			});
@@ -131,7 +131,7 @@ class ScheduleRepository {
 	}
 
 	Future<void> removeInstructorFromCourses(Instructor instructor) async {
-		final coursesDocument = await EntitiesDocument.courses.data();
+		final coursesDocument = await _Document.courses.data();
 
 		final updatedCourses = <String, List<String>>{};
 		for (final entry in coursesDocument.entries) {
@@ -142,24 +142,24 @@ class ScheduleRepository {
 			}
 		}
 		if (updatedCourses.isNotEmpty) {
-			await EntitiesDocument.courses.ref.update(updatedCourses);
+			await _Document.courses.ref.update(updatedCourses);
 		}
 	}
 
-	Future<void> deleteCourseType(CourseType type) => EntitiesDocument.courseTypes.delete(
+	Future<void> deleteCourseType(CourseType type) => _Document.courseTypes.delete(
 		CourseTypeModel.fromEntity(type)
 	);
 
-	Future<void> deleteLocation(Location type) => EntitiesDocument.locations.delete(
+	Future<void> deleteLocation(Location type) => _Document.locations.delete(
 		LocationModel.fromEntity(type)
 	);
 
-	Future<void> deleteInstructor(Instructor instructor) => EntitiesDocument.instructors.delete(
+	Future<void> deleteInstructor(Instructor instructor) => _Document.instructors.delete(
 		InstructorModel.fromEntity(instructor)
 	);
 }
 
-enum EntitiesDocument {
+enum _Document {
 	/// `id: {
 	/// 	type: String,
 	///     date: Timestamp,
@@ -184,9 +184,9 @@ enum EntitiesDocument {
 	/// }, ...`
 	locations;
 
-	Future<DocumentMap> data() async {
+	Future<_DocumentMap> data() async {
 		final snapshot = await ref.get();
-		return DocumentMap.from(snapshot.data() as ObjectMap);
+		return _DocumentMap.from(snapshot.data()!);
 	}
 
 	Future<void> update(EntityModel model) async {
@@ -201,10 +201,8 @@ enum EntitiesDocument {
 		});
 	}
 
-	DocumentReference get ref =>
+	DocumentReference<ObjectMap> get ref =>
 		FirebaseFirestore.instance.collection('data').doc(name);
 }
 
-typedef ObjectMap = Map<String, dynamic>;
-typedef DocumentMap = Map<String, ObjectMap>;
-typedef DocumentEntry = MapEntry<String, ObjectMap>;
+typedef _DocumentMap = Map<String, ObjectMap>;

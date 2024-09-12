@@ -6,15 +6,17 @@ part of 'schedule_repository.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$repositoryHash() => r'204987eb24973dc1bfe96899d06c595fecf09141';
+String _$scheduleRepositoryHash() =>
+    r'014323ec6104dddaf30c8facf0f2aa4fb548490e';
 
 /// See also [scheduleRepository].
 @ProviderFor(scheduleRepository)
-final repositoryProvider = Provider<ScheduleRepository>.internal(
+final scheduleRepositoryProvider = Provider<ScheduleRepository>.internal(
   scheduleRepository,
-  name: r'repositoryProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$repositoryHash,
+  name: r'scheduleRepositoryProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$scheduleRepositoryHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );

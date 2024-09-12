@@ -6,6 +6,7 @@ import 'course_types.dart';
 import 'instructors.dart';
 import 'locations.dart';
 import 'schedule.dart';
+import 'settings.dart';
 
 
 enum Section {
@@ -28,6 +29,11 @@ enum Section {
 		name: "Локації",
 		icon: AppIcon.location,
 		widget: LocationsSection()
+	),
+	settings(
+		name: "Налаштування",
+		icon: AppIcon.settings,
+		widget: SettingsSection()
 	);
 
 	const Section({

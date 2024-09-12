@@ -1,8 +1,6 @@
 import 'package:distress/src/domain/instructor.dart';
 
-import '../field.dart';
-import '../schedule_repository.dart';
-
+import '../types.dart';
 import 'entity.dart';
 
 
@@ -12,7 +10,7 @@ class InstructorModel extends Instructor implements EntityModel {
 		required super.codeName
 	});
 
-	InstructorModel.fromEntry(DocumentEntry entry) : this(
+	InstructorModel.fromEntry(EntityEntry entry) : this(
 		id: entry.key,
 		codeName: entry.value[Field.codeName] as String
 	);

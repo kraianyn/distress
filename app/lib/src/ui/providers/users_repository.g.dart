@@ -1,27 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'course_types.dart';
+part of 'users_repository.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$courseTypesNotifierHash() =>
-    r'2f2249a0129bbd0f1c825a7607879ef65915ed37';
+String _$usersRepositoryHash() => r'91772458a4702b59ee9b96c16794be1fe8ed8de7';
 
-/// See also [CourseTypesNotifier].
-@ProviderFor(CourseTypesNotifier)
-final courseTypesNotifierProvider =
-    AsyncNotifierProvider<CourseTypesNotifier, List<CourseType>>.internal(
-  CourseTypesNotifier.new,
-  name: r'courseTypesNotifierProvider',
+/// See also [usersRepository].
+@ProviderFor(usersRepository)
+final usersRepositoryProvider = Provider<UsersRepository>.internal(
+  usersRepository,
+  name: r'usersRepositoryProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$courseTypesNotifierHash,
+      : _$usersRepositoryHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$CourseTypesNotifier = AsyncNotifier<List<CourseType>>;
+typedef UsersRepositoryRef = ProviderRef<UsersRepository>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
