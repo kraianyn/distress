@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'sections/section.dart';
+import 'home.dart';
 
 
 class App extends HookWidget {
@@ -10,9 +10,6 @@ class App extends HookWidget {
 
 	@override
 	Widget build(BuildContext context) {
-		final sectionIndex = useState(0);
-		final section = Section.values[sectionIndex.value];
-
 		final theme = ThemeData(
 			colorScheme: ColorScheme.fromSeed(
 				seedColor: const HSLColor.fromAHSL(1, 65, .5, .5).toColor(),
@@ -27,19 +24,7 @@ class App extends HookWidget {
 
 		return MaterialApp(
 			title: "Дистрес",
-			home: Scaffold(
-				appBar: AppBar(title: Text(section.name)),
-				body: section.widget,
-				bottomNavigationBar: NavigationBar(
-					selectedIndex: sectionIndex.value,
-					labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-					destinations: Section.values.map((section) => NavigationDestination(
-						icon: Icon(section.icon),
-						label: section.name
-					)).toList(),
-					onDestinationSelected: (index) => sectionIndex.value = index
-				)
-			),
+			home: const Home(),
 			theme: theme.copyWith(
 				appBarTheme: AppBarTheme(
 					backgroundColor: theme.colorScheme.surfaceContainer,
