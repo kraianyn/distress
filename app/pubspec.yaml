@@ -13,8 +13,10 @@ dependencies:
 
   collection: ^1.18.0
 
-  firebase_core: ^3.3.0
   cloud_firestore: ^5.2.0
+  firebase_auth: ^5.2.1
+  firebase_core: ^3.3.0
+  google_sign_in: ^6.2.1
 
   flutter_hooks: ^0.20.5
   hooks_riverpod: ^2.5.1
@@ -23,9 +25,9 @@ dependencies:
   google_fonts: ^6.2.1
 
 dev_dependencies:
+  custom_lint: ^0.6.4
   flutter_lints: ^4.0.0
   riverpod_lint: ^2.3.10
-  custom_lint: ^0.6.4
 
   build_runner: ^2.4.11
   riverpod_generator: ^2.4.0

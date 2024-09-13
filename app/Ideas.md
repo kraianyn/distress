@@ -4,6 +4,8 @@
 
 Validate new entities.
 
+Make the user know if the access code is wrong.
+
 Make it impossible to access the course form if the need entities are empty.
 
 Do not imply that the courses have been fetched on entity pages.
@@ -47,8 +49,14 @@ single-item list.
 
 # Data
 
+Rename the `data` collection to `schedule`.
+
 Consider making access codes only valid for a period of time.
 
 # Code
 
+Move authentication to the data layer.
+
 Define `IconData.widget => Icon(this)`
+
+Define `TitleText(text, context) => Text(text, Theme.of(context).textTheme.titleMedium)
