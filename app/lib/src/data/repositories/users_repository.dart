@@ -22,8 +22,14 @@ class UsersRepository {
 	}
 
 	Future<void> initUser(List<String> permissions) async {
-		await _collection.doc(_userSnapshot.id).set({
+		await _userDocument.set({
 			Field.permissions: permissions
+		});
+	}
+
+	Future<void> setUserInfo(String codeName) async {
+		await _userDocument.update({
+			Field.codeName: codeName
 		});
 	}
 
@@ -46,6 +52,8 @@ class UsersRepository {
 	}
 
 	CollectionReference<ObjectMap> get _collection => FirebaseFirestore.instance.collection('users');
+
+	DocumentReference<ObjectMap> get _userDocument => _collection.doc(_userSnapshot.id);
 
 	/// `code: String,
 	/// permissions: List<String>`
