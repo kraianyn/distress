@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:distress/src/domain/user.dart';
 
+import '../models/user.dart';
 import '../types.dart';
 
 
@@ -13,14 +14,25 @@ class UsersRepository {
 		return _userSnapshot.exists;
 	}
 
+	Future<List<String>?> permissions(String code) async {
+		final snapshot = await _accessCodeDocument.get();
+		final data = snapshot.data()!;
+
+		return code == data[Field.code] ? List<String>.from(data[Field.permissions]) : null;
+	}
+
+	Future<void> initUser(List<String> permissions) async {
+		await _collection.doc(_userSnapshot.id).set({
+			Field.permissions: permissions
+		});
+	}
+
 	User? user() {
 		if (!_userSnapshot.exists) return null;
 
 		final data = _userSnapshot.data()!;
-		return User(
-			id: _userSnapshot.id,
-			codeName: data[Field.codeName]
-		);
+		final hasInfo = data.containsKey(Field.codeName);
+		return hasInfo ? UserModel.fromObject(_userSnapshot.id, data) : null;
 	}
 
 	Future<String> createAccessCode(List<String> permissions) async {

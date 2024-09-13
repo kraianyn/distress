@@ -1,9 +1,11 @@
-import 'entities/instructor.dart';
-
-
-class User extends Instructor {
+class User {
 	const User({
-		required super.id,
-		required super.codeName
+		required this.id,
+		required this.codeName,
+		required this.permissions
 	});
+
+	final String id;
+	final String codeName;
+	final List<String> permissions;
 }
