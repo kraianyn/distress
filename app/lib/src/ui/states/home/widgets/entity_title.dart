@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:distress/src/ui/open_page.dart';
+import 'package:distress/src/ui/core/open_page.dart';
 
 
 class EntityTitle extends StatelessWidget {

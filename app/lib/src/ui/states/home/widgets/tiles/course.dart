@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:distress/src/domain/course.dart';
+import 'package:distress/src/ui/core/date_time.dart';
 
-import '../../date_time.dart';
 import '../../sections/pages/course.dart';
-
 import 'entity.dart';
 
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../app_icon.dart';
-import '../open_page.dart';
+import 'package:distress/src/ui/core/app_icon.dart';
+import 'package:distress/src/ui/core/open_page.dart';
 
 import '../widgets/error_page.dart';
 import '../widgets/loading_page.dart';

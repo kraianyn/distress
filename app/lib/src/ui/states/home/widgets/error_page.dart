@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../app_icon.dart';
+import 'package:distress/src/ui/core/app_icon.dart';
 
 
 class ErrorPage extends StatelessWidget {

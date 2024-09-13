@@ -3,8 +3,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:distress/src/domain/location.dart';
 
-import '../../app_icon.dart';
-import '../../open_page.dart';
+import 'package:distress/src/ui/core/app_icon.dart';
+import 'package:distress/src/ui/core/open_page.dart';
 
 import '../../providers/courses.dart';
 import '../../providers/locations.dart';

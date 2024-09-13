@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../open_page.dart';
-import '../providers/users_repository.dart';
+import 'package:distress/src/ui/core/open_page.dart';
+import 'package:distress/src/ui/core/providers/users_repository.dart';
 
 import '../widgets/error_page.dart';
 import '../widgets/loading_page.dart';

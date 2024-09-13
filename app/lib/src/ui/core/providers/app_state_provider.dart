@@ -1,8 +1,8 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import 'app.dart';
+import '../../app.dart';
 
-part 'state_provider.g.dart';
+part 'app_state_provider.g.dart';
 
 
 @riverpod

@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'authentication.dart';
-import 'authorization.dart';
-import 'home.dart';
-import 'state_provider.dart';
-import 'user_form.dart';
+import 'core/providers/app_state_provider.dart';
+
+import 'states/authentication.dart';
+import 'states/authorization.dart';
+import 'states/home/home.dart';
+import 'states/user_form.dart';
 
 
 class App extends ConsumerWidget {

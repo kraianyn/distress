@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'app.dart';
-import 'state_provider.dart';
+import '../app.dart';
+import '../core/providers/app_state_provider.dart';
 
 
 class Authentication extends ConsumerWidget {

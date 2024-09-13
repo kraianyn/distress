@@ -5,9 +5,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:distress/src/domain/course.dart';
 import 'package:distress/src/domain/instructor.dart';
 
-import '../../app_icon.dart';
-import '../../open_page.dart';
-import '../../date_time.dart';
+import 'package:distress/src/ui/core/app_icon.dart';
+import 'package:distress/src/ui/core/open_page.dart';
+import 'package:distress/src/ui/core/date_time.dart';
 
 import '../../widgets/entity_title.dart';
 

@@ -8,9 +8,9 @@ import 'package:distress/src/domain/course_type.dart';
 import 'package:distress/src/domain/instructor.dart';
 import 'package:distress/src/domain/location.dart';
 
-import '../../app_icon.dart';
-import '../../date_time.dart';
-import '../../open_page.dart';
+import 'package:distress/src/ui/core/app_icon.dart';
+import 'package:distress/src/ui/core/date_time.dart';
+import 'package:distress/src/ui/core/open_page.dart';
 
 import '../../providers/courses.dart';
 import '../../providers/course_types.dart';

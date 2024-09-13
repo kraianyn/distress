@@ -3,8 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:distress/src/domain/course_type.dart';
-
-import '../../app_icon.dart';
+import 'package:distress/src/ui/core/app_icon.dart';
 
 import '../../providers/courses.dart';
 import '../../providers/course_types.dart';

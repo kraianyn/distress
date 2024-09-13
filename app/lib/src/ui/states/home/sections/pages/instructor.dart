@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:distress/src/domain/instructor.dart';
-
-import '../../app_icon.dart';
+import 'package:distress/src/ui/core/app_icon.dart';
 
 import '../../providers/courses.dart';
 import '../../providers/instructors.dart';

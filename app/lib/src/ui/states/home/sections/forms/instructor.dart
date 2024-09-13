@@ -3,8 +3,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:distress/src/domain/instructor.dart';
+import 'package:distress/src/ui/core/app_icon.dart';
 
-import '../../app_icon.dart';
 import '../../providers/instructors.dart';
 
 
