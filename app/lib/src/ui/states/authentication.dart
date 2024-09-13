@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../app.dart';
 import '../core/providers/app_state_provider.dart';
+import '../core/providers/users_repository.dart';
 
 
 class Authentication extends ConsumerWidget {
@@ -35,6 +36,27 @@ class Authentication extends ConsumerWidget {
 	}
 
 	Future<void> _setAppState(WidgetRef ref, UserCredential userCredential) async {
-		ref.read(appStateNotifierProvider.notifier).set(AppState.home);
+		final repository = ref.read(usersRepositoryProvider);
+
+		AppState state;
+		if (userCredential.additionalUserInfo!.isNewUser) {
+			state = AppState.authorization;
+		}
+		else {
+			final userHasAccess = await repository.userHasAccess(userCredential.user!.uid);
+			if (userHasAccess) {
+				final user = repository.user();
+				if (user != null) {
+					state = AppState.home;
+				}
+				else {
+					state = AppState.userForm;
+				}
+			}
+			else {
+				state = AppState.authorization;
+			}
+		}
+		ref.read(appStateNotifierProvider.notifier).set(state);
 	}
 }
