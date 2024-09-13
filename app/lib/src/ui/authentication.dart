@@ -1,23 +1,27 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import 'app.dart';
+import 'state_provider.dart';
 
 
-class Authentication extends StatelessWidget {
+class Authentication extends ConsumerWidget {
 	const Authentication();
 
 	@override
-	Widget build(BuildContext context) {
+	Widget build(BuildContext context, WidgetRef ref) {
 		return Scaffold(
 			appBar: AppBar(title: const Text("Автентифікація")),
 			body: Center(child: FilledButton(
 				child: const Icon(Icons.account_circle),
-				onPressed: () => _signIn()
+				onPressed: () => _signIn(ref)
 			))
 		);
 	}
 
-	Future<void> _signIn() async {
+	Future<void> _signIn(WidgetRef ref) async {
 		final account = await GoogleSignIn().signIn();
 		if (account == null) return;
 
@@ -27,5 +31,10 @@ class Authentication extends StatelessWidget {
 			accessToken: authentication.accessToken
 		);
 		final userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+		await _setAppState(ref, userCredential);
+	}
+
+	Future<void> _setAppState(WidgetRef ref, UserCredential userCredential) async {
+		ref.read(appStateNotifierProvider.notifier).set(AppState.home);
 	}
 }

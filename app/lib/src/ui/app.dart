@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'authentication.dart';
+import 'authorization.dart';
 import 'home.dart';
+import 'state_provider.dart';
+import 'user_form.dart';
 
 
-class App extends HookWidget {
+class App extends ConsumerWidget {
 	const App();
 
 	@override
-	Widget build(BuildContext context) {
+	Widget build(BuildContext context, WidgetRef ref) {
 		final theme = ThemeData(
 			colorScheme: ColorScheme.fromSeed(
 				seedColor: const HSLColor.fromAHSL(1, 65, .5, .5).toColor(),
@@ -24,7 +28,7 @@ class App extends HookWidget {
 
 		return MaterialApp(
 			title: "Дистрес",
-			home: const Home(),
+			home: ref.watch(appStateNotifierProvider).widget,
 			theme: theme.copyWith(
 				appBarTheme: AppBarTheme(
 					backgroundColor: theme.colorScheme.surfaceContainer,
@@ -40,4 +44,15 @@ class App extends HookWidget {
 			debugShowCheckedModeBanner: false
 		);
 	}
+}
+
+enum AppState {
+	authentication(Authentication()),
+	authorization(Authorization()),
+	userForm(UserForm()),
+	home(Home());
+
+	const AppState(this.widget);
+
+	final Widget widget;
 }
