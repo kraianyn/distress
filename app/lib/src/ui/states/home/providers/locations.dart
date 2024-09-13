@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:distress/src/data/repositories/schedule_repository.dart';
-import 'package:distress/src/domain/location.dart';
+import 'package:distress/src/domain/entities/location.dart';
 
 import 'schedule_repository.dart';
 

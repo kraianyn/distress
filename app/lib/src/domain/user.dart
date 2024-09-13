@@ -1,4 +1,4 @@
-import 'instructor.dart';
+import 'entities/instructor.dart';
 
 
 class User extends Instructor {

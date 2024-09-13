@@ -2,10 +2,10 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:distress/src/data/repositories/schedule_repository.dart';
 
-import 'package:distress/src/domain/course.dart';
-import 'package:distress/src/domain/course_type.dart';
-import 'package:distress/src/domain/instructor.dart';
-import 'package:distress/src/domain/location.dart';
+import 'package:distress/src/domain/entities/course.dart';
+import 'package:distress/src/domain/entities/course_type.dart';
+import 'package:distress/src/domain/entities/instructor.dart';
+import 'package:distress/src/domain/entities/location.dart';
 
 import 'schedule_repository.dart';
 

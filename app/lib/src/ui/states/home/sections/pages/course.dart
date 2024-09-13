@@ -2,8 +2,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:distress/src/domain/course.dart';
-import 'package:distress/src/domain/instructor.dart';
+import 'package:distress/src/domain/entities/course.dart';
+import 'package:distress/src/domain/entities/instructor.dart';
 
 import 'package:distress/src/ui/core/app_icon.dart';
 import 'package:distress/src/ui/core/open_page.dart';

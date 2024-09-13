@@ -1,4 +1,4 @@
-import 'package:distress/src/domain/course_type.dart';
+import 'package:distress/src/domain/entities/course_type.dart';
 
 import '../types.dart';
 import 'entity.dart';

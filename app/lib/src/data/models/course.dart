@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'package:distress/src/domain/course.dart';
-import 'package:distress/src/domain/course_type.dart';
-import 'package:distress/src/domain/instructor.dart';
-import 'package:distress/src/domain/location.dart';
+import 'package:distress/src/domain/entities/course.dart';
+import 'package:distress/src/domain/entities/course_type.dart';
+import 'package:distress/src/domain/entities/instructor.dart';
+import 'package:distress/src/domain/entities/location.dart';
 
 import '../types.dart';
 import 'entity.dart';

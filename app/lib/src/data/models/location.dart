@@ -1,4 +1,4 @@
-import 'package:distress/src/domain/location.dart';
+import 'package:distress/src/domain/entities/location.dart';
 
 import '../types.dart';
 import 'entity.dart';

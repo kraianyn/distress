@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:distress/src/domain/location.dart';
+import 'package:distress/src/domain/entities/location.dart';
 
 import 'package:distress/src/ui/core/app_icon.dart';
 import 'package:distress/src/ui/core/open_page.dart';

@@ -1,6 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import 'package:distress/src/domain/location.dart';
+import 'package:distress/src/domain/entities/location.dart';
 
 part 'location.g.dart';
 

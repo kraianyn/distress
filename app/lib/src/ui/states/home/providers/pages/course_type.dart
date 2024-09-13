@@ -1,6 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import 'package:distress/src/domain/course_type.dart';
+import 'package:distress/src/domain/entities/course_type.dart';
 
 part 'course_type.g.dart';
 
