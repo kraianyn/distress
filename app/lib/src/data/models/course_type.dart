@@ -5,17 +5,12 @@ import 'entity.dart';
 
 
 class CourseTypeModel extends CourseType implements EntityModel {
-	const CourseTypeModel({
-		required super.id,
-		required super.name
-	});
-
-	CourseTypeModel.fromEntry(EntityEntry entry) : this(
+	CourseTypeModel.fromEntry(EntityEntry entry) : super(
 		id: entry.key,
 		name: entry.value[Field.name] as String
 	);
 
-	CourseTypeModel.fromEntity(CourseType entity) : this(
+	CourseTypeModel.fromEntity(CourseType entity) : super(
 		id: entity.id,
 		name: entity.name
 	);

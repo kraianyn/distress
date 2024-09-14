@@ -5,17 +5,12 @@ import 'entity.dart';
 
 
 class InstructorModel extends Instructor implements EntityModel {
-	const InstructorModel({
-		required super.id,
-		required super.codeName
-	});
-
-	InstructorModel.fromEntry(EntityEntry entry) : this(
+	InstructorModel.fromEntry(EntityEntry entry) : super(
 		id: entry.key,
 		codeName: entry.value[Field.codeName] as String
 	);
 
-	InstructorModel.fromEntity(Instructor entity) : this(
+	InstructorModel.fromEntity(Instructor entity) : super(
 		id: entity.id,
 		codeName: entity.codeName
 	);

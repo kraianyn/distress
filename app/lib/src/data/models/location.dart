@@ -5,19 +5,13 @@ import 'entity.dart';
 
 
 class LocationModel extends Location implements EntityModel {
-	const LocationModel({
-		required super.id,
-		required super.name,
-		required super.link
-	});
-
-	LocationModel.fromEntry(EntityEntry entry) : this(
+	LocationModel.fromEntry(EntityEntry entry) : super(
 		id: entry.key,
 		name: entry.value[Field.name] as String,
 		link: entry.value[Field.link] as String
 	);
 
-	LocationModel.fromEntity(Location entity) : this(
+	LocationModel.fromEntity(Location entity) : super(
 		id: entity.id,
 		name: entity.name,
 		link: entity.link
