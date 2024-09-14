@@ -35,12 +35,12 @@ class CourseForm extends HookConsumerWidget {
 		final type = useRef<CourseType?>(course?.type);
 		final date = useRef<DateTime?>(course?.date);
 		final location = useRef<Location?>(course?.location);
-		final selectedInstructors = useRef(course?.instructors.toList() ?? <Instructor>[]);
+		final instructors = useRef(course?.instructors.toList() ?? <Instructor>[]);
 
 		// ensured not to be null in ScheduleSection
 		final types = ref.watch(courseTypesNotifierProvider).value!;
 		final locations = ref.watch(locationsNotifierProvider).value!;
-		final instructors = ref.watch(instructorsNotifierProvider).value!;
+		final instructorsOptions = ref.watch(instructorsNotifierProvider).value!;
 
 		return Scaffold(
 			body: Column(
@@ -50,7 +50,11 @@ class CourseForm extends HookConsumerWidget {
 						controller: typeField,
 						decoration: const InputDecoration(hintText: "Курс"),
 						readOnly: true,
-						onTap: () => _askOption(context, types, type, typeField)
+						onTap: () => openPage(context, (_) => OptionsPage(
+							options: types,
+							selected: type,
+							field: typeField
+						))
 					),
 					TextField(
 						controller: dateField,
@@ -68,7 +72,11 @@ class CourseForm extends HookConsumerWidget {
 							hintText: "Локація"
 						),
 						readOnly: true,
-						onTap: () => _askOption(context, locations, location, locationField)
+						onTap: () => openPage(context, (_) => OptionsPage(
+							options: locations,
+							selected: location,
+							field: locationField
+						))
 					),
 					TextField(
 						controller: instructorsField,
@@ -77,7 +85,11 @@ class CourseForm extends HookConsumerWidget {
 							hintText: "Інструктори"
 						),
 						readOnly: true,
-						onTap: () => _askInstructors(context, instructors, selectedInstructors, instructorsField)
+						onTap: () => openPage(context, (_) => InstructorsOptionsPage(
+							options: instructorsOptions,
+							selected: instructors,
+							field: instructorsField)
+						)
 					),
 					TextField(
 						controller: noteField,
@@ -97,7 +109,7 @@ class CourseForm extends HookConsumerWidget {
 						type.value,
 						date.value,
 						location.value,
-						selectedInstructors.value,
+						instructors.value,
 						noteField.text
 					)
 					: () => _update(
@@ -106,42 +118,11 @@ class CourseForm extends HookConsumerWidget {
 						type.value!,
 						date.value!,
 						location.value!,
-						selectedInstructors.value,
+						instructors.value,
 						noteField.text
 					)
 			)
 		);
-	}
-
-	Future<void> _askOption<O>(
-		BuildContext context,
-		List<O> options,
-		ObjectRef<O?> object,
-		TextEditingController field
-	) async {
-		await openPage(context, (context) {
-			return Scaffold(
-				body: Center(child: ListView(
-					shrinkWrap: true,
-					children: options.map((option) => HookBuilder(
-						builder: (context) {
-							final isSelected = useState(object.value == option);
-
-							return ListTile(
-								title: Text(option.toString()),
-								selected: isSelected.value,
-								onTap: () {
-									object.value = option;
-									isSelected.value = !isSelected.value;
-									field.text = option.toString();
-									Navigator.of(context).pop();
-								}
-							);
-						}
-					)).toList()
-				))
-			);
-		});
 	}
 
 	Future<void> _askDate(
@@ -157,48 +138,6 @@ class CourseForm extends HookConsumerWidget {
 			lastDate: today.add(const Duration(days: 365))
 		);
 		field.text = object.value != null ? object.value!.dateString(monthAsName: true) : '';
-	}
-
-	Future<void> _askInstructors(
-		BuildContext context,
-		List<Instructor> options,
-		ObjectRef<List<Instructor>> object,
-		TextEditingController field
-	) async {
-		await openPage(context, (context) {
-			return Scaffold(
-				body: Center(child: ListView(
-					shrinkWrap: true,
-					children: options.map((instructor) => HookBuilder(
-						builder: (context) {
-							final isSelected = useState(object.value.contains(instructor));
-
-							return ListTile(
-								title: Text(instructor.codeName),
-								selected: isSelected.value,
-								onTap: () {
-									if (!isSelected.value) {
-										object.value.add(instructor);
-									}
-									else {
-										object.value.remove(instructor);
-									}
-									isSelected.value = !isSelected.value;
-								}
-							);
-						}
-					)).toList()
-				)),
-				floatingActionButton: FloatingActionButton(
-					child: const Icon(AppIcon.confirm),
-					onPressed: () {
-						object.value.sort();
-						field.text = object.value.join(', ');
-						Navigator.of(context).pop();
-					}
-				)
-			);
-		});
 	}
 
 	void _add(
@@ -254,4 +193,122 @@ class CourseForm extends HookConsumerWidget {
 	}
 
 	String? _note(String string) => string.isNotEmpty ? string : null;
+}
+
+
+class OptionsPage<O> extends StatelessWidget {
+	const OptionsPage({
+		required this.options,
+		required this.selected,
+		required this.field
+	});
+
+	final Iterable<O> options;
+	final ObjectRef<O?> selected;
+	final TextEditingController field;
+
+	@override
+	Widget build(BuildContext context) {
+		return Scaffold(
+			body: Center(child: ListView(
+				shrinkWrap: true,
+				children: options.map((option) => OptionTile(
+					option: option,
+					selected: selected,
+					field: field
+				)).toList()
+			))
+		);
+	}
+}
+
+class OptionTile<O> extends HookWidget {
+	const OptionTile({
+		required this.option,
+		required this.selected,
+		required this.field
+	});
+
+	final O option;
+	final ObjectRef<O?> selected;
+	final TextEditingController field;
+
+	@override
+	Widget build(BuildContext context) {
+		final isSelected = useState(selected.value == option);
+
+		return ListTile(
+			title: Text(option.toString()),
+			selected: isSelected.value,
+			onTap: () {
+				selected.value = option;
+				isSelected.value = !isSelected.value;
+				field.text = option.toString();
+				Navigator.of(context).pop();
+			}
+		);
+	}
+}
+
+
+class InstructorsOptionsPage extends StatelessWidget {
+	const InstructorsOptionsPage({
+		required this.options,
+		required this.selected,
+		required this.field
+	});
+
+	final Iterable<Instructor> options;
+	final ObjectRef<List<Instructor>> selected;
+	final TextEditingController field;
+
+	@override
+	Widget build(BuildContext context) {
+		return Scaffold(
+			body: Center(child: ListView(
+				shrinkWrap: true,
+				children: options.map((instructor) => InstructorOptionTile(
+					instructor: instructor,
+					selectedInstructors: selected
+				)).toList()
+			)),
+			floatingActionButton: FloatingActionButton(
+				child: const Icon(AppIcon.confirm),
+				onPressed: () {
+					selected.value.sort();
+					field.text = selected.value.join(', ');
+					Navigator.of(context).pop();
+				}
+			)
+		);
+	}
+}
+
+class InstructorOptionTile extends HookWidget {
+	const InstructorOptionTile({
+		required this.instructor,
+		required this.selectedInstructors
+	});
+
+	final Instructor instructor;
+	final ObjectRef<List<Instructor>> selectedInstructors;
+
+	@override
+	Widget build(BuildContext context) {
+		final isSelected = useState(selectedInstructors.value.contains(instructor));
+
+		return ListTile(
+			title: Text(instructor.codeName),
+			selected: isSelected.value,
+			onTap: () {
+				if (!isSelected.value) {
+					selectedInstructors.value.add(instructor);
+				}
+				else {
+					selectedInstructors.value.remove(instructor);
+				}
+				isSelected.value = !isSelected.value;
+			}
+		);
+	}
 }
