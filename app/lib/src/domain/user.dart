@@ -1,11 +1,11 @@
 class User {
 	const User({
 		required this.id,
-		required this.codeName,
+		this.codeName,
 		required this.permissions
 	});
 
 	final String id;
-	final String codeName;
+	final String? codeName;
 	final List<String> permissions;
 }

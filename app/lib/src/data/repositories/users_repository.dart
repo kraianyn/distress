@@ -7,10 +7,13 @@ import '../types.dart';
 
 
 class UsersRepository {
+	UsersRepository({required this.userId});
+
+	final String userId;
 	late final DocumentSnapshot<ObjectMap> _userSnapshot;
 
-	Future<bool> userHasAccess(String id) async {
-		_userSnapshot = await _collection.doc(id).get();
+	Future<bool> userHasAccess() async {
+		_userSnapshot = await _userDocument.get();
 		return _userSnapshot.exists;
 	}
 
@@ -21,9 +24,9 @@ class UsersRepository {
 		return code == data[Field.code] ? List<String>.from(data[Field.permissions]) : null;
 	}
 
-	Future<void> initUser(List<String> permissions) async {
+	Future<void> initUser(User user) async {
 		await _userDocument.set({
-			Field.permissions: permissions
+			Field.permissions: user.permissions
 		});
 	}
 
@@ -51,11 +54,14 @@ class UsersRepository {
 		return code;
 	}
 
-	CollectionReference<ObjectMap> get _collection => FirebaseFirestore.instance.collection('users');
-
-	DocumentReference<ObjectMap> get _userDocument => _collection.doc(_userSnapshot.id);
+	/// 
+	/// `codeName?:String,
+	/// permissions: List<String>`
+	DocumentReference<ObjectMap> get _userDocument => _collection.doc(userId);
 
 	/// `code: String,
 	/// permissions: List<String>`
 	DocumentReference<ObjectMap> get _accessCodeDocument => _collection.doc('accessCode');
+
+	CollectionReference<ObjectMap> get _collection => FirebaseFirestore.instance.collection('users');
 }

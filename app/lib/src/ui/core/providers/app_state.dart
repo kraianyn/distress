@@ -2,7 +2,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../app.dart';
 
-part 'app_state_provider.g.dart';
+part 'app_state.g.dart';
 
 
 @riverpod

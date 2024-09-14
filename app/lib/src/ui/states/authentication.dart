@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'package:distress/src/domain/providers/user.dart';
+
 import '../app.dart';
-import '../core/providers/app_state_provider.dart';
+
+import '../core/providers/app_state.dart';
 import '../core/providers/users_repository.dart';
 
 
@@ -32,6 +35,7 @@ class Authentication extends ConsumerWidget {
 			accessToken: authentication.accessToken
 		);
 		final userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+		ref.read(userIdNotifierProvider.notifier).set(userCredential.user!.uid);
 		await _setAppState(ref, userCredential);
 	}
 
@@ -43,7 +47,7 @@ class Authentication extends ConsumerWidget {
 			state = AppState.authorization;
 		}
 		else {
-			final userHasAccess = await repository.userHasAccess(userCredential.user!.uid);
+			final userHasAccess = await repository.userHasAccess();
 			if (userHasAccess) {
 				final user = repository.user();
 				if (user != null) {

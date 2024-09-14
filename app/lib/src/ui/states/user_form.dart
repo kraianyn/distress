@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../app.dart';
 
-import '../core/providers/app_state_provider.dart';
+import '../core/providers/app_state.dart';
 import '../core/providers/users_repository.dart';
 
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'core/providers/app_state_provider.dart';
+import 'core/providers/app_state.dart';
 
 import 'states/authentication.dart';
 import 'states/authorization.dart';
