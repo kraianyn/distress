@@ -9,16 +9,14 @@ import 'package:distress/src/ui/core/app_icon.dart';
 import 'package:distress/src/ui/core/open_page.dart';
 import 'package:distress/src/ui/core/date_time.dart';
 
-import '../../widgets/entity_title.dart';
-
 import '../../providers/courses.dart';
 import '../../providers/pages/course.dart';
 
-import '../forms/course.dart';
+import '../../widgets/entity_page.dart';
+import '../course_types/page.dart';
+import '../instructors/page.dart';
 
-import 'course_type.dart';
-import 'entity.dart';
-import 'instructor.dart';
+import 'form.dart';
 
 
 class CoursePage extends ConsumerWidget {

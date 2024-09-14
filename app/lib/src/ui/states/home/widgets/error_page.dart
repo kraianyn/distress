@@ -18,8 +18,8 @@ class ErrorPage extends StatelessWidget {
 				children: [
 					const Icon(AppIcon.error),
 					Text(error.toString())
-				],
-			),
+				]
+			)
 		);
 	}
 }

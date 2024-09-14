@@ -10,11 +10,10 @@ import '../../providers/courses.dart';
 import '../../providers/locations.dart';
 import '../../providers/pages/location.dart';
 
-import '../../widgets/entity_title.dart';
-import '../../widgets/tiles/course.dart';
+import '../../widgets/entity_page.dart';
+import '../schedule/tile.dart';
 
-import '../forms/location.dart';
-import 'entity.dart';
+import 'form.dart';
 
 
 class LocationPage extends ConsumerWidget {

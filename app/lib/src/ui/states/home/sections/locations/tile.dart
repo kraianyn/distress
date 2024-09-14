@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:distress/src/domain/entities/location.dart';
 
-import '../../sections/pages/location.dart';
-import 'entity.dart';
+import '../../widgets/entity_tile.dart';
+import 'page.dart';
 
 
 class LocationTile extends StatelessWidget {

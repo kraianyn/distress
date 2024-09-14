@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../providers/course_types.dart';
-import '../widgets/tiles/course_type.dart';
+import '../../providers/course_types.dart';
+import '../entities_section.dart';
 
-import 'entities_section.dart';
-import 'forms/course_type.dart';
+import 'form.dart';
+import 'tile.dart';
 
 
 class CourseTypesSection extends ConsumerWidget {

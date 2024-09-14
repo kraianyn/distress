@@ -55,8 +55,10 @@ Consider making access codes only valid for a period of time.
 
 # Code
 
+Represent no actions in `EntityPage.actions` with an empty list instead of `null`.
+
 Move authentication to the data layer.
 
 Define `IconData.widget => Icon(this)`
 
-Define `TitleText(text, context) => Text(text, Theme.of(context).textTheme.titleMedium)
+Define `TitleText(text, context) => Text(text, Theme.of(context).textTheme.titleMedium)`

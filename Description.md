@@ -34,10 +34,14 @@ contains the name, the link on the map, and the courses scheduled there.
 
 # Users
 
-Permissions:
+Not all users are instructors. Some have other roles/permissions (actions), like managing 
+registration forms, calculating salaries etc. And not all instructors can manage 
+the schedule. To describe a user, they have a list of the relevant actions:
+
+- teaching
 - managing the schedule
 - calculating salaries
-- updating registration forms
+- managing registration forms
 - managing gift cards
 
 # Future features

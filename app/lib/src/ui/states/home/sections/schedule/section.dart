@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../providers/courses.dart';
-import '../providers/course_types.dart';
-import '../providers/instructors.dart';
-import '../providers/locations.dart';
+import '../../providers/courses.dart';
+import '../../providers/course_types.dart';
+import '../../providers/instructors.dart';
+import '../../providers/locations.dart';
 
-import '../widgets/tiles/course.dart';
-import 'entities_section.dart';
-import 'forms/course.dart';
+import '../entities_section.dart';
+
+import 'form.dart';
+import 'tile.dart';
 
 
 class ScheduleSection extends ConsumerWidget {

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../providers/locations.dart';
-import '../widgets/tiles/location.dart';
-
-import 'entities_section.dart';
-import 'forms/location.dart';
+import '../../providers/locations.dart';
+import 'tile.dart';
+import '../entities_section.dart';
+import 'form.dart';
 
 
 class LocationsSection extends ConsumerWidget {

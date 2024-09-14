@@ -10,11 +10,9 @@ import '../../providers/course_types.dart';
 import '../../providers/courses.dart';
 import '../../providers/pages/course_type.dart';
 
-import '../../widgets/tiles/course.dart';
-import '../../widgets/entity_title.dart';
-
-import '../forms/course_type.dart';
-import 'entity.dart';
+import '../../widgets/entity_page.dart';
+import '../schedule/tile.dart';
+import 'form.dart';
 
 
 class CourseTypePage extends ConsumerWidget {

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'package:distress/src/ui/core/app_icon.dart';
 
-import 'course_types.dart';
-import 'instructors.dart';
-import 'locations.dart';
-import 'schedule.dart';
+import 'course_types/section.dart';
+import 'instructors/section.dart';
+import 'locations/section.dart';
+import 'schedule/section.dart';
 import 'settings.dart';
 
 

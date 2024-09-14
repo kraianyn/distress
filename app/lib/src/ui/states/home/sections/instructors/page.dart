@@ -7,10 +7,8 @@ import 'package:distress/src/ui/core/app_icon.dart';
 import '../../providers/courses.dart';
 import '../../providers/instructors.dart';
 
-import '../../widgets/entity_title.dart';
-import '../../widgets/tiles/course.dart';
-
-import 'entity.dart';
+import '../../widgets/entity_page.dart';
+import '../schedule/tile.dart';
 
 
 class InstructorPage extends ConsumerWidget {

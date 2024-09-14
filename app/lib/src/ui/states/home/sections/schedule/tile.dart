@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:distress/src/domain/entities/course.dart';
 import 'package:distress/src/ui/core/date_time.dart';
 
-import '../../sections/pages/course.dart';
-import 'entity.dart';
+import 'page.dart';
+import '../../widgets/entity_tile.dart';
 
 
 class CourseTile extends StatelessWidget {
