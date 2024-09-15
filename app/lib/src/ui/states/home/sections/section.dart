@@ -6,7 +6,7 @@ import 'course_types/section.dart';
 import 'instructors/section.dart';
 import 'locations/section.dart';
 import 'schedule/section.dart';
-import 'settings.dart';
+import 'settings/settings.dart';
 
 
 enum Section {

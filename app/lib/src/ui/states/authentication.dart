@@ -1,14 +1,13 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:distress/src/domain/providers/user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../app.dart';
 
 import '../core/providers/app_state.dart';
-import '../core/providers/users_repository.dart';
+import '../core/providers/user.dart';
 
 
 class Authentication extends ConsumerWidget {
@@ -35,32 +34,19 @@ class Authentication extends ConsumerWidget {
 			accessToken: authentication.accessToken
 		);
 		final userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
-		ref.read(userIdNotifierProvider.notifier).set(userCredential.user!.uid);
+
+		ref.read(userNotifierProvider.notifier).init(userCredential.user!.uid);
 		await _setAppState(ref, userCredential);
 	}
 
 	Future<void> _setAppState(WidgetRef ref, UserCredential userCredential) async {
-		final repository = ref.read(usersRepositoryProvider);
+		final appStateNotifier = ref.read(appStateNotifierProvider.notifier);
 
-		AppState state;
 		if (userCredential.additionalUserInfo!.isNewUser) {
-			state = AppState.authorization;
+			appStateNotifier.set(AppState.authorization);
 		}
 		else {
-			final userHasAccess = await repository.userHasAccess();
-			if (userHasAccess) {
-				final user = repository.user();
-				if (user != null) {
-					state = AppState.home;
-				}
-				else {
-					state = AppState.userForm;
-				}
-			}
-			else {
-				state = AppState.authorization;
-			}
+			await appStateNotifier.initWithUser();
 		}
-		ref.read(appStateNotifierProvider.notifier).set(state);
 	}
 }

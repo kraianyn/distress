@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../app.dart';
 
 import '../core/providers/app_state.dart';
+import '../core/providers/user.dart';
 import '../core/providers/users_repository.dart';
 
 
@@ -16,7 +17,7 @@ class UserForm extends HookConsumerWidget {
 		final codeNameField = useTextEditingController();
 
 		return Scaffold(
-			appBar: AppBar(title: const Text("Інформація")),
+			appBar: AppBar(title: const Text("Надання інформації")),
 			body: Column(
 				mainAxisAlignment: MainAxisAlignment.center,
 				children: [
@@ -34,7 +35,8 @@ class UserForm extends HookConsumerWidget {
 	}
 
 	Future<void> _handleInfo(WidgetRef ref, String codeName) async {
-		await ref.read(usersRepositoryProvider).setUserInfo(codeName);
+		ref.read(userNotifierProvider.notifier).addInfo(codeName);
+		await ref.read(usersRepositoryProvider).addUserInfo();
 		ref.read(appStateNotifierProvider.notifier).set(AppState.home);
 	}
 }

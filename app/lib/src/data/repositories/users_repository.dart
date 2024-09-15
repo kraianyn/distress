@@ -7,57 +7,49 @@ import '../types.dart';
 
 
 class UsersRepository {
-	UsersRepository({required this.userId});
+	const UsersRepository({required this.user});
 
-	final String userId;
-	late final DocumentSnapshot<ObjectMap> _userSnapshot;
+	final User user;
 
-	Future<bool> userHasAccess() async {
-		_userSnapshot = await _userDocument.get();
-		return _userSnapshot.exists;
+	Future<User?> existingUser() async {
+		final snapshot = await _userDocument.get();
+		if (!snapshot.exists) return null;
+
+		return UserModel.fromDocument(snapshot);
 	}
 
-	Future<List<String>?> permissions(String code) async {
+	Future<List<String>?> newUserPermissions(String code) async {
 		final snapshot = await _accessCodeDocument.get();
 		final data = snapshot.data()!;
 
 		return code == data[Field.code] ? List<String>.from(data[Field.permissions]) : null;
 	}
 
-	Future<void> initUser(User user) async {
+	Future<void> initUser() async {
 		await _userDocument.set({
 			Field.permissions: user.permissions
 		});
 	}
 
-	Future<void> setUserInfo(String codeName) async {
+	Future<void> addUserInfo() async {
 		await _userDocument.update({
-			Field.codeName: codeName
+			Field.codeName: user.codeName
 		});
-	}
-
-	User? user() {
-		if (!_userSnapshot.exists) return null;
-
-		final data = _userSnapshot.data()!;
-		final hasInfo = data.containsKey(Field.codeName);
-		return hasInfo ? UserModel.fromObject(_userSnapshot.id, data) : null;
 	}
 
 	Future<String> createAccessCode(List<String> permissions) async {
 		String code = DateTime.now().millisecondsSinceEpoch.toRadixString(36);
 		code = (code.split('')..shuffle()).join().toUpperCase();
-		await _accessCodeDocument.update({
+		await _accessCodeDocument.set({
 			Field.code: code,
 			Field.permissions: permissions
 		});
 		return code;
 	}
 
-	/// 
 	/// `codeName?:String,
 	/// permissions: List<String>`
-	DocumentReference<ObjectMap> get _userDocument => _collection.doc(userId);
+	DocumentReference<ObjectMap> get _userDocument => _collection.doc(user.id);
 
 	/// `code: String,
 	/// permissions: List<String>`

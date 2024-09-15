@@ -6,7 +6,7 @@ part of 'users_repository.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$usersRepositoryHash() => r'7566749790c4eed2dfc97d82fc31548d851030a4';
+String _$usersRepositoryHash() => r'b211003a5cc6b7ff751a37babc3df293d7cb2ceb';
 
 /// See also [usersRepository].
 @ProviderFor(usersRepository)
@@ -16,11 +16,8 @@ final usersRepositoryProvider = Provider<UsersRepository>.internal(
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
       : _$usersRepositoryHash,
-  dependencies: <ProviderOrFamily>[userIdNotifierProvider],
-  allTransitiveDependencies: <ProviderOrFamily>{
-    userIdNotifierProvider,
-    ...?userIdNotifierProvider.allTransitiveDependencies
-  },
+  dependencies: null,
+  allTransitiveDependencies: null,
 );
 
 typedef UsersRepositoryRef = ProviderRef<UsersRepository>;

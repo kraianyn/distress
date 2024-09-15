@@ -1,28 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:distress/src/ui/core/open_page.dart';
 import 'package:distress/src/ui/core/providers/users_repository.dart';
 
-import '../widgets/error_page.dart';
-import '../widgets/loading_page.dart';
+import '../../widgets/error_page.dart';
+import '../../widgets/loading_page.dart';
 
-
-class SettingsSection extends StatelessWidget {
-	const SettingsSection();
-
-	@override
-	Widget build(BuildContext context) {
-		return Scaffold(
-			body: Center(child: FilledButton(
-				child: const Icon(Icons.person_add),
-				onPressed: () => openPage(context, (_) => const NewUserPage())
-			))
-		);
-	}
-}
 
 class NewUserPage extends HookWidget {
 	const NewUserPage();
@@ -30,7 +16,7 @@ class NewUserPage extends HookWidget {
 	@override
 	Widget build(BuildContext context) {
 		final showForm = useState(true);
-		final permissions = useState(<String>[]);
+		final permissions = useRef(<String>[]);
 
 		return Scaffold(
 			appBar: AppBar(
@@ -38,12 +24,25 @@ class NewUserPage extends HookWidget {
 				automaticallyImplyLeading: false
 			),
 			body: showForm.value
-				? Center(child: FilledButton(
-					child: const Text("Створити код"),
-					onPressed: () => showForm.value = false
-				))
+				? PermissionsForm(onCreateCode: () => showForm.value = false)
 				: AccessCodeCreationWidget(permissions.value)
 		);
+	}
+}
+
+class PermissionsForm extends StatelessWidget {
+	const PermissionsForm({required this.onCreateCode});
+
+	final void Function() onCreateCode;
+
+	@override
+	Widget build(BuildContext context) {
+		return Column (children: [
+			FilledButton(
+				child: const Text("Створити код"),
+				onPressed: onCreateCode
+			)
+		]);
 	}
 }
 
