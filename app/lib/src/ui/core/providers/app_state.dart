@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../app.dart';
@@ -13,10 +12,9 @@ part 'app_state.g.dart';
 class AppStateNotifier extends _$AppStateNotifier {
 	@override
 	AppState build() {
-		final user = FirebaseAuth.instance.currentUser;
+		final user = ref.read(userNotifierProvider);
 		if (user == null) return AppState.authentication;
 
-		ref.read(userNotifierProvider.notifier).init(user.uid);
 		initWithUser();
 		return AppState.determiningUserStatus;
 	}
