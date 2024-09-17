@@ -3,6 +3,19 @@
 - Дистрес
 - Розряд
 
+# Attending a course
+
+1. The students fills the registration form.
+1. The training center (TC) provides the payment info.
+1. The student pays for the course.
+1. The TC adds the student to the course chat.
+1. The lead instructor takes roll.
+1. The students complete the course.
+1. The TC writes out the certificates.
+1. The TC creates a feedback form.
+1. The students fill the feedback form.
+1. The instructors check the form for new responses.
+
 # UI Sections
 
 ## Schedule

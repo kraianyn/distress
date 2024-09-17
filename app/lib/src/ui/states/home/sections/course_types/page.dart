@@ -29,6 +29,10 @@ class CourseTypePage extends ConsumerWidget {
 		return EntityPage(
 			content: [
 				EntityTitle(type.name),
+				ListTile(
+					title: Text("${type.courseCount} курсів"),
+					leading: const Icon(AppIcon.courseCount)
+				),
 				const ListTile(),
 				...relevantCourses.map((course) => CourseTile(
 					course,

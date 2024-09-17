@@ -1,6 +1,7 @@
 abstract class Field {
 	static const code = 'code';
 	static const codeName = 'codeName';
+	static const courseCount = 'courseCount';
 	static const date = 'date';
 	static const instructors = 'instructors';
 	static const link = 'link';

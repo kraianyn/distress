@@ -11,6 +11,7 @@ abstract class AppIcon {
 	static const location = Icons.place;
 	static const settings = Icons.settings;
 
+	static const courseCount = Icons.numbers;
 	static const date = Icons.today;
 	static const note = Icons.short_text;
 	static const link = Icons.link;

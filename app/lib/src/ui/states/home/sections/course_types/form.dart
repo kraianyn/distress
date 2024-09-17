@@ -18,25 +18,35 @@ class CourseTypeForm extends HookConsumerWidget {
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
 		final nameField = useTextEditingController(text: type?.name);
+		final courseCountField = useTextEditingController(text: type?.courseCount.toString());
 
 		return Scaffold(
-			body: Center(
-				child: TextField(
-					controller: nameField,
-					decoration: const InputDecoration(hintText: "Назва")
-				)
+			body: Column(
+				mainAxisAlignment: MainAxisAlignment.center,
+				children: [
+					TextField(
+						controller: nameField,
+						decoration: const InputDecoration(hintText: "Назва")
+					),
+					TextField(
+						controller: courseCountField,
+						decoration: const InputDecoration(hintText: "Кількість проведених курсів")
+					)
+				]
 			),
 			floatingActionButton: FloatingActionButton(
 				child: const Icon(AppIcon.confirm),
 				onPressed: type == null
-					? () => _add(context, ref, nameField.text)
+					? () => _add(
+						context, ref, nameField.text, int.parse(courseCountField.text)
+					)
 					: () => _update(context, ref, nameField.text)
 			)
 		);
 	}
 
-	void _add(BuildContext context, WidgetRef ref, String name) {
-		final type = CourseType.created(name: name);
+	void _add(BuildContext context, WidgetRef ref, String name, int courseCount) {
+		final type = CourseType.created(name: name, courseCount: courseCount);
 		ref.read(courseTypesNotifierProvider.notifier).add(type);
 		Navigator.of(context).pop();
 	}

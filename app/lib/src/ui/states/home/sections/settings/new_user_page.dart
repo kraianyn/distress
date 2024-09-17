@@ -124,4 +124,3 @@ class AccessCodeCreationWidget extends HookConsumerWidget {
 		return ErrorPage(snapshot.error!);
 	}
 }
-
