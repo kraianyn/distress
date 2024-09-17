@@ -24,12 +24,15 @@ class InstructorForm extends HookConsumerWidget {
 			),
 			floatingActionButton: FloatingActionButton(
 				child: const Icon(AppIcon.confirm),
-				onPressed: () => _add(context, ref, codeNameField.text)
+				onPressed: () => _add(context, ref, codeNameField)
 			)
 		);
 	}
 
-	void _add(BuildContext context, WidgetRef ref, String codeName) {
+	void _add(BuildContext context, WidgetRef ref, TextEditingController codeNameField) {
+		final codeName = codeNameField.text.trim();
+		if (codeName.isEmpty) return;
+
 		final instructor = Instructor.created(codeName: codeName);
 		ref.read(instructorsNotifierProvider.notifier).add(instructor);
 		Navigator.of(context).pop();

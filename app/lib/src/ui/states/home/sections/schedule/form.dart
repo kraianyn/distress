@@ -110,7 +110,7 @@ class CourseForm extends HookConsumerWidget {
 						date.value,
 						location.value,
 						instructors.value,
-						noteField.text
+						noteField
 					)
 					: () => _update(
 						context,
@@ -119,7 +119,7 @@ class CourseForm extends HookConsumerWidget {
 						date.value!,
 						location.value!,
 						instructors.value,
-						noteField.text
+						noteField
 					)
 			)
 		);
@@ -147,7 +147,7 @@ class CourseForm extends HookConsumerWidget {
 		DateTime? date,
 		Location? location,
 		List<Instructor> instructors,
-		String noteString
+		TextEditingController noteField
 	) {
 		if (type == null || date == null || location == null || instructors.isEmpty) return;
 
@@ -156,7 +156,7 @@ class CourseForm extends HookConsumerWidget {
 			date: date,
 			location: location,
 			instructors: instructors,
-			note: _note(noteString)
+			note: _note(noteField)
 		);
 		ref.read(coursesNotifierProvider.notifier).add(course);
 		Navigator.of(context).pop();
@@ -169,9 +169,9 @@ class CourseForm extends HookConsumerWidget {
 		DateTime date,
 		Location location,
 		List<Instructor> instructors,
-		String noteString
+		TextEditingController noteField
 	) {
-		final note = _note(noteString);
+		final note = _note(noteField);
 		if (
 			type == course!.type
 			&& date == course!.date
@@ -192,7 +192,10 @@ class CourseForm extends HookConsumerWidget {
 		Navigator.of(context).pop();
 	}
 
-	String? _note(String string) => string.isNotEmpty ? string : null;
+	String? _note(TextEditingController field) {
+		final string = field.text.trim();
+		return string.isNotEmpty ? string : null;
+	}
 }
 
 

@@ -27,14 +27,17 @@ class UserForm extends HookConsumerWidget {
 					),
 					FilledButton(
 						child: const Icon(Icons.send),
-						onPressed: () => _handleInfo(ref, codeNameField.text)
+						onPressed: () => _addInfo(ref, codeNameField)
 					)
 				]
 			)
 		);
 	}
 
-	Future<void> _handleInfo(WidgetRef ref, String codeName) async {
+	Future<void> _addInfo(WidgetRef ref, TextEditingController codeNameField) async {
+		final codeName = codeNameField.text.trim();
+		if (codeName.isEmpty) return;
+
 		ref.read(userNotifierProvider.notifier).addInfo(codeName);
 		await ref.read(usersRepositoryProvider).addUserInfo();
 		ref.read(appStateNotifierProvider.notifier).set(AppState.home);

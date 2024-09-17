@@ -2,7 +2,7 @@
 
 ## Do
 
-Validate new entities.
+Make the user know if entity forms are invalid.
 
 Make the user know if the access code is wrong.
 
@@ -54,6 +54,8 @@ Rename the `data` collection to `schedule`.
 Consider making access codes only valid for a period of time.
 
 # Code
+
+Create classes for form data to avoid duplication of field processing logic.
 
 Represent no actions in `EntityPage.actions` with an empty list instead of `null`.
 

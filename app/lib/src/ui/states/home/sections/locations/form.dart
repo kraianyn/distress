@@ -40,19 +40,33 @@ class LocationForm extends HookConsumerWidget {
 			floatingActionButton: FloatingActionButton(
 				child: const Icon(AppIcon.confirm),
 				onPressed: location ==  null
-					? () => _add(context, ref, nameField.text, linkField.text)
-					: () => _update(context, ref, nameField.text, linkField.text)
+					? () => _add(context, ref, nameField, linkField)
+					: () => _update(context, ref, nameField, linkField)
 			)
 		);
 	}
 
-	void _add(BuildContext context, WidgetRef ref, String name, String link) {
+	void _add(
+		BuildContext context,
+		WidgetRef ref,
+		TextEditingController nameField,
+		TextEditingController linkField
+	) {
+		final name = nameField.text.trim(), link = linkField.text.trim();
+		if (name.isEmpty || link.isEmpty) return;
+
 		final location = Location.created(name: name, link: link);
 		ref.read(locationsNotifierProvider.notifier).add(location);
 		Navigator.of(context).pop();
 	}
 
-	void _update(BuildContext context, WidgetRef ref, String name, String link) {
+	void _update(
+		BuildContext context,
+		WidgetRef ref,
+		TextEditingController nameField,
+		TextEditingController linkField
+	) {
+		final name = nameField.text.trim(), link = linkField.text.trim();
 		if (name == location!.name && link == location!.link) return;
 
 		final updatedLocation = location!.copyWith(name: name, link: link);

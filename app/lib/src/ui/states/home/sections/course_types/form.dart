@@ -28,7 +28,7 @@ class CourseTypeForm extends HookConsumerWidget {
 						controller: nameField,
 						decoration: const InputDecoration(hintText: "Назва")
 					),
-					TextField(
+					if (type == null) TextField(
 						controller: courseCountField,
 						decoration: const InputDecoration(hintText: "Кількість проведених курсів")
 					)
@@ -37,21 +37,29 @@ class CourseTypeForm extends HookConsumerWidget {
 			floatingActionButton: FloatingActionButton(
 				child: const Icon(AppIcon.confirm),
 				onPressed: type == null
-					? () => _add(
-						context, ref, nameField.text, int.parse(courseCountField.text)
-					)
-					: () => _update(context, ref, nameField.text)
+					? () => _add(context, ref, nameField, courseCountField)
+					: () => _update(context, ref, nameField)
 			)
 		);
 	}
 
-	void _add(BuildContext context, WidgetRef ref, String name, int courseCount) {
+	void _add(
+		BuildContext context,
+		WidgetRef ref,
+		TextEditingController nameField,
+		TextEditingController courseCountField
+	) {
+		final name = nameField.text.trim();
+		final courseCount = int.tryParse(courseCountField.text);
+		if (name.isEmpty || courseCount == null) return;
+
 		final type = CourseType.created(name: name, courseCount: courseCount);
 		ref.read(courseTypesNotifierProvider.notifier).add(type);
 		Navigator.of(context).pop();
 	}
 
-	void _update(BuildContext context, WidgetRef ref, String name) {
+	void _update(BuildContext context, WidgetRef ref, TextEditingController nameField) {
+		final name = nameField.text.trim();
 		if (name == type!.name) return;
 
 		final updatedType = type!.copyWith(name: name);

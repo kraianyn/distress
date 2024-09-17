@@ -14,17 +14,17 @@ class Authorization extends HookConsumerWidget {
 
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
-		final field = useTextEditingController();
+		final codeField = useTextEditingController();
 
 		return Scaffold(
 			appBar: AppBar(title: const Text("Отримання доступу")),
 			body: Column(
 				mainAxisAlignment: MainAxisAlignment.center,
 				children: [
-					TextField(controller: field),
+					TextField(controller: codeField),
 					FilledButton(
 						child: const Icon(Icons.send),
-						onPressed: () => _handleCode(ref, field)
+						onPressed: () => _handleCode(ref, codeField)
 					)
 				]
 			)
@@ -32,8 +32,11 @@ class Authorization extends HookConsumerWidget {
 	}
 
 	Future<void> _handleCode(WidgetRef ref, TextEditingController field) async {
+		final code = field.text.trim();
+		if (code.isEmpty) return;
+
 		final repository = ref.read(usersRepositoryProvider);
-		final actions = await repository.newUserActions(field.text.trim());
+		final actions = await repository.newUserActions(code);
 
 		if (actions != null) {
 			ref.read(userNotifierProvider.notifier).addActions(actions);
