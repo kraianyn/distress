@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 
 abstract class AppIcon {
+	static const addUser = Icons.person_add;
+	static const signOut = Icons.no_accounts;
+
 	static const schedule = Icons.calendar_month;
 	static const courseType = Icons.school;
 	static const instructors = Icons.group;

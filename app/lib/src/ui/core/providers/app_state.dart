@@ -38,5 +38,10 @@ class AppStateNotifier extends _$AppStateNotifier {
 		}
 	}
 
+	Future<void> signOut() async {
+		await ref.read(userNotifierProvider.notifier).signOut();
+		state = AppState.authentication;
+	}
+
 	void set(AppState appState) => state = appState;
 }

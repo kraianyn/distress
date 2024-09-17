@@ -28,4 +28,6 @@ class UserNotifier extends _$UserNotifier {
 	);
 
 	void set(User user) => state = user;
+
+	Future<void> signOut() => FirebaseAuth.instance.signOut();
 }

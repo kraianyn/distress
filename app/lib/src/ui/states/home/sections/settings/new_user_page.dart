@@ -70,7 +70,7 @@ class UserActionsForm extends HookWidget {
 	}
 }
 
-class ActionTile extends StatelessWidget {
+class ActionTile extends HookWidget {
 	const ActionTile({
 		required this.title,
 		required this.state

@@ -1,20 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'package:distress/src/ui/core/app_icon.dart';
 import 'package:distress/src/ui/core/open_page.dart';
+import 'package:distress/src/ui/core/providers/app_state.dart';
 
 import 'new_user_page.dart';
 
 
-class SettingsSection extends StatelessWidget {
+class SettingsSection extends ConsumerWidget {
 	const SettingsSection();
 
 	@override
-	Widget build(BuildContext context) {
+	Widget build(BuildContext context, WidgetRef ref) {
 		return Scaffold(
-			body: Center(child: FilledButton(
-				child: const Icon(Icons.person_add),
-				onPressed: () => openPage(context, (_) => const NewUserPage())
-			))
+			body: Container(
+				alignment: Alignment.center,
+				child: Column(
+					mainAxisAlignment: MainAxisAlignment.center,
+					children: [
+						FilledButton(
+							child: const Icon(AppIcon.addUser),
+							onPressed: () => openPage(context, (_) => const NewUserPage())
+						),
+						FilledButton(
+							child: const Icon(AppIcon.signOut),
+							onPressed: ref.read(appStateNotifierProvider.notifier).signOut
+						)
+					]
+				)
+			)
 		);
 	}
 }
