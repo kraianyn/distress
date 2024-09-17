@@ -7,7 +7,7 @@ abstract class Field {
 	static const location = 'location';
 	static const name = 'name';
 	static const note = 'note';
-	static const permissions = 'permissions';
+	static const actions = 'actions';
 	static const type = 'type';
 }
 

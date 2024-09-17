@@ -16,15 +16,15 @@ class UserNotifier extends _$UserNotifier {
 
 	void init(String id) => state = User(id: id);
 
-	void addPermissions(List<String> permissions) => state = User(
+	void addActions(List<UserAction> actions) => state = User(
 		id: state!.id,
-		permissions: permissions
+		actions: actions
 	);
 
 	void addInfo(String codeName) => state = User(
 		id: state!.id,
 		codeName: codeName,
-		permissions: state!.permissions
+		actions: state!.actions
 	);
 
 	void set(User user) => state = user;

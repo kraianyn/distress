@@ -13,21 +13,20 @@ class UsersRepository {
 
 	Future<User?> existingUser() async {
 		final snapshot = await _userDocument.get();
-		if (!snapshot.exists) return null;
-
-		return UserModel.fromDocument(snapshot);
+		return snapshot.exists ? UserModel.fromDocument(snapshot) : null;
 	}
 
-	Future<List<String>?> newUserPermissions(String code) async {
+	Future<List<UserAction>?> newUserActions(String code) async {
 		final snapshot = await _accessCodeDocument.get();
 		final data = snapshot.data()!;
-
-		return code == data[Field.code] ? List<String>.from(data[Field.permissions]) : null;
+		return code == data[Field.code]
+			? UserModel.actionsFromDocument(data[Field.actions])
+			: null;
 	}
 
 	Future<void> initUser() async {
 		await _userDocument.set({
-			Field.permissions: user.permissions
+			Field.actions: user.actions
 		});
 	}
 
@@ -37,22 +36,22 @@ class UsersRepository {
 		});
 	}
 
-	Future<String> createAccessCode(List<String> permissions) async {
+	Future<String> createAccessCode(List<UserAction> actions) async {
 		String code = DateTime.now().millisecondsSinceEpoch.toRadixString(36);
 		code = (code.split('')..shuffle()).join().toUpperCase();
 		await _accessCodeDocument.set({
 			Field.code: code,
-			Field.permissions: permissions
+			Field.actions: actions.map((a) => a.name).toList()
 		});
 		return code;
 	}
 
 	/// `codeName?:String,
-	/// permissions: List<String>`
+	/// actions: List<String>`
 	DocumentReference<ObjectMap> get _userDocument => _collection.doc(user.id);
 
 	/// `code: String,
-	/// permissions: List<String>`
+	/// actions: List<String>`
 	DocumentReference<ObjectMap> get _accessCodeDocument => _collection.doc('accessCode');
 
 	CollectionReference<ObjectMap> get _collection => FirebaseFirestore.instance.collection('users');

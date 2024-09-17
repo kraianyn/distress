@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'package:distress/src/domain/user.dart';
 import 'package:distress/src/ui/core/providers/users_repository.dart';
 
 import '../../widgets/error_page.dart';
@@ -16,7 +17,7 @@ class NewUserPage extends HookWidget {
 	@override
 	Widget build(BuildContext context) {
 		final showForm = useState(true);
-		final permissions = useRef(<String>[]);
+		final actions = useRef(<UserAction>[]);
 
 		return Scaffold(
 			appBar: AppBar(
@@ -24,39 +25,88 @@ class NewUserPage extends HookWidget {
 				automaticallyImplyLeading: false
 			),
 			body: showForm.value
-				? PermissionsForm(onCreateCode: () => showForm.value = false)
-				: AccessCodeCreationWidget(permissions.value)
+				? UserActionsForm(
+					actions: actions,
+					onCreateCode: () => showForm.value = false
+				)
+				: AccessCodeCreationWidget(actions.value)
 		);
 	}
 }
 
-class PermissionsForm extends StatelessWidget {
-	const PermissionsForm({required this.onCreateCode});
+class UserActionsForm extends HookWidget {
+	const UserActionsForm({
+		required this.actions,
+		required this.onCreateCode
+	});
 
+	final ObjectRef<List<UserAction>> actions;
 	final void Function() onCreateCode;
 
 	@override
 	Widget build(BuildContext context) {
-		return Column (children: [
-			FilledButton(
-				child: const Text("Створити код"),
-				onPressed: onCreateCode
-			)
-		]);
+		final isInstructor = useRef(true);
+		final canManageSchedule = useRef(false);
+
+		return Column (
+			mainAxisAlignment: MainAxisAlignment.center,
+			children: [
+				ActionTile(title: "Інструктор", state: isInstructor),
+				ActionTile(title: "Може змінювати розклад", state: canManageSchedule,),
+				FilledButton(
+					child: const Text("Створити код"),
+					onPressed: () => _create(isInstructor.value, canManageSchedule.value)
+				)
+			]
+		);
+	}
+
+	void _create(bool isInstructor, bool canManageSchedule) {
+		actions.value = [
+			if (isInstructor) UserAction.teaching,
+			if (canManageSchedule) UserAction.managingSchedule
+		];
+		onCreateCode();
+	}
+}
+
+class ActionTile extends StatelessWidget {
+	const ActionTile({
+		required this.title,
+		required this.state
+	});
+
+	final String title;
+	final ObjectRef<bool> state;
+
+	@override
+	Widget build(BuildContext context) {
+		final currentState = useState(state.value);
+
+		return SwitchListTile(
+			title: Text(title),
+			value: currentState.value,
+			onChanged: (newState) => _onSwitch(newState, currentState)
+		);
+	}
+
+	void _onSwitch(bool newState, ValueNotifier<bool> currentState) {
+		currentState.value = newState;
+		state.value = newState;
 	}
 }
 
 class AccessCodeCreationWidget extends HookConsumerWidget {
-	const AccessCodeCreationWidget(this.permissions);
+	const AccessCodeCreationWidget(this.actions);
 
-	final List<String> permissions;
+	final List<UserAction> actions;
 
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
 		final snapshot = useFuture(useMemoized(
-			() => ref.read(usersRepositoryProvider).createAccessCode(permissions)
+			() => ref.read(usersRepositoryProvider).createAccessCode(actions)
 		));
-		
+
 		if (snapshot.connectionState == ConnectionState.waiting) {
 			return const LoadingPage();
 		}
@@ -74,3 +124,4 @@ class AccessCodeCreationWidget extends HookConsumerWidget {
 		return ErrorPage(snapshot.error!);
 	}
 }
+

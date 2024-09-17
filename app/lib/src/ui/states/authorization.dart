@@ -33,10 +33,10 @@ class Authorization extends HookConsumerWidget {
 
 	Future<void> _handleCode(WidgetRef ref, TextEditingController field) async {
 		final repository = ref.read(usersRepositoryProvider);
-		final permissions = await repository.newUserPermissions(field.text.trim());
+		final actions = await repository.newUserActions(field.text.trim());
 
-		if (permissions != null) {
-			ref.read(userNotifierProvider.notifier).addPermissions(permissions);
+		if (actions != null) {
+			ref.read(userNotifierProvider.notifier).addActions(actions);
 			await repository.initUser();
 			ref.read(appStateNotifierProvider.notifier).set(AppState.userForm);
 		}

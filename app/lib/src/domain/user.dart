@@ -2,15 +2,15 @@ class User {
 	const User({
 		required this.id,
 		this.codeName,
-		this.permissions
+		this.actions
 	});
 
 	final String id;
 	final String? codeName;
-	final List<String>? permissions;
+	final List<UserAction>? actions;
 }
 
-enum Permission {
+enum UserAction {
 	teaching,
 	managingSchedule
 }

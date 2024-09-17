@@ -9,7 +9,7 @@ class UserModel extends User {
 	const UserModel({
 		required super.id,
 		super.codeName,
-		required super.permissions
+		required super.actions
 	});
 
 	factory UserModel.fromDocument(DocumentSnapshot<ObjectMap> snapshot) {
@@ -17,7 +17,13 @@ class UserModel extends User {
 		return UserModel(
 			id: snapshot.id,
 			codeName: data[Field.codeName] as String?,
-			permissions: List<String>.from(data[Field.permissions])
+			actions: actionsFromDocument(data[Field.actions])
 		);
+	}
+
+	static List<UserAction> actionsFromDocument(dynamic list) {
+		return List<String>.from(list).map(
+			(name) => UserAction.values.firstWhere((a) => a.name == name)
+		).toList();
 	}
 }
