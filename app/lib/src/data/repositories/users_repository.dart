@@ -19,9 +19,10 @@ class UsersRepository {
 	Future<List<UserAction>?> newUserActions(String code) async {
 		final snapshot = await _accessCodeDocument.get();
 		final data = snapshot.data()!;
-		return code == data[Field.code]
-			? UserModel.actionsFromDocument(data[Field.actions])
-			: null;
+		if (code != data[Field.code]) return null;
+
+		_accessCodeDocument.delete();
+		return UserModel.actionsFromDocument(data[Field.actions]);
 	}
 
 	Future<void> initUser() async {

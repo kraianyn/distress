@@ -30,10 +30,9 @@ the instructors, and an optional note.
 ## Course types
 
 This section is for what courses there are, i.e. the course types: Trauma care, 
-BLS, TCCC ASM... They are split into military and non-military ones.
-
-The page of a course type contains the name, the duration, the instructors 
-needed, the price, and the capacity.
+BLS, TCCC ASM... They are split into military and non-military ones. The page of 
+a course type contains the name, the duration, the instructors needed, the price, 
+and the capacity.
 
 ## Instructors
 
@@ -43,7 +42,7 @@ instructor contains the name, the role, the contact info (phone number, email).
 ## Locations
 
 This section is for the locations where courses are held. The page of a location 
-contains the name, the link on the map, and the courses scheduled there.
+contains the name and the link on the map.
 
 # Users
 

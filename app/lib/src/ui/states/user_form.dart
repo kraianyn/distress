@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../app.dart';
+import 'package:distress/src/domain/entities/instructor.dart';
 
 import '../core/providers/app_state.dart';
 import '../core/providers/user.dart';
 import '../core/providers/users_repository.dart';
+
+import '../app.dart';
+import 'home/providers/schedule_repository.dart';
 
 
 class UserForm extends HookConsumerWidget {
@@ -39,7 +42,12 @@ class UserForm extends HookConsumerWidget {
 		if (codeName.isEmpty) return;
 
 		ref.read(userNotifierProvider.notifier).addInfo(codeName);
-		await ref.read(usersRepositoryProvider).addUserInfo();
+		await Future.wait([
+			ref.read(usersRepositoryProvider).addUserInfo(),
+			ref.read(scheduleRepositoryProvider).addInstructor(
+				Instructor.created(codeName: codeName)
+			)
+		]);
 		ref.read(appStateNotifierProvider.notifier).set(AppState.home);
 	}
 }
