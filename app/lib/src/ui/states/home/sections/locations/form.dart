@@ -11,6 +11,8 @@ import '../../providers/courses.dart';
 import '../../providers/locations.dart';
 import '../../providers/pages/location.dart';
 
+import '../../widgets/entity_form.dart';
+
 
 class LocationForm extends HookConsumerWidget {
 	const LocationForm([this.location]);
@@ -22,32 +24,26 @@ class LocationForm extends HookConsumerWidget {
 		final nameField = useTextEditingController(text: location?.name);
 		final linkField = useTextEditingController(text: location?.link);
 
-		return Scaffold(
-			body: Column(
-				mainAxisAlignment: MainAxisAlignment.center,
-				children: [
-					TextField(
-						controller: nameField,
-						decoration: InputDecoration(
-							hintText: "Назва",
-							hintStyle: headlineHintTextStyle
-						)
-					),
-					TextField(
-						controller: linkField,
-						decoration: const InputDecoration(
-							icon: Icon(AppIcon.link),
-							hintText: "Посилання"
-						)
+		return EntityForm(
+			content: [
+				TextField(
+					controller: nameField,
+					decoration: InputDecoration(
+						hintText: "Назва",
+						hintStyle: headlineHintTextStyle
 					)
-				]
-			),
-			floatingActionButton: FloatingActionButton(
-				child: const Icon(AppIcon.confirm),
-				onPressed: location ==  null
-					? () => _add(context, ref, nameField, linkField)
-					: () => _update(context, ref, nameField, linkField)
-			)
+				),
+				TextField(
+					controller: linkField,
+					decoration: const InputDecoration(
+						icon: Icon(AppIcon.link),
+						hintText: "Посилання"
+					)
+				)
+			],
+			onConfirm: location ==  null
+				? () => _add(context, ref, nameField, linkField)
+				: () => _update(context, ref, nameField, linkField)
 		);
 	}
 

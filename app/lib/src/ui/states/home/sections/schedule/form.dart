@@ -11,13 +11,15 @@ import 'package:distress/src/domain/entities/location.dart';
 import 'package:distress/src/ui/core/app_icon.dart';
 import 'package:distress/src/ui/core/date_time.dart';
 import 'package:distress/src/ui/core/open_page.dart';
-import 'package:distress/src/ui/core/theme.dart';
 
 import '../../providers/courses.dart';
 import '../../providers/course_types.dart';
 import '../../providers/instructors.dart';
 import '../../providers/locations.dart';
 import '../../providers/pages/course.dart';
+
+import '../../widgets/entity_form.dart';
+import '../../widgets/option_field.dart';
 
 
 class CourseForm extends HookConsumerWidget {
@@ -45,98 +47,70 @@ class CourseForm extends HookConsumerWidget {
 
 		final textTheme = Theme.of(context).textTheme;
 
-		return Scaffold(
-			body: Padding(
-				padding: const EdgeInsets.all(paddingSize),
-				child: Column(
-					mainAxisAlignment: MainAxisAlignment.center,
-					children: [
-						TextField(
-							controller: typeField,
-							style: textTheme.headlineMedium,
-							decoration: InputDecoration(
-								hintText: "Курс",
-								hintStyle: headlineHintTextStyle
-							),
-							readOnly: true,
-							onTap: () => openPage(context, (_) => OptionsPage(
-								options: types,
-								selected: type,
-								field: typeField
-							))
-						),
-						TextField(
-							controller: dateField,
-							style: textTheme.titleMedium,
-							decoration: const InputDecoration(
-								hintText: "Дата",
-								icon: Icon(AppIcon.date)
-							),
-							readOnly: true,
-							onTap: () => _askDate(context, date, dateField)
-						),
-						TextField(
-							controller: locationField,
-							style: textTheme.titleMedium,
-							decoration: const InputDecoration(
-								hintText: "Локація",
-								icon: Icon(AppIcon.location)
-							),
-							readOnly: true,
-							onTap: () => openPage(context, (_) => OptionsPage(
-								options: locations,
-								selected: location,
-								field: locationField
-							))
-						),
-						TextField(
-							controller: instructorsField,
-							style: textTheme.titleMedium,
-							decoration: const InputDecoration(
-								hintText: "Інструктори",
-								icon: Icon(AppIcon.instructors)
-							),
-							readOnly: true,
-							onTap: () => openPage(context, (_) => InstructorsOptionsPage(
-								options: instructorsOptions,
-								selected: instructors,
-								field: instructorsField)
-							)
-						),
-						TextField(
-							controller: noteField,
-							maxLines: null,
-							style: textTheme.titleMedium,
-							decoration: const InputDecoration(
-								hintText: "Нотатка",
-								icon: Icon(AppIcon.note)
-							)
-						)
-					]
+		return EntityForm(
+			content: [
+				OptionField(
+					controller: typeField,
+					name: "Курс",
+					isHeadline: true,
+					showOptions: () => openPage(context, (_) => OptionsPage(
+						options: types,
+						selected: type,
+						field: typeField
+					))
+				),
+				OptionField(
+					controller: dateField,
+					name: "Дата",
+					showOptions: () => _askDate(context, date, dateField)
+				),
+				OptionField(
+					controller: locationField,
+					name: "Локація",
+					showOptions: () => openPage(context, (_) => OptionsPage(
+						options: locations,
+						selected: location,
+						field: locationField
+					))
+				),
+				OptionField(
+					controller: instructorsField,
+					name: "Інструктори",
+					showOptions: () => openPage(context, (_) => InstructorsOptionsPage(
+						options: instructorsOptions,
+						selected: instructors,
+						field: instructorsField
+					))
+				),
+				TextField(
+					controller: noteField,
+					maxLines: null,
+					style: textTheme.titleMedium,
+					decoration: const InputDecoration(
+						hintText: "Нотатка",
+						icon: Icon(AppIcon.note)
+					)
 				)
-			),
-			floatingActionButton: FloatingActionButton(
-				child: const Icon(AppIcon.confirm),
-				onPressed: course == null
-					? () => _add(
-						context,
-						ref,
-						type.value,
-						date.value,
-						location.value,
-						instructors.value,
-						noteField
-					)
-					: () => _update(
-						context,
-						ref,
-						type.value!,
-						date.value!,
-						location.value!,
-						instructors.value,
-						noteField
-					)
-			)
+			],
+			onConfirm: course == null
+				? () => _add(
+					context,
+					ref,
+					type.value,
+					date.value,
+					location.value,
+					instructors.value,
+					noteField
+				)
+				: () => _update(
+					context,
+					ref,
+					type.value!,
+					date.value!,
+					location.value!,
+					instructors.value,
+					noteField
+				)
 		);
 	}
 
@@ -210,61 +184,6 @@ class CourseForm extends HookConsumerWidget {
 	String? _note(TextEditingController field) {
 		final string = field.text.trim();
 		return string.isNotEmpty ? string : null;
-	}
-}
-
-
-class OptionsPage<O> extends StatelessWidget {
-	const OptionsPage({
-		required this.options,
-		required this.selected,
-		required this.field
-	});
-
-	final Iterable<O> options;
-	final ObjectRef<O?> selected;
-	final TextEditingController field;
-
-	@override
-	Widget build(BuildContext context) {
-		return Scaffold(
-			body: Center(child: ListView(
-				shrinkWrap: true,
-				children: options.map((option) => OptionTile(
-					option: option,
-					selected: selected,
-					field: field
-				)).toList()
-			))
-		);
-	}
-}
-
-class OptionTile<O> extends HookWidget {
-	const OptionTile({
-		required this.option,
-		required this.selected,
-		required this.field
-	});
-
-	final O option;
-	final ObjectRef<O?> selected;
-	final TextEditingController field;
-
-	@override
-	Widget build(BuildContext context) {
-		final isSelected = useState(selected.value == option);
-
-		return ListTile(
-			title: Text(option.toString()),
-			selected: isSelected.value,
-			onTap: () {
-				selected.value = option;
-				isSelected.value = !isSelected.value;
-				field.text = option.toString();
-				Navigator.pop(context);
-			}
-		);
 	}
 }
 

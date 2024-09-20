@@ -11,6 +11,8 @@ import '../../providers/courses.dart';
 import '../../providers/course_types.dart';
 import '../../providers/pages/course_type.dart';
 
+import '../../widgets/entity_form.dart';
+
 
 class CourseTypeForm extends HookConsumerWidget {
 	const CourseTypeForm([this.type]);
@@ -22,32 +24,26 @@ class CourseTypeForm extends HookConsumerWidget {
 		final nameField = useTextEditingController(text: type?.name);
 		final courseCountField = useTextEditingController(text: type?.courseCount.toString());
 
-		return Scaffold(
-			body: Column(
-				mainAxisAlignment: MainAxisAlignment.center,
-				children: [
-					TextField(
-						controller: nameField,
-						decoration: InputDecoration(
-							hintText: "Назва",
-							hintStyle: headlineHintTextStyle
-						)
-					),
-					if (type == null) TextField(
-						controller: courseCountField,
-						decoration: const InputDecoration(
-							hintText: "Кількість проведених курсів",
-							icon: Icon(AppIcon.courseCount)
-						)
+		return EntityForm(
+			content: [
+				TextField(
+					controller: nameField,
+					decoration: InputDecoration(
+						hintText: "Назва",
+						hintStyle: headlineHintTextStyle
 					)
-				]
-			),
-			floatingActionButton: FloatingActionButton(
-				child: const Icon(AppIcon.confirm),
-				onPressed: type == null
-					? () => _add(context, ref, nameField, courseCountField)
-					: () => _update(context, ref, nameField)
-			)
+				),
+				if (type == null) TextField(
+					controller: courseCountField,
+					decoration: const InputDecoration(
+						hintText: "Кількість проведених курсів",
+						icon: Icon(AppIcon.courseCount)
+					)
+				)
+			],
+			onConfirm: type == null
+				? () => _add(context, ref, nameField, courseCountField)
+				: () => _update(context, ref, nameField)
 		);
 	}
 
