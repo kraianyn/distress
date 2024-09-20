@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../app.dart';
+import '../core/app_icon.dart';
 
 import '../core/providers/app_state.dart';
 import '../core/providers/user.dart';
@@ -18,7 +19,7 @@ class Authentication extends ConsumerWidget {
 		return Scaffold(
 			appBar: AppBar(title: const Text("Автентифікація")),
 			body: Center(child: FilledButton(
-				child: const Icon(Icons.account_circle),
+				child: const Icon(AppIcon.account),
 				onPressed: () => _signIn(ref)
 			))
 		);

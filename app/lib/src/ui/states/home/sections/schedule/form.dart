@@ -62,11 +62,13 @@ class CourseForm extends HookConsumerWidget {
 				OptionField(
 					controller: dateField,
 					name: "Дата",
+					icon: AppIcon.date,
 					showOptions: () => _askDate(context, date, dateField)
 				),
 				OptionField(
 					controller: locationField,
 					name: "Локація",
+					icon: AppIcon.location,
 					showOptions: () => openPage(context, (_) => OptionsPage(
 						options: locations,
 						selected: location,
@@ -76,6 +78,7 @@ class CourseForm extends HookConsumerWidget {
 				OptionField(
 					controller: instructorsField,
 					name: "Інструктори",
+					icon: AppIcon.instructors,
 					showOptions: () => openPage(context, (_) => InstructorsOptionsPage(
 						options: instructorsOptions,
 						selected: instructors,

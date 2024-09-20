@@ -24,10 +24,13 @@ class CourseTypeForm extends HookConsumerWidget {
 		final nameField = useTextEditingController(text: type?.name);
 		final courseCountField = useTextEditingController(text: type?.courseCount.toString());
 
+		final textTheme = Theme.of(context).textTheme;
+
 		return EntityForm(
 			content: [
 				TextField(
 					controller: nameField,
+					style: textTheme.headlineMedium,
 					decoration: InputDecoration(
 						hintText: "Назва",
 						hintStyle: headlineHintTextStyle
@@ -35,6 +38,7 @@ class CourseTypeForm extends HookConsumerWidget {
 				),
 				if (type == null) TextField(
 					controller: courseCountField,
+					style: textTheme.titleMedium,
 					decoration: const InputDecoration(
 						hintText: "Кількість проведених курсів",
 						icon: Icon(AppIcon.courseCount)

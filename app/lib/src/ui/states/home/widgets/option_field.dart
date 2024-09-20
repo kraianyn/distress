@@ -8,12 +8,14 @@ class OptionField extends StatelessWidget {
 	const OptionField({
 		required this.controller,
 		required this.name,
+		this.icon,
 		this.isHeadline = false,
 		required this.showOptions
 	});
 
 	final TextEditingController controller;
 	final String name;
+	final IconData? icon;
 	final bool isHeadline;
 	final void Function() showOptions;
 
@@ -26,7 +28,8 @@ class OptionField extends StatelessWidget {
 			controller: controller,
 			style: textStyle,
 			decoration: InputDecoration(
-				hintText: "Курс",
+				hintText: name,
+				icon: icon != null ? Icon(icon) : null,
 				hintStyle: !isHeadline ? null : headlineHintTextStyle
 			),
 			readOnly: true,

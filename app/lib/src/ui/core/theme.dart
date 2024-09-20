@@ -17,11 +17,16 @@ final seed = ThemeData(
 );
 
 
-const iconColor = Colors.black;
-const hintTextColor = Color.fromRGBO(0, 0, 0, .6);
 const paddingSize = spacingUnit * 2.0;
 
-final headlineHintTextStyle = seed.textTheme.headlineMedium!.copyWith(
+const iconColor = Colors.black;
+const hintTextColor = Color.fromRGBO(0, 0, 0, .6);
+
+final headlineTextStyle = seed.textTheme.headlineMedium!;
+final codeTextStyle = headlineTextStyle.copyWith(
+	letterSpacing: headlineTextStyle.fontSize! / 2
+);
+final headlineHintTextStyle = headlineTextStyle.copyWith(
 	color: hintTextColor
 );
 

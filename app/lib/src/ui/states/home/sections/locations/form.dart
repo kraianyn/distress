@@ -24,10 +24,13 @@ class LocationForm extends HookConsumerWidget {
 		final nameField = useTextEditingController(text: location?.name);
 		final linkField = useTextEditingController(text: location?.link);
 
+		final textTheme = Theme.of(context).textTheme;
+
 		return EntityForm(
 			content: [
 				TextField(
 					controller: nameField,
+					style: textTheme.headlineMedium,
 					decoration: InputDecoration(
 						hintText: "Назва",
 						hintStyle: headlineHintTextStyle
@@ -35,6 +38,7 @@ class LocationForm extends HookConsumerWidget {
 				),
 				TextField(
 					controller: linkField,
+					style: textTheme.titleMedium,
 					decoration: const InputDecoration(
 						icon: Icon(AppIcon.link),
 						hintText: "Посилання"

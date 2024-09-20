@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 
 abstract class AppIcon {
+	static const account = Icons.account_circle;
 	static const addUser = Icons.person_add;
 	static const signOut = Icons.no_accounts;
 

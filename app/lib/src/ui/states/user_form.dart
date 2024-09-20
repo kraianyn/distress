@@ -1,14 +1,17 @@
+import 'package:distress/src/ui/core/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:distress/src/domain/entities/instructor.dart';
 
+import '../app.dart';
+import '../core/app_icon.dart';
+
 import '../core/providers/app_state.dart';
 import '../core/providers/user.dart';
 import '../core/providers/users_repository.dart';
 
-import '../app.dart';
 import 'home/providers/schedule_repository.dart';
 
 
@@ -21,18 +24,25 @@ class UserForm extends HookConsumerWidget {
 
 		return Scaffold(
 			appBar: AppBar(title: const Text("Надання інформації")),
-			body: Column(
-				mainAxisAlignment: MainAxisAlignment.center,
-				children: [
-					TextField(
-						controller: codeNameField,
-						decoration: const InputDecoration(hintText: "Позивний")
-					),
-					FilledButton(
-						child: const Icon(Icons.send),
-						onPressed: () => _addInfo(ref, codeNameField)
-					)
-				]
+			body: Padding(
+				padding: const EdgeInsets.all(paddingSize),
+				child: Column(
+					mainAxisAlignment: MainAxisAlignment.center,
+					children: [
+						TextField(
+							controller: codeNameField,
+							style: Theme.of(context).textTheme.titleMedium,
+							decoration: const InputDecoration(
+								hintText: "Позивний",
+								icon: Icon(AppIcon.account)
+							)
+						),
+						FilledButton(
+							child: const Icon(Icons.send),
+							onPressed: () => _addInfo(ref, codeNameField)
+						)
+					]
+				)
 			)
 		);
 	}

@@ -5,6 +5,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:distress/src/domain/user.dart';
+
+import 'package:distress/src/ui/core/theme.dart';
 import 'package:distress/src/ui/core/providers/users_repository.dart';
 
 import '../../widgets/error_page.dart';
@@ -115,10 +117,8 @@ class AccessCodeCreationWidget extends HookConsumerWidget {
 		if (snapshot.hasData) {
 			final code = snapshot.data!;
 			Clipboard.setData(ClipboardData(text: code));
-			return Center(child: Text(
-				code,
-				style: textStyle.copyWith(letterSpacing: textStyle.fontSize! / 2),
-			));
+
+			return Center(child: Text(code, style: codeTextStyle));
 		}
 
 		return ErrorPage(snapshot.error!);

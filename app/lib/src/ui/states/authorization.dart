@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../app.dart';
+import '../core/theme.dart';
 
 import '../core/providers/app_state.dart';
 import '../core/providers/user.dart';
@@ -21,7 +22,15 @@ class Authorization extends HookConsumerWidget {
 			body: Column(
 				mainAxisAlignment: MainAxisAlignment.center,
 				children: [
-					TextField(controller: codeField),
+					TextField(
+						controller: codeField,
+						style: codeTextStyle,
+						textAlign: TextAlign.center,
+						decoration: InputDecoration(
+							hintText: "Код",
+							hintStyle: headlineHintTextStyle
+						)
+					),
 					FilledButton(
 						child: const Icon(Icons.send),
 						onPressed: () => _handleCode(ref, codeField)
