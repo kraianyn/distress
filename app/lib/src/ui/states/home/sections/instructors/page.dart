@@ -40,6 +40,6 @@ class InstructorPage extends ConsumerWidget {
 	void _delete(BuildContext context, WidgetRef ref) {
 		ref.read(coursesNotifierProvider.notifier).removeInstructor(instructor);
 		ref.read(instructorsNotifierProvider.notifier).delete(instructor);
-		Navigator.of(context).pop();
+		Navigator.pop(context);
 	}
 }

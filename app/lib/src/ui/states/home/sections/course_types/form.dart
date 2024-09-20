@@ -55,7 +55,7 @@ class CourseTypeForm extends HookConsumerWidget {
 
 		final type = CourseType.created(name: name, courseCount: courseCount);
 		ref.read(courseTypesNotifierProvider.notifier).add(type);
-		Navigator.of(context).pop();
+		Navigator.pop(context);
 	}
 
 	void _update(BuildContext context, WidgetRef ref, TextEditingController nameField) {
@@ -66,6 +66,6 @@ class CourseTypeForm extends HookConsumerWidget {
 		ref.read(courseTypePageNotifierProvider(type!).notifier).update(updatedType);
 		ref.read(courseTypesNotifierProvider.notifier).updateType(updatedType);
 		ref.read(coursesNotifierProvider.notifier).updateType(updatedType);
-		Navigator.of(context).pop();
+		Navigator.pop(context);
 	}
 }

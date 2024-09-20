@@ -159,7 +159,7 @@ class CourseForm extends HookConsumerWidget {
 			note: _note(noteField)
 		);
 		ref.read(coursesNotifierProvider.notifier).add(course);
-		Navigator.of(context).pop();
+		Navigator.pop(context);
 	}
 
 	void _update(
@@ -189,7 +189,7 @@ class CourseForm extends HookConsumerWidget {
 		);
 		ref.read(coursePageNotifierProvider(course!).notifier).update(updatedCourse);
 		ref.read(coursesNotifierProvider.notifier).updateCourse(updatedCourse);
-		Navigator.of(context).pop();
+		Navigator.pop(context);
 	}
 
 	String? _note(TextEditingController field) {
@@ -247,7 +247,7 @@ class OptionTile<O> extends HookWidget {
 				selected.value = option;
 				isSelected.value = !isSelected.value;
 				field.text = option.toString();
-				Navigator.of(context).pop();
+				Navigator.pop(context);
 			}
 		);
 	}
@@ -267,23 +267,31 @@ class InstructorsOptionsPage extends StatelessWidget {
 
 	@override
 	Widget build(BuildContext context) {
-		return Scaffold(
-			body: Center(child: ListView(
-				shrinkWrap: true,
-				children: options.map((instructor) => InstructorOptionTile(
-					instructor: instructor,
-					selectedInstructors: selected
-				)).toList()
-			)),
-			floatingActionButton: FloatingActionButton(
-				child: const Icon(AppIcon.confirm),
-				onPressed: () {
-					selected.value.sort();
-					field.text = selected.value.join(', ');
-					Navigator.of(context).pop();
-				}
+		return PopScope(
+			onPopInvokedWithResult: (_, __) => _updateField(),
+			child: Scaffold(
+				body: Center(child: ListView(
+					shrinkWrap: true,
+					children: options.map((instructor) => InstructorOptionTile(
+						instructor: instructor,
+						selectedInstructors: selected
+					)).toList()
+				)),
+				floatingActionButton: FloatingActionButton(
+					child: const Icon(AppIcon.confirm),
+					onPressed: () => _confirm(context)
+				)
 			)
 		);
+	}
+
+	void _updateField() {
+		field.text = (selected.value..sort()).join(', ');
+	}
+
+	void _confirm(BuildContext context) {
+		_updateField();
+		Navigator.pop(context);
 	}
 }
 

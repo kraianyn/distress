@@ -2,11 +2,9 @@
 
 ## Do
 
-Make the user know if entity forms are invalid.
+Make the user know if field values are invalid.
 
-Make the user know if the access code is wrong.
-
-Make it impossible to access the course form if the need entities are empty.
+Make it impossible to access the course form if the needed entities are empty.
 
 Do not imply that the courses have been fetched on entity pages.
 
@@ -14,13 +12,6 @@ Add an ability to add entities when adding a course. Imply the added entity as
 the desired one.
 
 ## Fix
-
-When selecting instructors and closing the page by a gesture instead of the 
-button, the instructors are added to the list, but not to the field. The options are:
-- Treat the gesture as an alternative way to confirm the selection. Then update 
-the field when an instructor is selected, not when the button is pressed.
-- Treat the gesture as canceling the selection. Then create a separate list for the 
-selected instructors and only add them to the page list when the button is pressed.
 
 When updating an entity from a page opened from another entity page, the change 
 is not reflected on the first page.
@@ -42,6 +33,8 @@ Define `askFromOptions`, internally implementing the single-option case as a
 single-item list.
 
 ## Read
+
+How do forms work in Flutter?
 
 `@Riverpod(dependencies)`: What does it change? What is a scoped provider?
 

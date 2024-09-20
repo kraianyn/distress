@@ -8,5 +8,6 @@ part 'users_repository.g.dart';
 
 
 @Riverpod(keepAlive: true)
-UsersRepository usersRepository(UsersRepositoryRef ref) =>
-	UsersRepository(user: ref.watch(userNotifierProvider)!);
+UsersRepository usersRepository(UsersRepositoryRef ref) => UsersRepository(
+	user: ref.watch(userNotifierProvider)!
+);

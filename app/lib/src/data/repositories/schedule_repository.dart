@@ -48,28 +48,28 @@ class ScheduleRepository {
 	}
 
 	Future<List<CourseType>> courseTypes() async {
-		_courseTypesFuture ??= _courseTypes();
+		_courseTypesFuture ??= _simpleEntities(
+			_Document.courseTypes,
+			CourseTypeModel.fromEntry
+		);
 		return _courseTypesFuture!;
 	}
 
-	Future<List<CourseType>> _courseTypes() =>
-		_simpleEntities(_Document.courseTypes, CourseTypeModel.fromEntry);
-
 	Future<List<Location>> locations() async {
-		_locationsFuture ??= _locations();
+		_locationsFuture ??= _simpleEntities(
+			_Document.locations,
+			LocationModel.fromEntry
+		);
 		return _locationsFuture!;
 	}
 
-	Future<List<Location>> _locations() =>
-		_simpleEntities(_Document.locations, LocationModel.fromEntry);
-
 	Future<List<Instructor>> instructors() async {
-		_instructorsFuture ??= _instructors();
+		_instructorsFuture ??= _simpleEntities(
+			_Document.instructors,
+			InstructorModel.fromEntry
+		);
 		return _instructorsFuture!;
 	}
-
-	Future<List<Instructor>> _instructors() =>
-		_simpleEntities(_Document.instructors, InstructorModel.fromEntry);
 
 	Future<List<E>> _simpleEntities<E>(
 		_Document document,

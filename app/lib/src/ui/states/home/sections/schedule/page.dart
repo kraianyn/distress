@@ -77,12 +77,12 @@ class CoursePage extends ConsumerWidget {
 
 	TextSpan _instructorLink(BuildContext context, Instructor instructor) => TextSpan(
 		text: instructor.codeName,
-		recognizer: TapGestureRecognizer()
-			..onTap = () => openPage(context, (_) => InstructorPage(instructor))
+		recognizer: TapGestureRecognizer()..onTap = () =>
+			openPage(context, (_) => InstructorPage(instructor))
 	);
 
 	void _delete(BuildContext context, WidgetRef ref) {
 		ref.read(coursesNotifierProvider.notifier).delete(course);
-		Navigator.of(context).pop();
+		Navigator.pop(context);
 	}
 }

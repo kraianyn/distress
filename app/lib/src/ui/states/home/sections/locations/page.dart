@@ -55,6 +55,6 @@ class LocationPage extends ConsumerWidget {
 	void _delete(BuildContext context, WidgetRef ref) {
 		ref.read(coursesNotifierProvider.notifier).deleteWithLocation(location);
 		ref.read(locationsNotifierProvider.notifier).delete(location);
-		Navigator.of(context).pop();
+		Navigator.pop(context);
 	}
 }

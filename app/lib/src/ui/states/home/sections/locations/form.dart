@@ -57,7 +57,7 @@ class LocationForm extends HookConsumerWidget {
 
 		final location = Location.created(name: name, link: link);
 		ref.read(locationsNotifierProvider.notifier).add(location);
-		Navigator.of(context).pop();
+		Navigator.pop(context);
 	}
 
 	void _update(
@@ -73,6 +73,6 @@ class LocationForm extends HookConsumerWidget {
 		ref.read(locationPageNotifierProvider(location!).notifier).update(updatedLocation);
 		ref.read(locationsNotifierProvider.notifier).updateLocation(updatedLocation);
 		ref.read(coursesNotifierProvider.notifier).updateLocation(updatedLocation);
-		Navigator.of(context).pop();
+		Navigator.pop(context);
 	}
 }
