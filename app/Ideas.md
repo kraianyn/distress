@@ -11,6 +11,8 @@ Do not imply that the courses have been fetched on entity pages.
 Add an ability to add entities when adding a course. Imply the added entity as 
 the desired one.
 
+Make forms look like pages.
+
 ## Fix
 
 When updating an entity from a page opened from another entity page, the change 

@@ -16,7 +16,6 @@ class Home extends HookWidget {
 			body: section.value.widget,
 			bottomNavigationBar: NavigationBar(
 				selectedIndex: section.value.index,
-				labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
 				destinations: Section.values.map((section) => NavigationDestination(
 					icon: Icon(section.icon),
 					label: section.name

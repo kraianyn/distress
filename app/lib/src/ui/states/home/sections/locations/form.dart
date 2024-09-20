@@ -3,7 +3,9 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:distress/src/domain/entities/location.dart';
+
 import 'package:distress/src/ui/core/app_icon.dart';
+import 'package:distress/src/ui/core/theme.dart';
 
 import '../../providers/courses.dart';
 import '../../providers/locations.dart';
@@ -26,7 +28,10 @@ class LocationForm extends HookConsumerWidget {
 				children: [
 					TextField(
 						controller: nameField,
-						decoration: const InputDecoration(hintText: "Назва")
+						decoration: InputDecoration(
+							hintText: "Назва",
+							hintStyle: headlineHintTextStyle
+						)
 					),
 					TextField(
 						controller: linkField,

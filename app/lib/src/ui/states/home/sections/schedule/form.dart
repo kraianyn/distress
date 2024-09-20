@@ -11,6 +11,7 @@ import 'package:distress/src/domain/entities/location.dart';
 import 'package:distress/src/ui/core/app_icon.dart';
 import 'package:distress/src/ui/core/date_time.dart';
 import 'package:distress/src/ui/core/open_page.dart';
+import 'package:distress/src/ui/core/theme.dart';
 
 import '../../providers/courses.dart';
 import '../../providers/course_types.dart';
@@ -42,63 +43,77 @@ class CourseForm extends HookConsumerWidget {
 		final locations = ref.watch(locationsNotifierProvider).value!;
 		final instructorsOptions = ref.watch(instructorsNotifierProvider).value!;
 
+		final textTheme = Theme.of(context).textTheme;
+
 		return Scaffold(
-			body: Column(
-				mainAxisAlignment: MainAxisAlignment.center,
-				children: [
-					TextField(
-						controller: typeField,
-						decoration: const InputDecoration(hintText: "Курс"),
-						readOnly: true,
-						onTap: () => openPage(context, (_) => OptionsPage(
-							options: types,
-							selected: type,
-							field: typeField
-						))
-					),
-					TextField(
-						controller: dateField,
-						decoration: const InputDecoration(
-							icon: Icon(AppIcon.date),
-							hintText: "Дата"
+			body: Padding(
+				padding: const EdgeInsets.all(paddingSize),
+				child: Column(
+					mainAxisAlignment: MainAxisAlignment.center,
+					children: [
+						TextField(
+							controller: typeField,
+							style: textTheme.headlineMedium,
+							decoration: InputDecoration(
+								hintText: "Курс",
+								hintStyle: headlineHintTextStyle
+							),
+							readOnly: true,
+							onTap: () => openPage(context, (_) => OptionsPage(
+								options: types,
+								selected: type,
+								field: typeField
+							))
 						),
-						readOnly: true,
-						onTap: () => _askDate(context, date, dateField)
-					),
-					TextField(
-						controller: locationField,
-						decoration: const InputDecoration(
-							icon: Icon(AppIcon.location),
-							hintText: "Локація"
+						TextField(
+							controller: dateField,
+							style: textTheme.titleMedium,
+							decoration: const InputDecoration(
+								hintText: "Дата",
+								icon: Icon(AppIcon.date)
+							),
+							readOnly: true,
+							onTap: () => _askDate(context, date, dateField)
 						),
-						readOnly: true,
-						onTap: () => openPage(context, (_) => OptionsPage(
-							options: locations,
-							selected: location,
-							field: locationField
-						))
-					),
-					TextField(
-						controller: instructorsField,
-						decoration: const InputDecoration(
-							icon: Icon(AppIcon.instructors),
-							hintText: "Інструктори"
+						TextField(
+							controller: locationField,
+							style: textTheme.titleMedium,
+							decoration: const InputDecoration(
+								hintText: "Локація",
+								icon: Icon(AppIcon.location)
+							),
+							readOnly: true,
+							onTap: () => openPage(context, (_) => OptionsPage(
+								options: locations,
+								selected: location,
+								field: locationField
+							))
 						),
-						readOnly: true,
-						onTap: () => openPage(context, (_) => InstructorsOptionsPage(
-							options: instructorsOptions,
-							selected: instructors,
-							field: instructorsField)
+						TextField(
+							controller: instructorsField,
+							style: textTheme.titleMedium,
+							decoration: const InputDecoration(
+								hintText: "Інструктори",
+								icon: Icon(AppIcon.instructors)
+							),
+							readOnly: true,
+							onTap: () => openPage(context, (_) => InstructorsOptionsPage(
+								options: instructorsOptions,
+								selected: instructors,
+								field: instructorsField)
+							)
+						),
+						TextField(
+							controller: noteField,
+							maxLines: null,
+							style: textTheme.titleMedium,
+							decoration: const InputDecoration(
+								hintText: "Нотатка",
+								icon: Icon(AppIcon.note)
+							)
 						)
-					),
-					TextField(
-						controller: noteField,
-						decoration: const InputDecoration(
-							icon: Icon(AppIcon.note),
-							hintText: "Нотатка"
-						)
-					)
-				]
+					]
+				)
 			),
 			floatingActionButton: FloatingActionButton(
 				child: const Icon(AppIcon.confirm),

@@ -3,7 +3,9 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:distress/src/domain/entities/course_type.dart';
+
 import 'package:distress/src/ui/core/app_icon.dart';
+import 'package:distress/src/ui/core/theme.dart';
 
 import '../../providers/courses.dart';
 import '../../providers/course_types.dart';
@@ -26,11 +28,17 @@ class CourseTypeForm extends HookConsumerWidget {
 				children: [
 					TextField(
 						controller: nameField,
-						decoration: const InputDecoration(hintText: "Назва")
+						decoration: InputDecoration(
+							hintText: "Назва",
+							hintStyle: headlineHintTextStyle
+						)
 					),
 					if (type == null) TextField(
 						controller: courseCountField,
-						decoration: const InputDecoration(hintText: "Кількість проведених курсів")
+						decoration: const InputDecoration(
+							hintText: "Кількість проведених курсів",
+							icon: Icon(AppIcon.courseCount)
+						)
 					)
 				]
 			),
