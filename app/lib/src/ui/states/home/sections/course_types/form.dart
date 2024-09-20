@@ -53,7 +53,7 @@ class CourseTypeForm extends HookConsumerWidget {
 		final courseCount = int.tryParse(courseCountField.text);
 		if (name.isEmpty || courseCount == null) return;
 
-		final type = CourseType.created(name: name, courseCount: courseCount);
+		final type = CourseType.added(name: name, courseCount: courseCount);
 		ref.read(courseTypesNotifierProvider.notifier).add(type);
 		Navigator.pop(context);
 	}

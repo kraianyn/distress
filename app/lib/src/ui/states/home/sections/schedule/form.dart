@@ -151,7 +151,7 @@ class CourseForm extends HookConsumerWidget {
 	) {
 		if (type == null || date == null || location == null || instructors.isEmpty) return;
 
-		final course = Course.created(
+		final course = Course.added(
 			type: type,
 			date: date,
 			location: location,

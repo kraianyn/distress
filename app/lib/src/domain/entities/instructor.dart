@@ -7,8 +7,6 @@ class Instructor extends Entity {
 		required this.codeName
 	});
 
-	Instructor.created({required this.codeName}) : super.created(core: [codeName]);
-
 	final String codeName;
 
 	@override

@@ -35,12 +35,10 @@ class Authorization extends HookConsumerWidget {
 		final code = field.text.trim();
 		if (code.isEmpty) return;
 
-		final repository = ref.read(usersRepositoryProvider);
-		final actions = await repository.newUserActions(code);
-
+		final actions = await ref.read(usersRepositoryProvider).newUserActions(code);
 		if (actions != null) {
 			ref.read(userNotifierProvider.notifier).addActions(actions);
-			await repository.initUser();
+			await ref.read(usersRepositoryProvider).initUser();
 			ref.read(appStateNotifierProvider.notifier).set(AppState.userForm);
 		}
 	}

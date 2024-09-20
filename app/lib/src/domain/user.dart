@@ -8,6 +8,8 @@ class User {
 	final String id;
 	final String? codeName;
 	final List<UserAction>? actions;
+
+	bool get isInstructor => actions!.contains(UserAction.teaching);
 }
 
 enum UserAction {

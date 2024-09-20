@@ -27,7 +27,7 @@ class UsersRepository {
 
 	Future<void> initUser() async {
 		await _userDocument.set({
-			Field.actions: user.actions
+			Field.actions: user.actions!.map((a) => a.name)
 		});
 	}
 

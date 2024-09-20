@@ -8,10 +8,10 @@ class CourseType extends Entity {
 		required this.courseCount
 	});
 
-	CourseType.created({
+	CourseType.added({
 		required this.name,
 		required this.courseCount
-	}) : super.created(core: [name]);
+	}) : super.added(core: [name]);
 
 	final String name;
 	final int courseCount;

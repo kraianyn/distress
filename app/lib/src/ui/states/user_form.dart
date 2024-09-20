@@ -42,10 +42,11 @@ class UserForm extends HookConsumerWidget {
 		if (codeName.isEmpty) return;
 
 		ref.read(userNotifierProvider.notifier).addInfo(codeName);
+		final user = ref.read(userNotifierProvider)!;
 		await Future.wait([
 			ref.read(usersRepositoryProvider).addUserInfo(),
-			ref.read(scheduleRepositoryProvider).addInstructor(
-				Instructor.created(codeName: codeName)
+			if (user.isInstructor) ref.read(scheduleRepositoryProvider).addInstructor(
+				Instructor(id: user.id, codeName: codeName)
 			)
 		]);
 		ref.read(appStateNotifierProvider.notifier).set(AppState.home);
