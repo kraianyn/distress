@@ -31,6 +31,7 @@ class Authorization extends HookConsumerWidget {
 							hintStyle: headlineHintTextStyle
 						)
 					),
+					const ListTile(),
 					FilledButton(
 						child: const Icon(Icons.send),
 						onPressed: () => _handleCode(ref, codeField)

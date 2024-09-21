@@ -23,8 +23,10 @@ const iconColor = Colors.black;
 const hintTextColor = Color.fromRGBO(0, 0, 0, .6);
 
 final headlineTextStyle = seed.textTheme.headlineMedium!;
-final codeTextStyle = headlineTextStyle.copyWith(
-	letterSpacing: headlineTextStyle.fontSize! / 2
+final codeTextStyle = GoogleFonts.oxanium(
+	fontSize: 24,
+	fontWeight: FontWeight.w700,
+	letterSpacing: 10
 );
 final headlineHintTextStyle = headlineTextStyle.copyWith(
 	color: hintTextColor

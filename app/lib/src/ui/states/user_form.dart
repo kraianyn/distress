@@ -1,4 +1,3 @@
-import 'package:distress/src/ui/core/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -7,6 +6,7 @@ import 'package:distress/src/domain/entities/instructor.dart';
 
 import '../app.dart';
 import '../core/app_icon.dart';
+import '../core/theme.dart';
 
 import '../core/providers/app_state.dart';
 import '../core/providers/user.dart';
@@ -37,6 +37,7 @@ class UserForm extends HookConsumerWidget {
 								icon: Icon(AppIcon.account)
 							)
 						),
+						const ListTile(),
 						FilledButton(
 							child: const Icon(Icons.send),
 							onPressed: () => _addInfo(ref, codeNameField)

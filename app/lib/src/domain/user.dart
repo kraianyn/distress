@@ -14,5 +14,6 @@ class User {
 
 enum UserAction {
 	teaching,
-	managingSchedule
+	managingSchedule,
+	addingUsers
 }

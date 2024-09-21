@@ -18,57 +18,48 @@ class NewUserPage extends HookWidget {
 
 	@override
 	Widget build(BuildContext context) {
-		final showForm = useState(true);
-		final actions = useRef(<UserAction>[]);
+		final actions = useState<List<UserAction>?>(null);
 
 		return Scaffold(
 			appBar: AppBar(
 				title: const Text("Додання користувача"),
 				automaticallyImplyLeading: false
 			),
-			body: showForm.value
-				? UserActionsForm(
-					actions: actions,
-					onCreateCode: () => showForm.value = false
-				)
-				: AccessCodeCreationWidget(actions.value)
+			body: actions.value == null
+				? ActionsForm(onCreateCode: (givenActions) => actions.value = givenActions)
+				: AccessCodeCreationWidget(actions.value!)
 		);
 	}
 }
 
-class UserActionsForm extends HookWidget {
-	const UserActionsForm({
-		required this.actions,
-		required this.onCreateCode
-	});
+class ActionsForm extends HookWidget {
+	const ActionsForm({required this.onCreateCode});
 
-	final ObjectRef<List<UserAction>> actions;
-	final void Function() onCreateCode;
+	final void Function(List<UserAction>) onCreateCode;
 
 	@override
 	Widget build(BuildContext context) {
 		final isInstructor = useRef(true);
 		final canManageSchedule = useRef(false);
+		final canAddUsers = useRef(false);
 
 		return Column (
 			mainAxisAlignment: MainAxisAlignment.center,
 			children: [
 				ActionTile(title: "Інструктор", state: isInstructor),
-				ActionTile(title: "Може змінювати розклад", state: canManageSchedule,),
+				ActionTile(title: "Може змінювати розклад", state: canManageSchedule),
+				ActionTile(title: "Може додавати користувачів", state: canAddUsers),
+				const ListTile(),
 				FilledButton(
 					child: const Text("Створити код"),
-					onPressed: () => _create(isInstructor.value, canManageSchedule.value)
+					onPressed: () => onCreateCode([
+						if (isInstructor.value) UserAction.teaching,
+						if (canManageSchedule.value) UserAction.managingSchedule,
+						if (canAddUsers.value) UserAction.addingUsers,
+					])
 				)
 			]
 		);
-	}
-
-	void _create(bool isInstructor, bool canManageSchedule) {
-		actions.value = [
-			if (isInstructor) UserAction.teaching,
-			if (canManageSchedule) UserAction.managingSchedule
-		];
-		onCreateCode();
 	}
 }
 
@@ -113,7 +104,6 @@ class AccessCodeCreationWidget extends HookConsumerWidget {
 			return const LoadingPage();
 		}
 
-		final textStyle = Theme.of(context).textTheme.headlineMedium!;
 		if (snapshot.hasData) {
 			final code = snapshot.data!;
 			Clipboard.setData(ClipboardData(text: code));
