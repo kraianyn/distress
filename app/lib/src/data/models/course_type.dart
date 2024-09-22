@@ -4,6 +4,10 @@ import '../types.dart';
 import 'entity.dart';
 
 
+/// `id: {
+/// 	name: String,
+/// 	courseCount: int
+/// }, ...`
 class CourseTypeModel extends CourseType implements EntityModel {
 	CourseTypeModel.fromEntry(EntityEntry entry) : super(
 		id: entry.key,

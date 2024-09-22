@@ -150,38 +150,19 @@ class ScheduleRepository {
 		CourseTypeModel.fromEntity(type)
 	);
 
-	Future<void> deleteLocation(Location type) => _Document.locations.delete(
-		LocationModel.fromEntity(type)
-	);
-
 	Future<void> deleteInstructor(Instructor instructor) => _Document.instructors.delete(
 		InstructorModel.fromEntity(instructor)
+	);
+
+	Future<void> deleteLocation(Location type) => _Document.locations.delete(
+		LocationModel.fromEntity(type)
 	);
 }
 
 enum _Document {
-	/// `id: {
-	/// 	type: String,
-	///     date: Timestamp,
-	/// 	location: String,
-	/// 	instructors: List<String>
-	/// }, ...`
 	courses,
-
-	/// `id: {
-	/// 	name: String
-	/// }, ...`
 	courseTypes,
-
-	/// `id: {
-	/// 	codeName: String
-	/// }, ...`
 	instructors,
-
-	/// `id: {
-	/// 	name: String,
-	/// 	link: string
-	/// }, ...`
 	locations;
 
 	Future<_DocumentMap> data() async {

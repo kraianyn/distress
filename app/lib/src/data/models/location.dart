@@ -4,6 +4,10 @@ import '../types.dart';
 import 'entity.dart';
 
 
+/// `id: {
+/// 	name: String,
+/// 	link: string
+/// }`
 class LocationModel extends Location implements EntityModel {
 	LocationModel.fromEntry(EntityEntry entry) : super(
 		id: entry.key,

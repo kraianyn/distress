@@ -4,6 +4,9 @@ import '../types.dart';
 import 'entity.dart';
 
 
+/// `id: {
+/// 	codeName: String
+/// }`
 class InstructorModel extends Instructor implements EntityModel {
 	InstructorModel.fromEntry(EntityEntry entry) : super(
 		id: entry.key,

@@ -9,6 +9,12 @@ import '../types.dart';
 import 'entity.dart';
 
 
+/// `id: {
+/// 	type: String,
+///     date: Timestamp,
+/// 	location: String,
+/// 	instructors: List<String>
+/// }`
 class CourseModel extends Course implements EntityModel {
 	const CourseModel({
 		required super.id,
@@ -52,7 +58,7 @@ class CourseModel extends Course implements EntityModel {
 	@override
 	ObjectMap get object => {
 		Field.type: type.id,
-		Field.date: date,
+		Field.date: Timestamp.fromDate(date),
 		Field.location: location.id,
 		Field.instructors: instructors.map((i) => i.id),
 		if (note != null) Field.note: note
