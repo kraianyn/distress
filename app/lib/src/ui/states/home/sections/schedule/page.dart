@@ -58,7 +58,7 @@ class CoursePage extends ConsumerWidget {
 				if (course.note != null) ListTile(
 					title: Text(course.note!),
 					leading: const Icon(AppIcon.note)
-				),
+				)
 			],
 			actions: [
 				IconButton(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'package:distress/src/ui/core/providers/user.dart';
+
 import '../../providers/courses.dart';
 import '../../providers/course_types.dart';
 import '../../providers/instructors.dart';
@@ -21,12 +23,15 @@ class ScheduleSection extends ConsumerWidget {
 		final types = ref.watch(courseTypesNotifierProvider);
 		final locations = ref.watch(locationsNotifierProvider);
 		final instructors = ref.watch(instructorsNotifierProvider);
-		final canAdd = types.hasValue && locations.hasValue && instructors.hasValue;
+
+		final userCanAdd = ref.watch(userNotifierProvider)!.canManageSchedule;
+		final componentsFetched = types.hasValue && locations.hasValue && instructors.hasValue;
+		final showButton = userCanAdd && componentsFetched;
 
 		return EntitiesSection(
 			entities: courses,
 			tileBuilder: CourseTile.new,
-			formBuilder: canAdd ? (_) => const CourseForm() : null,
+			formBuilder: showButton ? (_) => const CourseForm() : null,
 		);
 	}
 }

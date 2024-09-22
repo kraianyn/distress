@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:distress/src/domain/entities/instructor.dart';
 
 import '../app.dart';
+
 import '../core/app_icon.dart';
 import '../core/theme.dart';
 

@@ -3,7 +3,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:distress/src/ui/core/app_icon.dart';
 import 'package:distress/src/ui/core/open_page.dart';
+
 import 'package:distress/src/ui/core/providers/app_state.dart';
+import 'package:distress/src/ui/core/providers/user.dart';
 
 import 'new_user_page.dart';
 
@@ -13,13 +15,15 @@ class SettingsSection extends ConsumerWidget {
 
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
+		final userCanAddUsers = ref.watch(userNotifierProvider)!.canAddUsers;
+
 		return Scaffold(
 			body: Container(
 				alignment: Alignment.center,
 				child: Column(
 					mainAxisAlignment: MainAxisAlignment.center,
 					children: [
-						FilledButton(
+						if (userCanAddUsers) FilledButton(
 							child: const Icon(AppIcon.addUser),
 							onPressed: () => openPage(context, (_) => const NewUserPage())
 						),

@@ -10,6 +10,8 @@ class User {
 	final List<UserAction>? actions;
 
 	bool get isInstructor => actions!.contains(UserAction.teaching);
+	bool get canManageSchedule => actions!.contains(UserAction.managingSchedule);
+	bool get canAddUsers => actions!.contains(UserAction.addingUsers);
 }
 
 enum UserAction {
