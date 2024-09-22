@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart' hide User;
+import 'package:google_sign_in/google_sign_in.dart';
 
 import 'package:distress/src/domain/user.dart';
 
@@ -14,6 +16,15 @@ class UsersRepository {
 	Future<User?> existingUser() async {
 		final snapshot = await _userDocument.get();
 		return snapshot.exists ? UserModel.fromDocument(snapshot) : null;
+	}
+
+	Future<UserCredential> signIn(GoogleSignInAccount account) async {
+		final authentication = await account.authentication;
+		final credential = GoogleAuthProvider.credential(
+			idToken: authentication.idToken,
+			accessToken: authentication.accessToken
+		);
+		return await FirebaseAuth.instance.signInWithCredential(credential);
 	}
 
 	Future<List<UserAction>?> newUserActions(String code) async {

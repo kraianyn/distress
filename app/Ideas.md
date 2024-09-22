@@ -4,12 +4,11 @@
 
 Make the user know if field values are invalid.
 
-Make it impossible to access the course form if the needed entities are empty.
-
 Do not imply that the courses have been fetched on entity pages.
 
-Add an ability to add entities when adding a course. Imply the added entity as 
-the desired one.
+Make it impossible to access the course form if the component entities are 
+empty, or add an ability to add them when adding a course. Imply the new entity 
+as the desired one.
 
 Make forms look like pages.
 
@@ -53,8 +52,6 @@ Consider making access codes only valid for a period of time.
 Create classes for form data to avoid duplication of field processing logic.
 
 Represent no actions in `EntityPage.actions` with an empty list instead of `null`.
-
-Move authentication to the data layer.
 
 Define `IconData.widget => Icon(this)`
 
