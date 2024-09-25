@@ -22,17 +22,16 @@
 
 This section is for the scheduled courses. It has a subsection for all the 
 courses, and another one for the courses the user is an instructor on.
-Multiple views (list, calendar) are available.
+List and calendar views are available.
 
-The page of a scheduled course contains the name, the date, the location, 
-the instructors, and an optional note. 
+The page of a course contains the type, the date, the location, the instructors, 
+the lead instructor, and an optional note. 
 
 ## Course types
 
 This section is for what courses there are, i.e. the course types: Trauma care, 
 BLS, TCCC ASM... They are split into military and non-military ones. The page of 
-a course type contains the name, the duration, the instructors needed, the price, 
-and the capacity.
+a course type contains the name, the duration, the price, and the capacity.
 
 ## Instructors
 
@@ -52,6 +51,7 @@ the schedule. To describe a user, they have a list of the relevant actions:
 
 - teaching
 - managing the schedule
+- adding users
 - calculating salaries
 - managing registration forms
 - managing gift cards

@@ -55,6 +55,10 @@ class CoursePage extends ConsumerWidget {
 					)),
 					leading: const Icon(AppIcon.instructors)
 				),
+				if (course.leadInstructor != null) ListTile(
+					title: Text(course.leadInstructor!.codeName),
+					leading: const Icon(AppIcon.leadInstructor)
+				),
 				if (course.note != null) ListTile(
 					title: Text(course.note!),
 					leading: const Icon(AppIcon.note)

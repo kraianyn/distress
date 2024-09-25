@@ -33,19 +33,19 @@ class CourseForm extends HookConsumerWidget {
 		final dateField = useTextEditingController(text: course?.date.dateString(monthAsName: true));
 		final locationField = useTextEditingController(text: course?.location.name);
 		final instructorsField = useTextEditingController(text: course?.instructors.join(', '));
+		final leadInstructorField = useTextEditingController(text: course?.leadInstructor?.codeName);
 		final noteField = useTextEditingController(text: course?.note);
 
-		final type = useRef<CourseType?>(course?.type);
-		final date = useRef<DateTime?>(course?.date);
-		final location = useRef<Location?>(course?.location);
+		final type = useRef(course?.type);
+		final date = useRef(course?.date);
+		final location = useRef(course?.location);
 		final instructors = useRef(course?.instructors.toList() ?? <Instructor>[]);
+		final leadInstructor = useRef(course?.leadInstructor);
 
 		// ensured not to be null in ScheduleSection
 		final types = ref.watch(courseTypesNotifierProvider).value!;
 		final locations = ref.watch(locationsNotifierProvider).value!;
 		final instructorsOptions = ref.watch(instructorsNotifierProvider).value!;
-
-		final textTheme = Theme.of(context).textTheme;
 
 		return EntityForm(
 			content: [
@@ -53,7 +53,7 @@ class CourseForm extends HookConsumerWidget {
 					controller: typeField,
 					name: "Курс",
 					isHeadline: true,
-					showOptions: () => openPage(context, (_) => OptionsPage(
+					onTap: () => openPage(context, (_) => OptionsPage(
 						options: types,
 						selected: type,
 						field: typeField
@@ -63,13 +63,13 @@ class CourseForm extends HookConsumerWidget {
 					controller: dateField,
 					name: "Дата",
 					icon: AppIcon.date,
-					showOptions: () => _askDate(context, date, dateField)
+					onTap: () => _askDate(context, date, dateField)
 				),
 				OptionField(
 					controller: locationField,
 					name: "Локація",
 					icon: AppIcon.location,
-					showOptions: () => openPage(context, (_) => OptionsPage(
+					onTap: () => openPage(context, (_) => OptionsPage(
 						options: locations,
 						selected: location,
 						field: locationField
@@ -79,41 +79,46 @@ class CourseForm extends HookConsumerWidget {
 					controller: instructorsField,
 					name: "Інструктори",
 					icon: AppIcon.instructors,
-					showOptions: () => openPage(context, (_) => InstructorsOptionsPage(
-						options: instructorsOptions,
-						selected: instructors,
-						field: instructorsField
-					))
+					onTap: () => _askInstructors(
+						context,
+						instructorsOptions,
+						instructors,
+						instructorsField,
+						leadInstructor,
+						leadInstructorField
+					)
+				),
+				OptionField(
+					controller: leadInstructorField,
+					name: "Старший інструктор",
+					icon: AppIcon.leadInstructor,
+					onTap: () => _askLeadInstructor(
+						context,
+						leadInstructor,
+						leadInstructorField,
+						instructors.value
+					)
 				),
 				TextField(
 					controller: noteField,
 					maxLines: null,
-					style: textTheme.titleMedium,
+					style: Theme.of(context).textTheme.titleMedium,
 					decoration: const InputDecoration(
 						hintText: "Нотатка",
 						icon: Icon(AppIcon.note)
 					)
 				)
 			],
-			onConfirm: course == null
-				? () => _add(
-					context,
-					ref,
-					type.value,
-					date.value,
-					location.value,
-					instructors.value,
-					noteField
-				)
-				: () => _update(
-					context,
-					ref,
-					type.value!,
-					date.value!,
-					location.value!,
-					instructors.value,
-					noteField
-				)
+			onConfirm: () => (course == null ? _add : _update)(
+				context,
+				ref,
+				type.value!,
+				date.value!,
+				location.value!,
+				instructors.value,
+				leadInstructor.value!,
+				noteField
+			)
 		);
 	}
 
@@ -123,13 +128,50 @@ class CourseForm extends HookConsumerWidget {
 		TextEditingController field
 	) async {
 		final today = DateTime.now();
-		object.value = await showDatePicker(
+		final date = await showDatePicker(
 			context: context,
 			initialDate: object.value,
 			firstDate: today,
 			lastDate: today.add(const Duration(days: 365))
 		);
-		field.text = object.value != null ? object.value!.dateString(monthAsName: true) : '';
+		if (date != null) {
+			object.value = date;
+			field.text = date.dateString(monthAsName: true);
+		}
+	}
+
+	Future<void> _askInstructors(
+		BuildContext context,
+		Iterable<Instructor> options,
+		ObjectRef<List<Instructor>> selected,
+		TextEditingController instructorsField,
+		ObjectRef<Instructor?> leadInstructor,
+		TextEditingController leadInstructorField
+	) async {
+		await openPage(context, (_) => InstructorsOptionsPage(
+			options: options,
+			selected: selected,
+			field: instructorsField
+		));
+		if (leadInstructor.value != null && !selected.value.contains(leadInstructor.value)) {
+			leadInstructor.value = null;
+			leadInstructorField.clear();
+		}
+	}
+
+	void _askLeadInstructor(
+		BuildContext context,
+		ObjectRef<Instructor?> selected,
+		TextEditingController field,
+		List<Instructor> instructors
+	) {
+		if (instructors.isNotEmpty) {
+			openPage(context, (_) => OptionsPage(
+				options: instructors,
+				selected: selected,
+				field: field
+			));
+		}
 	}
 
 	void _add(
@@ -139,15 +181,23 @@ class CourseForm extends HookConsumerWidget {
 		DateTime? date,
 		Location? location,
 		List<Instructor> instructors,
+		Instructor? leadInstructor,
 		TextEditingController noteField
 	) {
-		if (type == null || date == null || location == null || instructors.isEmpty) return;
+		if (
+			type == null
+			|| date == null
+			|| location == null
+			|| instructors.isEmpty
+			|| leadInstructor == null
+		) return;
 
 		final course = Course.added(
 			type: type,
 			date: date,
 			location: location,
 			instructors: instructors,
+			leadInstructor: leadInstructor,
 			note: _note(noteField)
 		);
 		ref.read(coursesNotifierProvider.notifier).add(course);
@@ -161,6 +211,7 @@ class CourseForm extends HookConsumerWidget {
 		DateTime date,
 		Location location,
 		List<Instructor> instructors,
+		Instructor leadInstructor,
 		TextEditingController noteField
 	) {
 		final note = _note(noteField);
@@ -169,6 +220,7 @@ class CourseForm extends HookConsumerWidget {
 			&& date == course!.date
 			&& location == course!.location
 			&& const ListEquality().equals(instructors, course!.instructors)
+			&& leadInstructor == course!.leadInstructor
 			&& note == course!.note
 		) return;
 
@@ -177,6 +229,7 @@ class CourseForm extends HookConsumerWidget {
 			date: date,
 			location: location,
 			instructors: instructors,
+			leadInstructor: leadInstructor,
 			note: note
 		);
 		ref.read(coursePageNotifierProvider(course!).notifier).update(updatedCourse);

@@ -15,6 +15,7 @@ abstract class AppIcon {
 	static const courseCount = Icons.numbers;
 	static const date = Icons.today;
 	static const note = Icons.short_text;
+	static const leadInstructor = Icons.visibility;
 	static const link = Icons.link;
 
 	static const add = Icons.add;

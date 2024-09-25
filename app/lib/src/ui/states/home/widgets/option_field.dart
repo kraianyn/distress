@@ -10,14 +10,14 @@ class OptionField extends StatelessWidget {
 		required this.name,
 		this.icon,
 		this.isHeadline = false,
-		required this.showOptions
+		required this.onTap
 	});
 
 	final TextEditingController controller;
 	final String name;
 	final IconData? icon;
 	final bool isHeadline;
-	final void Function() showOptions;
+	final void Function() onTap;
 
 	@override
 	Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class OptionField extends StatelessWidget {
 				hintStyle: !isHeadline ? null : headlineHintTextStyle
 			),
 			readOnly: true,
-			onTap: showOptions
+			onTap: onTap
 		);
 	}
 }

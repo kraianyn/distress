@@ -22,7 +22,8 @@ class CourseModel extends Course implements EntityModel {
 		required super.date,
 		required super.location,
 		required super.instructors,
-		required super.note
+		required super.leadInstructor,
+		super.note
 	});
 
 	factory CourseModel.fromEntry(
@@ -34,14 +35,18 @@ class CourseModel extends Course implements EntityModel {
 		final typeId = entry.value[Field.type] as String;
 		final timestamp = entry.value[Field.date] as Timestamp;
 		final locationId = entry.value[Field.location] as String;
-		final instructorIds = List<String>.from(entry.value[Field.instructors]);
+		final instructorsIds = List<String>.from(entry.value[Field.instructors]);
+		final leadInstructorId = entry.value[Field.leadInstructor] as String?;
 
 		return CourseModel(
 			id: entry.key,
 			type: types.firstWhere((t) => t.id == typeId),
 			date: timestamp.toDate(),
 			location: locations.firstWhere((l) => l.id == locationId),
-			instructors: instructors.where((i) => instructorIds.contains(i.id)).toList(),
+			instructors: instructors.where((i) => instructorsIds.contains(i.id)).toList(),
+			leadInstructor: leadInstructorId != null
+				? instructors.firstWhere((i) => i.id == leadInstructorId)
+				: null,
 			note: entry.value[Field.note] as String?
 		);
 	}
@@ -52,6 +57,7 @@ class CourseModel extends Course implements EntityModel {
 		date: entity.date,
 		location: entity.location,
 		instructors: entity.instructors,
+		leadInstructor: entity.leadInstructor,
 		note: entity.note
 	);
 
@@ -61,6 +67,7 @@ class CourseModel extends Course implements EntityModel {
 		Field.date: Timestamp.fromDate(date),
 		Field.location: location.id,
 		Field.instructors: instructors.map((i) => i.id),
+		Field.leadInstructor: leadInstructor?.id,
 		if (note != null) Field.note: note
 	};
 }
