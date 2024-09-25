@@ -19,7 +19,7 @@ import '../../providers/locations.dart';
 import '../../providers/pages/course.dart';
 
 import '../../widgets/entity_form.dart';
-import '../../widgets/option_field.dart';
+import '../../widgets/object_field.dart';
 
 
 class CourseForm extends HookConsumerWidget {
@@ -49,7 +49,7 @@ class CourseForm extends HookConsumerWidget {
 
 		return EntityForm(
 			content: [
-				OptionField(
+				ObjectField(
 					controller: typeField,
 					name: "Курс",
 					isHeadline: true,
@@ -59,13 +59,13 @@ class CourseForm extends HookConsumerWidget {
 						field: typeField
 					))
 				),
-				OptionField(
+				ObjectField(
 					controller: dateField,
 					name: "Дата",
 					icon: AppIcon.date,
 					onTap: () => _askDate(context, date, dateField)
 				),
-				OptionField(
+				ObjectField(
 					controller: locationField,
 					name: "Локація",
 					icon: AppIcon.location,
@@ -75,7 +75,7 @@ class CourseForm extends HookConsumerWidget {
 						field: locationField
 					))
 				),
-				OptionField(
+				ObjectField(
 					controller: instructorsField,
 					name: "Інструктори",
 					icon: AppIcon.instructors,
@@ -88,7 +88,7 @@ class CourseForm extends HookConsumerWidget {
 						leadInstructorField
 					)
 				),
-				OptionField(
+				ObjectField(
 					controller: leadInstructorField,
 					name: "Старший інструктор",
 					icon: AppIcon.leadInstructor,

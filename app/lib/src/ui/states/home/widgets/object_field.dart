@@ -4,8 +4,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:distress/src/ui/core/theme.dart';
 
 
-class OptionField extends StatelessWidget {
-	const OptionField({
+class ObjectField extends StatelessWidget {
+	const ObjectField({
 		required this.controller,
 		required this.name,
 		this.icon,
