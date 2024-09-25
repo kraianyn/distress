@@ -36,11 +36,11 @@ class CoursePage extends ConsumerWidget {
 				),
 				ListTile(
 					title: Text(course.date.dateString(monthAsName: true)),
-					leading: const Icon(AppIcon.date)
+					leading: AppIcon.date
 				),
 				ListTile(
 					title: Text(course.location.name),
-					leading: const Icon(AppIcon.location)
+					leading: AppIcon.location
 				),
 				if (course.instructors.isNotEmpty) ListTile(
 					title: RichText(text: TextSpan(
@@ -53,25 +53,25 @@ class CoursePage extends ConsumerWidget {
 							]
 						]
 					)),
-					leading: const Icon(AppIcon.instructors)
+					leading: AppIcon.instructors
 				),
 				if (course.leadInstructor != null) ListTile(
 					title: Text(course.leadInstructor!.codeName),
-					leading: const Icon(AppIcon.leadInstructor)
+					leading: AppIcon.leadInstructor
 				),
 				if (course.note != null) ListTile(
 					title: Text(course.note!),
-					leading: const Icon(AppIcon.note)
+					leading: AppIcon.note
 				)
 			],
 			actions: [
 				IconButton(
-					icon: const Icon(AppIcon.change),
+					icon: AppIcon.change,
 					tooltip: "Змінити",
 					onPressed: () => openPage(context, (_) => CourseForm(course))
 				),
 				IconButton(
-					icon: const Icon(AppIcon.deleteEvent),
+					icon: AppIcon.deleteEvent,
 					tooltip: "Видалити",
 					onPressed: () => _delete(context, ref)
 				)

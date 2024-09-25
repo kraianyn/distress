@@ -31,7 +31,7 @@ class CourseTypePage extends ConsumerWidget {
 				EntityTitle(type.name),
 				ListTile(
 					title: Text("${type.courseCount} курсів"),
-					leading: const Icon(AppIcon.courseCount)
+					leading: AppIcon.courseCount
 				),
 				const ListTile(),
 				...relevantCourses.map((course) => CourseTile(
@@ -41,12 +41,12 @@ class CourseTypePage extends ConsumerWidget {
 			],
 			actions: [
 				IconButton(
-					icon: const Icon(AppIcon.change),
+					icon: AppIcon.change,
 					tooltip: "Змінити",
 					onPressed: () => openPage(context, (_) => CourseTypeForm(type))
 				),
 				IconButton(
-					icon: const Icon(AppIcon.delete),
+					icon: AppIcon.delete,
 					tooltip: "Видалити",
 					onPressed: () => _delete(context, ref)
 				)

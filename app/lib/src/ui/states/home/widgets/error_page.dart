@@ -16,7 +16,7 @@ class ErrorPage extends StatelessWidget {
 			child: Column(
 				mainAxisAlignment: MainAxisAlignment.center,
 				children: [
-					const Icon(AppIcon.error),
+					AppIcon.error,
 					Text(error.toString())
 				]
 			)

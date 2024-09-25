@@ -17,7 +17,7 @@ class Home extends HookWidget {
 			bottomNavigationBar: NavigationBar(
 				selectedIndex: section.value.index,
 				destinations: Section.values.map((section) => NavigationDestination(
-					icon: Icon(section.icon),
+					icon: section.icon,
 					label: section.name
 				)).toList(),
 				onDestinationSelected: (index) => section.value = Section.values[index]

@@ -29,7 +29,7 @@ class InstructorPage extends ConsumerWidget {
 			],
 			actions: [
 				IconButton(
-					icon: const Icon(AppIcon.delete),
+					icon: AppIcon.delete,
 					tooltip: "Видалити",
 					onPressed: () => _delete(context, ref)
 				)

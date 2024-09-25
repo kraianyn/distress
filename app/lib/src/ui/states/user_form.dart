@@ -35,7 +35,7 @@ class UserForm extends HookConsumerWidget {
 							style: Theme.of(context).textTheme.titleMedium,
 							decoration: const InputDecoration(
 								hintText: "Позивний",
-								icon: Icon(AppIcon.account)
+								icon: AppIcon.account
 							)
 						),
 						const ListTile(),

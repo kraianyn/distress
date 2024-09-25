@@ -24,7 +24,7 @@ class EntityForm extends StatelessWidget {
 				)
 			),
 			floatingActionButton: FloatingActionButton(
-				child: const Icon(AppIcon.confirm),
+				child: AppIcon.confirm,
 				onPressed: onConfirm
 			)
 		);

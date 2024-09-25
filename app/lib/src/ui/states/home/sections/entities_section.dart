@@ -27,7 +27,7 @@ class EntitiesSection<E> extends ConsumerWidget {
 					children: entities.map(tileBuilder).toList()
 				),
 				floatingActionButton: formBuilder != null ? FloatingActionButton(
-					child: const Icon(AppIcon.add),
+					child: AppIcon.add,
 					onPressed: () => openPage(context, (_) => formBuilder!())
 				) : null
 			),

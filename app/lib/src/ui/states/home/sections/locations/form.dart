@@ -40,7 +40,7 @@ class LocationForm extends HookConsumerWidget {
 					controller: linkField,
 					style: textTheme.titleMedium,
 					decoration: const InputDecoration(
-						icon: Icon(AppIcon.link),
+						icon: AppIcon.link,
 						hintText: "Посилання"
 					)
 				)

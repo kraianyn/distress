@@ -2,28 +2,28 @@ import 'package:flutter/material.dart';
 
 
 abstract class AppIcon {
-	static const account = Icons.account_circle;
-	static const addUser = Icons.person_add;
-	static const signOut = Icons.no_accounts;
+	static const account = Icon(Icons.account_circle);
+	static const addUser = Icon(Icons.person_add);
+	static const signOut = Icon(Icons.no_accounts);
 
-	static const schedule = Icons.calendar_month;
-	static const courseType = Icons.school;
-	static const instructors = Icons.group;
-	static const location = Icons.place;
-	static const settings = Icons.settings;
+	static const schedule = Icon(Icons.calendar_month);
+	static const courseType = Icon(Icons.school);
+	static const instructors = Icon(Icons.group);
+	static const location = Icon(Icons.place);
+	static const settings = Icon(Icons.settings);
 
-	static const courseCount = Icons.numbers;
-	static const date = Icons.today;
-	static const note = Icons.short_text;
-	static const leadInstructor = Icons.visibility;
-	static const link = Icons.link;
+	static const courseCount = Icon(Icons.numbers);
+	static const date = Icon(Icons.today);
+	static const note = Icon(Icons.short_text);
+	static const leadInstructor = Icon(Icons.visibility);
+	static const link = Icon(Icons.link);
 
-	static const add = Icons.add;
-	static const change = Icons.edit;
-	static const confirm = Icons.done;
-	static const delete = Icons.delete;
-	static const deleteEvent = Icons.event_busy;
+	static const add = Icon(Icons.add);
+	static const change = Icon(Icons.edit);
+	static const confirm = Icon(Icons.done);
+	static const delete = Icon(Icons.delete);
+	static const deleteEvent = Icon(Icons.event_busy);
 
-	static const error = Icons.sentiment_dissatisfied;
-	static const loading = Icons.cloudy_snowing;
+	static const error = Icon(Icons.sentiment_dissatisfied);
+	static const loading = Icon(Icons.cloudy_snowing);
 }

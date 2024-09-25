@@ -43,6 +43,6 @@ enum Section {
 	});
 
 	final String name;
-	final IconData icon;
+	final Icon icon;
 	final Widget widget;
 }

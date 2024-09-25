@@ -32,19 +32,19 @@ class LocationPage extends ConsumerWidget {
 				EntityTitle(location.name),
 				ListTile(
 					title: Text(location.link),
-					leading: const Icon(AppIcon.link)
+					leading: AppIcon.link
 				),
 				const ListTile(),
 				...relevantCourses.map(CourseTile.new)
 			],
 			actions: [
 				IconButton(
-					icon: const Icon(AppIcon.change),
+					icon: AppIcon.change,
 					tooltip: "Змінити",
 					onPressed: () => openPage(context, (_) => LocationForm(location))
 				),
 				IconButton(
-					icon: const Icon(AppIcon.delete),
+					icon: AppIcon.delete,
 					tooltip: "Видалити",
 					onPressed: () => _delete(context, ref)
 				)

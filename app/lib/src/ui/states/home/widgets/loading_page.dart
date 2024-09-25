@@ -8,6 +8,6 @@ class LoadingPage extends StatelessWidget {
 
 	@override
 	Widget build(BuildContext context) {
-		return const Center(child: Icon(AppIcon.loading));
+		return const Center(child: AppIcon.loading);
 	}
 }

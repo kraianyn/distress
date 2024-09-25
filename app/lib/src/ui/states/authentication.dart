@@ -18,7 +18,7 @@ class Authentication extends ConsumerWidget {
 		return Scaffold(
 			appBar: AppBar(title: const Text("Автентифікація")),
 			body: Center(child: FilledButton(
-				child: const Icon(AppIcon.account),
+				child: AppIcon.account,
 				onPressed: () => _signIn(ref)
 			))
 		);

@@ -41,7 +41,7 @@ class CourseTypeForm extends HookConsumerWidget {
 					style: textTheme.titleMedium,
 					decoration: const InputDecoration(
 						hintText: "Кількість проведених курсів",
-						icon: Icon(AppIcon.courseCount)
+						icon: AppIcon.courseCount
 					)
 				)
 			],
