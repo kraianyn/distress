@@ -57,5 +57,9 @@ final theme = seed.copyWith(
 		hintStyle: seed.textTheme.titleMedium!.copyWith(color: hintTextColor),
 		iconColor: iconColor,
 		border: InputBorder.none
-	)
+	),
+	iconTheme: const IconThemeData(color: iconColor),
+	iconButtonTheme: const IconButtonThemeData(style: ButtonStyle(
+		padding: WidgetStatePropertyAll(EdgeInsets.only(right: spacingUnit * 2))
+	))
 );

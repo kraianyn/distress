@@ -2,8 +2,6 @@
 
 ## Do
 
-Style the actions bar on entity pages.
-
 Do not imply that the courses have been fetched on entity pages.
 
 Make the user know if field values are invalid.
@@ -20,6 +18,8 @@ Make forms look like pages.
 
 When updating an entity from a page opened from another entity page, the change 
 is not reflected on the first page.
+
+Action icon buttons on entity pages have a tiny built-in padding.
 
 # Cloud
 
