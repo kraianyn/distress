@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide ErrorWidget;
 import 'package:flutter/services.dart';
 
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -9,8 +9,8 @@ import 'package:distress/src/domain/user.dart';
 import 'package:distress/src/ui/core/theme.dart';
 import 'package:distress/src/ui/core/providers/users_repository.dart';
 
-import '../../widgets/error_page.dart';
-import '../../widgets/loading_page.dart';
+import '../../widgets/error.dart';
+import '../../widgets/loading.dart';
 
 
 class NewUserPage extends HookWidget {
@@ -101,7 +101,7 @@ class AccessCodeCreationWidget extends HookConsumerWidget {
 		));
 
 		if (snapshot.connectionState == ConnectionState.waiting) {
-			return const LoadingPage();
+			return const LoadingWidget();
 		}
 
 		if (snapshot.hasData) {
@@ -111,6 +111,6 @@ class AccessCodeCreationWidget extends HookConsumerWidget {
 			return Center(child: Text(code, style: codeTextStyle));
 		}
 
-		return ErrorPage(snapshot.error!);
+		return ErrorWidget(snapshot.error!);
 	}
 }

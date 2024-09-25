@@ -1,11 +1,11 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide ErrorWidget;
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:distress/src/ui/core/app_icon.dart';
 import 'package:distress/src/ui/core/open_page.dart';
 
-import '../widgets/error_page.dart';
-import '../widgets/loading_page.dart';
+import '../widgets/error.dart';
+import '../widgets/loading.dart';
 
 
 class EntitiesSection<E> extends ConsumerWidget {
@@ -31,8 +31,8 @@ class EntitiesSection<E> extends ConsumerWidget {
 					onPressed: () => openPage(context, (_) => formBuilder!())
 				) : null
 			),
-			loading: () => const LoadingPage(),
-			error: (error, _) => ErrorPage(error)
+			loading: () => const LoadingWidget(),
+			error: (error, _) => ErrorWidget(error)
 		);
 	}
 }

@@ -33,10 +33,6 @@ Make access codes only valid for a period of time.
 
 # Code
 
-# Do
-
-Rename the loading and the error pages to widgets.
-
 ## Consider
 
 If schedule forms become more complex, create classes for form data to avoid 

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:distress/src/ui/core/app_icon.dart';
 
 
-class LoadingPage extends StatelessWidget {
-	const LoadingPage();
+class LoadingWidget extends StatelessWidget {
+	const LoadingWidget();
 
 	@override
 	Widget build(BuildContext context) {

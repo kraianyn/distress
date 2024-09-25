@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:distress/src/ui/core/app_icon.dart';
 
 
-class ErrorPage extends StatelessWidget {
-	const ErrorPage(this.error);
+class ErrorWidget extends StatelessWidget {
+	const ErrorWidget(this.error);
 
 	final Object error;
 
