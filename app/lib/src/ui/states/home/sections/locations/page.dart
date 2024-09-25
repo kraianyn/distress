@@ -24,8 +24,9 @@ class LocationPage extends ConsumerWidget {
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
 		final location = ref.watch(locationPageNotifierProvider(this.location));
-		final courses = ref.watch(coursesNotifierProvider).value!;
-		final relevantCourses = courses.where((c) => c.location == location);
+		final courses = ref.watch(coursesNotifierProvider).value?.where(
+			(course) => course.location == location
+		);
 
 		return EntityPage(
 			content: [
@@ -34,8 +35,10 @@ class LocationPage extends ConsumerWidget {
 					title: Text(location.link),
 					leading: AppIcon.link
 				),
-				const ListTile(),
-				...relevantCourses.map(CourseTile.new)
+				if (courses != null) ...[
+					const ListTile(),
+					...courses.map(CourseTile.new)
+				]
 			],
 			actions: [
 				IconButton(

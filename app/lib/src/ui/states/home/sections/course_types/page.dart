@@ -23,8 +23,9 @@ class CourseTypePage extends ConsumerWidget {
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
 		final type = ref.watch(courseTypePageNotifierProvider(this.type));
-		final courses = ref.watch(coursesNotifierProvider).value!;
-		final relevantCourses = courses.where((c) => c.type == type);
+		final courses = ref.watch(coursesNotifierProvider).value?.where(
+			(course) => course.type == type
+		);
 
 		return EntityPage(
 			content: [
@@ -33,11 +34,13 @@ class CourseTypePage extends ConsumerWidget {
 					title: Text("${type.courseCount} курсів"),
 					leading: AppIcon.courseCount
 				),
-				const ListTile(),
-				...relevantCourses.map((course) => CourseTile(
-					course,
-					title: course.location.name
-				))
+				if (courses != null) ...[
+					const ListTile(),
+					...courses.map((course) => CourseTile(
+						course,
+						title: course.location.name
+					))
+				]
 			],
 			actions: [
 				IconButton(

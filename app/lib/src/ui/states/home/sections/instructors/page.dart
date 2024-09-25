@@ -18,14 +18,17 @@ class InstructorPage extends ConsumerWidget {
 
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
-		final courses = ref.watch(coursesNotifierProvider).value!;
-		final relevantCourses = courses.where((c) => c.instructors.contains(instructor));
+		final courses = ref.watch(coursesNotifierProvider).value?.where(
+			(course) => course.instructors.contains(instructor)
+		);
 
 		return EntityPage(
 			content: [
 				EntityTitle(instructor.codeName),
-				const ListTile(),
-				...relevantCourses.map(CourseTile.new)
+				if (courses != null) ...[
+					const ListTile(),
+					...courses.map(CourseTile.new)
+				]
 			],
 			actions: [
 				IconButton(

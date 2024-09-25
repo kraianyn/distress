@@ -4,13 +4,12 @@
 
 Do not imply that the courses have been fetched on entity pages.
 
+Use regular buttons instead of FABs if the page is dedicated to an action.
+
 Make the user know if field values are invalid.
 
 Make it impossible to access the course form if the component entities are 
-empty, or add an ability to add them when adding a course. Imply the new entity 
-as the desired one.
-
-Use regular buttons instead of FABs if the page is dedicated to an action.
+empty.
 
 Make forms look like pages.
 
