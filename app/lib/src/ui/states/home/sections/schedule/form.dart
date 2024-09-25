@@ -21,6 +21,9 @@ import '../../providers/pages/course.dart';
 import '../../widgets/entity_form.dart';
 import '../../widgets/object_field.dart';
 
+import '../course_types/form.dart';
+import '../locations/form.dart';
+
 
 class CourseForm extends HookConsumerWidget {
 	const CourseForm([this.course]);
@@ -56,7 +59,8 @@ class CourseForm extends HookConsumerWidget {
 					onTap: () => openPage(context, (_) => OptionsPage(
 						options: types,
 						selected: type,
-						field: typeField
+						field: typeField,
+						formBuilder: CourseTypeForm.new,
 					))
 				),
 				ObjectField(
@@ -72,7 +76,8 @@ class CourseForm extends HookConsumerWidget {
 					onTap: () => openPage(context, (_) => OptionsPage(
 						options: locations,
 						selected: location,
-						field: locationField
+						field: locationField,
+						formBuilder: LocationForm.new,
 					))
 				),
 				ObjectField(

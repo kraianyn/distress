@@ -21,7 +21,7 @@ class LocationsSection extends ConsumerWidget {
 		return EntitiesSection(
 			entities: locations,
 			tileBuilder: LocationTile.new,
-			formBuilder: userCanAdd ? (_) => const LocationForm() : null
+			formBuilder: userCanAdd ? LocationForm.new : null
 		);
 	}
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
+import 'package:distress/src/ui/core/app_icon.dart';
+import 'package:distress/src/ui/core/open_page.dart';
 import 'package:distress/src/ui/core/theme.dart';
 
 
@@ -43,25 +45,45 @@ class OptionsPage<O> extends StatelessWidget {
 	const OptionsPage({
 		required this.options,
 		required this.selected,
-		required this.field
+		required this.field,
+		this.formBuilder
 	});
 
 	final Iterable<O> options;
 	final ObjectRef<O?> selected;
 	final TextEditingController field;
+	final Widget Function()? formBuilder;
 
 	@override
 	Widget build(BuildContext context) {
 		return Scaffold(
 			body: Center(child: ListView(
 				shrinkWrap: true,
-				children: options.map((option) => OptionTile(
-					option: option,
-					selected: selected,
-					field: field
-				)).toList()
-			))
+				children: [
+					...options.map((option) => OptionTile(
+						option: option,
+						selected: selected,
+						field: field
+					)),
+					const ListTile()
+				]
+			)),
+			floatingActionButton: formBuilder != null
+				? FloatingActionButton(
+					child: const Icon(AppIcon.add),
+					onPressed: () => _addOption(context)
+				)
+				: null
 		);
+	}
+
+	Future<void> _addOption(BuildContext context) async {
+		final option = await openPage<O>(context, (_) => formBuilder!());
+		if (option == null) return;
+
+		selected.value = option;
+		field.text = option.toString();
+		Navigator.pop(context);
 	}
 }
 
@@ -85,7 +107,6 @@ class OptionTile<O> extends HookWidget {
 			selected: isSelected.value,
 			onTap: () {
 				selected.value = option;
-				isSelected.value = !isSelected.value;
 				field.text = option.toString();
 				Navigator.pop(context);
 			}

@@ -8,7 +8,7 @@ const spacingUnit = 8;
 final seed = ThemeData(
 	colorScheme: ColorScheme.fromSeed(
 		seedColor: seedColor.toColor(),
-		surfaceContainer: seedColor.withSaturation(.3).withLightness(.6).toColor()
+		surfaceContainer: seedColor.withSaturation(.3).withLightness(.55).toColor()
 	),
 	textTheme: GoogleFonts.ubuntuTextTheme(const TextTheme(
 		titleMedium: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),

@@ -17,7 +17,7 @@ class EntitiesSection<E> extends ConsumerWidget {
 
 	final AsyncValue<List<E>> entities;
 	final Widget Function(E) tileBuilder;
-	final Widget Function(BuildContext)? formBuilder;
+	final Widget Function()? formBuilder;
 
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
@@ -28,7 +28,7 @@ class EntitiesSection<E> extends ConsumerWidget {
 				),
 				floatingActionButton: formBuilder != null ? FloatingActionButton(
 					child: const Icon(AppIcon.add),
-					onPressed: () => openPage(context, formBuilder!)
+					onPressed: () => openPage(context, (_) => formBuilder!())
 				) : null
 			),
 			loading: () => const LoadingPage(),

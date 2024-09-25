@@ -62,7 +62,7 @@ class LocationForm extends HookConsumerWidget {
 
 		final location = Location.added(name: name, link: link);
 		ref.read(locationsNotifierProvider.notifier).add(location);
-		Navigator.pop(context);
+		Navigator.pop(context, location);
 	}
 
 	void _update(

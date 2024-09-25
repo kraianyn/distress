@@ -31,7 +31,7 @@ class ScheduleSection extends ConsumerWidget {
 		return EntitiesSection(
 			entities: courses,
 			tileBuilder: CourseTile.new,
-			formBuilder: showButton ? (_) => const CourseForm() : null,
+			formBuilder: showButton ? CourseForm.new : null,
 		);
 	}
 }

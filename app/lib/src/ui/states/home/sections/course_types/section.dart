@@ -21,7 +21,7 @@ class CourseTypesSection extends ConsumerWidget {
 		return EntitiesSection(
 			entities: types,
 			tileBuilder: CourseTypeTile.new,
-			formBuilder: userCanAdd ? (_) => const CourseTypeForm() : null
+			formBuilder: userCanAdd ? CourseTypeForm.new : null
 		);
 	}
 }
