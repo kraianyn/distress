@@ -32,6 +32,10 @@ class LocationPage extends ConsumerWidget {
 			content: [
 				EntityTitle(location.name),
 				ListTile(
+					title: Text(location.city),
+					leading: AppIcon.city
+				),
+				ListTile(
 					title: Text(location.link),
 					leading: AppIcon.link
 				),

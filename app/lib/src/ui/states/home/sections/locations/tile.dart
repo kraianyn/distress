@@ -14,7 +14,7 @@ class LocationTile extends StatelessWidget {
 	@override
 	Widget build(BuildContext context) {
 		return EntityTile(
-			title: location.name,
+			title: location.toString(),
 			pageBuilder: (_) => LocationPage(location)
 		);
 	}

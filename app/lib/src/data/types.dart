@@ -1,4 +1,5 @@
 abstract class Field {
+	static const city = 'city';
 	static const code = 'code';
 	static const codeName = 'codeName';
 	static const courseCount = 'courseCount';

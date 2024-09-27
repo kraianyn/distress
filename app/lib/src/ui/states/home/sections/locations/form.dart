@@ -22,6 +22,7 @@ class LocationForm extends HookConsumerWidget {
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
 		final nameField = useTextEditingController(text: location?.name);
+		final cityField = useTextEditingController(text: location?.city);
 		final linkField = useTextEditingController(text: location?.link);
 
 		final textTheme = Theme.of(context).textTheme;
@@ -37,6 +38,14 @@ class LocationForm extends HookConsumerWidget {
 					)
 				),
 				TextField(
+					controller: cityField,
+					style: textTheme.titleMedium,
+					decoration: const InputDecoration(
+						icon: AppIcon.city,
+						hintText: "Місто"
+					)
+				),
+				TextField(
 					controller: linkField,
 					style: textTheme.titleMedium,
 					decoration: const InputDecoration(
@@ -46,8 +55,8 @@ class LocationForm extends HookConsumerWidget {
 				)
 			],
 			onConfirm: location ==  null
-				? () => _add(context, ref, nameField, linkField)
-				: () => _update(context, ref, nameField, linkField)
+				? () => _add(context, ref, nameField, cityField, linkField)
+				: () => _update(context, ref, nameField, cityField, linkField)
 		);
 	}
 
@@ -55,12 +64,15 @@ class LocationForm extends HookConsumerWidget {
 		BuildContext context,
 		WidgetRef ref,
 		TextEditingController nameField,
+		TextEditingController cityField,
 		TextEditingController linkField
 	) {
-		final name = nameField.text.trim(), link = linkField.text.trim();
-		if (name.isEmpty || link.isEmpty) return;
+		final name = nameField.text.trim(),
+			city = cityField.text.trim(),
+			link = linkField.text.trim();
+		if (name.isEmpty || city.isEmpty || link.isEmpty) return;
 
-		final location = Location.added(name: name, link: link);
+		final location = Location.added(name: name, city: city, link: link);
 		ref.read(locationsNotifierProvider.notifier).add(location);
 		Navigator.pop(context, location);
 	}
@@ -69,12 +81,19 @@ class LocationForm extends HookConsumerWidget {
 		BuildContext context,
 		WidgetRef ref,
 		TextEditingController nameField,
+		TextEditingController cityField,
 		TextEditingController linkField
 	) {
-		final name = nameField.text.trim(), link = linkField.text.trim();
-		if (name == location!.name && link == location!.link) return;
+		final name = nameField.text.trim(),
+			city = cityField.text.trim(),
+			link = linkField.text.trim();
+		if (
+			name == location!.name
+			&& city == location!.city
+			&& link == location!.link
+		) return;
 
-		final updatedLocation = location!.copyWith(name: name, link: link);
+		final updatedLocation = location!.copyWith(name: name, city: city, link: link);
 		ref.read(locationPageNotifierProvider(location!).notifier).update(updatedLocation);
 		ref.read(locationsNotifierProvider.notifier).updateLocation(updatedLocation);
 		ref.read(coursesNotifierProvider.notifier).updateLocation(updatedLocation);

@@ -11,10 +11,11 @@ import 'package:distress/src/ui/core/date_time.dart';
 
 import '../../providers/courses.dart';
 import '../../providers/pages/course.dart';
-
 import '../../widgets/entity_page.dart';
+
 import '../course_types/page.dart';
 import '../instructors/page.dart';
+import '../locations/page.dart';
 
 import 'form.dart';
 
@@ -39,8 +40,9 @@ class CoursePage extends ConsumerWidget {
 					leading: AppIcon.date
 				),
 				ListTile(
-					title: Text(course.location.name),
-					leading: AppIcon.location
+					title: Text(course.location.toString()),
+					leading: AppIcon.location,
+					onTap: () => openPage(context, (_) => LocationPage(course.location))
 				),
 				if (course.instructors.isNotEmpty) ListTile(
 					title: RichText(text: TextSpan(
