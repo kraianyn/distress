@@ -26,7 +26,7 @@ class UserForm extends HookConsumerWidget {
 		return Scaffold(
 			appBar: AppBar(title: const Text("Надання інформації")),
 			body: Padding(
-				padding: const EdgeInsets.all(paddingSize),
+				padding: padding,
 				child: Column(
 					mainAxisAlignment: MainAxisAlignment.center,
 					children: [

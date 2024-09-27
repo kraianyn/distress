@@ -32,7 +32,7 @@ class EntitiesSection<E> extends ConsumerWidget {
 				) : null
 			),
 			loading: () => const LoadingWidget(),
-			error: (error, _) => ErrorWidget(error)
+			error: ErrorWidget.new
 		);
 	}
 }

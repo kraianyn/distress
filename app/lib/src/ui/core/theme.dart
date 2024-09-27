@@ -32,6 +32,8 @@ final headlineHintTextStyle = headlineTextStyle.copyWith(
 	color: hintTextColor
 );
 
+const padding = EdgeInsets.all(paddingSize);
+
 final theme = seed.copyWith(
 	scaffoldBackgroundColor: seedColor.withLightness(.8).toColor(),
 	appBarTheme: AppBarTheme(
@@ -51,7 +53,7 @@ final theme = seed.copyWith(
 		iconColor: iconColor,
 		selectedTileColor: seed.colorScheme.surfaceContainer,
 		selectedColor: seed.colorScheme.onSurface,
-		contentPadding: const EdgeInsets.symmetric(horizontal: spacingUnit * 2)
+		contentPadding: const EdgeInsets.symmetric(horizontal: paddingSize)
 	),
 	inputDecorationTheme: InputDecorationTheme(
 		hintStyle: seed.textTheme.titleMedium!.copyWith(color: hintTextColor),
@@ -60,6 +62,6 @@ final theme = seed.copyWith(
 	),
 	iconTheme: const IconThemeData(color: iconColor),
 	iconButtonTheme: const IconButtonThemeData(style: ButtonStyle(
-		padding: WidgetStatePropertyAll(EdgeInsets.only(right: spacingUnit * 2))
+		padding: WidgetStatePropertyAll(EdgeInsets.only(right: paddingSize))
 	))
 );

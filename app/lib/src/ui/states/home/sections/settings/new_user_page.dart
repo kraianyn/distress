@@ -111,6 +111,6 @@ class AccessCodeCreationWidget extends HookConsumerWidget {
 			return Center(child: Text(code, style: codeTextStyle));
 		}
 
-		return ErrorWidget(snapshot.error!);
+		return ErrorWidget(snapshot.error!, snapshot.stackTrace);
 	}
 }
