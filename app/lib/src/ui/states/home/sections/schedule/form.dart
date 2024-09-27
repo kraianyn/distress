@@ -114,16 +114,27 @@ class CourseForm extends HookConsumerWidget {
 					)
 				)
 			],
-			onConfirm: () => (course == null ? _add : _update)(
-				context,
-				ref,
-				type.value!,
-				date.value!,
-				location.value!,
-				instructors.value,
-				leadInstructor.value!,
-				noteField
-			)
+			onConfirm: course == null
+				? () => _add(
+					context,
+					ref,
+					type.value,
+					date.value,
+					location.value,
+					instructors.value,
+					leadInstructor.value,
+					noteField
+				)
+				: () => _update(
+					context,
+					ref,
+					type.value!,
+					date.value!,
+					location.value!,
+					instructors.value,
+					leadInstructor.value,
+					noteField
+				)
 		);
 	}
 
@@ -216,17 +227,19 @@ class CourseForm extends HookConsumerWidget {
 		DateTime date,
 		Location location,
 		List<Instructor> instructors,
-		Instructor leadInstructor,
+		Instructor? leadInstructor,
 		TextEditingController noteField
 	) {
+		if (leadInstructor == null) return;
+
 		final note = _note(noteField);
 		if (
-			type == course!.type
-			&& date == course!.date
-			&& location == course!.location
-			&& const ListEquality().equals(instructors, course!.instructors)
-			&& leadInstructor == course!.leadInstructor
-			&& note == course!.note
+			type != course!.type
+			|| date != course!.date
+			|| location != course!.location
+			|| ! const ListEquality().equals(instructors, course!.instructors)
+			|| leadInstructor != course!.leadInstructor
+			|| note != course!.note
 		) return;
 
 		final updatedCourse = course!.copyWith(
