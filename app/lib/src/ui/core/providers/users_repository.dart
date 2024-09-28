@@ -9,5 +9,5 @@ part 'users_repository.g.dart';
 
 @Riverpod(keepAlive: true)
 UsersRepository usersRepository(UsersRepositoryRef ref) => UsersRepository(
-	user: ref.user()!
+	user: ref.user()
 );

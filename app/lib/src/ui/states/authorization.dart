@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:distress/src/ui/core/extensions/providers_references.dart';
-
-import '../app.dart';
 import '../core/theme.dart';
+import '../core/extensions/providers_references.dart';
 
 
 class Authorization extends HookConsumerWidget {
@@ -45,9 +43,7 @@ class Authorization extends HookConsumerWidget {
 
 		final actions = await ref.usersRepository().newUserActions(code);
 		if (actions != null) {
-			ref.userNotifier.addActions(actions);
-			await ref.usersRepository().initUser();
-			ref.appStateNotifier.set(AppState.userForm);
+			await ref.appStateNotifier.authorizeUser(actions);
 		}
 	}
 }

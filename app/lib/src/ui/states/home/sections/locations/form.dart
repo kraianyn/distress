@@ -94,7 +94,6 @@ class LocationForm extends HookConsumerWidget {
 		final updatedLocation = location!.copyWith(name: name, city: city, link: link);
 		ref.read(locationPageNotifierProvider(location!).notifier).update(updatedLocation);
 		ref.locationsNotifier.updateLocation(updatedLocation);
-		ref.coursesNotifier.updateLocation(updatedLocation);
 		Navigator.pop(context);
 	}
 }

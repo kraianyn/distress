@@ -71,7 +71,6 @@ class CourseTypeForm extends HookConsumerWidget {
 		final updatedType = type!.copyWith(name: name);
 		ref.read(courseTypePageNotifierProvider(type!).notifier).update(updatedType);
 		ref.courseTypesNotifier.updateType(updatedType);
-		ref.coursesNotifier.updateType(updatedType);
 		Navigator.pop(context);
 	}
 }

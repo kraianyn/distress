@@ -14,7 +14,7 @@ class UserNotifier extends _$UserNotifier {
 		return user != null ? User(id: user.uid) : null;
 	}
 
-	void init(String id) => state = User(id: id);
+	void initialize(String id) => state = User(id: id);
 
 	void addActions(List<UserAction> actions) => state = User(
 		id: state!.id,
@@ -29,5 +29,5 @@ class UserNotifier extends _$UserNotifier {
 
 	void set(User user) => state = user;
 
-	Future<void> signOut() => FirebaseAuth.instance.signOut();
+	void signOut() => state = null;
 }

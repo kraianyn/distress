@@ -21,13 +21,19 @@ import '../providers/users_repository.dart';
 
 
 extension ProvidersReference on Ref {
-	User? user() => watch(userNotifierProvider);
+	User? user({bool watch = true}) => watch
+		? this.watch(userNotifierProvider)
+		: read(userNotifierProvider);
 
 	UsersRepository usersRepository() => read(usersRepositoryProvider);
 
 	ScheduleRepository scheduleRepository() => read(scheduleRepositoryProvider);
 
 	UserNotifier get userNotifier => read(userNotifierProvider.notifier);
+
+	CoursesNotifier get coursesNotifier => read(coursesNotifierProvider.notifier);
+
+	InstructorsNotifier get instructorsNotifier => read(instructorsNotifierProvider.notifier);
 }
 
 extension ProvidersWidgetReference on WidgetRef {

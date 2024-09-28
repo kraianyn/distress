@@ -23,11 +23,13 @@ class LocationsNotifier extends _$LocationsNotifier {
 	// the 'update' name is reserved by the super class
 	Future<void> updateLocation(Location location) async {
 		await _repository.updateLocation(location);
+		ref.coursesNotifier.updateLocation(location);
 		_locations[_locations.indexOf(location)] = location;
 		state = AsyncValue.data(_locations);
 	}
 
 	Future<void> delete(Location location) async {
+		await ref.coursesNotifier.deleteWithLocation(location);
 		await _repository.deleteLocation(location);
 		state = AsyncValue.data(state.value!..remove(location));
 	}

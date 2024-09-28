@@ -33,7 +33,7 @@ class CourseForm extends HookConsumerWidget {
 		final instructorsOptions = ref.instructors().value!;
 
 		final typeField = useTextEditingController(text: course?.type.name);
-		final dateField = useTextEditingController(text: course?.date.dateString(monthAsName: true));
+		final dateField = useTextEditingController(text: course?.date.dateString(monthName: true));
 		final locationField = useTextEditingController(text: course?.location.name);
 		final instructorsField = useTextEditingController(text: course?.instructors.join(', '));
 		final leadInstructorField = useTextEditingController(text: course?.leadInstructor?.codeName);
@@ -147,7 +147,7 @@ class CourseForm extends HookConsumerWidget {
 		);
 		if (date != null) {
 			object.value = date;
-			field.text = date.dateString(monthAsName: true);
+			field.text = date.dateString(monthName: true);
 		}
 	}
 

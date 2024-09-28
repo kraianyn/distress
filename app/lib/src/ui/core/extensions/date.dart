@@ -1,6 +1,6 @@
 extension Date on DateTime {
-	String dateString({monthAsName = false}) {
-		if (!monthAsName) {
+	String dateString({monthName = false}) {
+		if (!monthName) {
 			return "${day.twoDigitString}.${month.twoDigitString}";
 		}
 

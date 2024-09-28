@@ -11,7 +11,7 @@ import '../types.dart';
 class UsersRepository {
 	const UsersRepository({required this.user});
 
-	final User user;
+	final User? user;
 
 	Future<User?> existingUser() async {
 		final snapshot = await _userDocument.get();
@@ -36,15 +36,15 @@ class UsersRepository {
 		return UserModel.actionsFromDocument(snapshot.data()![Field.actions]);
 	}
 
-	Future<void> initUser() async {
+	Future<void> initializeUser() async {
 		await _userDocument.set({
-			Field.actions: user.actions!.map((a) => a.name)
+			Field.actions: user!.actions!.map((a) => a.name)
 		});
 	}
 
-	Future<void> addUserInfo() async {
+	Future<void> saveUserInfo() async {
 		await _userDocument.update({
-			Field.codeName: user.codeName
+			Field.codeName: user!.codeName
 		});
 	}
 
@@ -57,8 +57,10 @@ class UsersRepository {
 		return code;
 	}
 
+	Future<void> signOut() => FirebaseAuth.instance.signOut();
+
 	DocumentReference<ObjectMap> get _userDocument =>
-		FirebaseFirestore.instance.collection('users').doc(user.id);
+		FirebaseFirestore.instance.collection('users').doc(user!.id);
 
 	DocumentReference<ObjectMap> _accessCodeDocument(String code) =>
 		FirebaseFirestore.instance.collection('accessCodes').doc(code);

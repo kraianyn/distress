@@ -2,13 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:distress/src/domain/entities/instructor.dart';
-
-import 'package:distress/src/ui/core/extensions/providers_references.dart';
-
-import '../app.dart';
 import '../core/app_icon.dart';
 import '../core/theme.dart';
+import '../core/extensions/providers_references.dart';
 
 
 class UserForm extends HookConsumerWidget {
@@ -46,16 +42,8 @@ class UserForm extends HookConsumerWidget {
 
 	Future<void> _addInfo(WidgetRef ref, TextEditingController codeNameField) async {
 		final codeName = codeNameField.text.trim();
-		if (codeName.isEmpty) return;
-
-		ref.userNotifier.addInfo(codeName);
-		final user = ref.user(watch: false)!;
-		await Future.wait([
-			ref.usersRepository().addUserInfo(),
-			if (user.isInstructor) ref.instructorsNotifier.add(
-				Instructor(id: user.id, codeName: codeName)
-			)
-		]);
-		ref.appStateNotifier.set(AppState.home);
+		if (codeName.isNotEmpty) {
+			await ref.appStateNotifier.saveUserInfo(codeName);
+		}
 	}
 }

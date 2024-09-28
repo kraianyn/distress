@@ -21,6 +21,7 @@ class InstructorsNotifier extends _$InstructorsNotifier {
 	}
 
 	Future<void> delete(Instructor instructor) async {
+		await ref.coursesNotifier.removeInstructor(instructor);
 		await _repository.deleteInstructor(instructor);
 		state = AsyncValue.data(state.value!..remove(instructor));
 	}

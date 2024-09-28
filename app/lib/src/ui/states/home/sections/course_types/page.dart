@@ -57,7 +57,6 @@ class CourseTypePage extends ConsumerWidget {
 	}
 
 	void _delete(BuildContext context, WidgetRef ref) {
-		ref.coursesNotifier.deleteWithType(type);
 		ref.courseTypesNotifier.delete(type);
 		Navigator.pop(context);
 	}
