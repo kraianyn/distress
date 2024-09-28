@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:distress/src/ui/core/open_page.dart';
+import 'package:distress/src/ui/core/extensions/navigation_context.dart';
 
 
 class EntityTile extends StatelessWidget {
@@ -19,7 +19,7 @@ class EntityTile extends StatelessWidget {
 		return ListTile(
 			title: Text(title),
 			trailing: trailing != null ? Text(trailing!) : null,
-			onTap: () => openPage(context, pageBuilder)
+			onTap: () => context.openPage(pageBuilder)
 		);
 	}
 }

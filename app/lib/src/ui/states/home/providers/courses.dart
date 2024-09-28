@@ -7,7 +7,7 @@ import 'package:distress/src/domain/entities/course_type.dart';
 import 'package:distress/src/domain/entities/instructor.dart';
 import 'package:distress/src/domain/entities/location.dart';
 
-import 'schedule_repository.dart';
+import 'package:distress/src/ui/core/extensions/providers_references.dart';
 
 part 'courses.g.dart';
 
@@ -16,7 +16,7 @@ part 'courses.g.dart';
 class CoursesNotifier extends _$CoursesNotifier {
 	@override
 	Future<List<Course>> build() async {
-		return await ref.watch(scheduleRepositoryProvider).courses()..sort();
+		return await _repository.courses()..sort();
 	}
 
 	Future<void> add(Course course) async {
@@ -73,5 +73,5 @@ class CoursesNotifier extends _$CoursesNotifier {
 
 	List<Course> get _courses => state.value!;
 
-	ScheduleRepository get _repository => ref.watch(scheduleRepositoryProvider);
+	ScheduleRepository get _repository => ref.scheduleRepository();
 }

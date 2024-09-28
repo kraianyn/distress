@@ -4,16 +4,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:distress/src/domain/entities/instructor.dart';
 
-import '../app.dart';
+import 'package:distress/src/ui/core/extensions/providers_references.dart';
 
+import '../app.dart';
 import '../core/app_icon.dart';
 import '../core/theme.dart';
-
-import '../core/providers/app_state.dart';
-import '../core/providers/user.dart';
-import '../core/providers/users_repository.dart';
-
-import 'home/providers/schedule_repository.dart';
 
 
 class UserForm extends HookConsumerWidget {
@@ -53,14 +48,14 @@ class UserForm extends HookConsumerWidget {
 		final codeName = codeNameField.text.trim();
 		if (codeName.isEmpty) return;
 
-		ref.read(userNotifierProvider.notifier).addInfo(codeName);
-		final user = ref.read(userNotifierProvider)!;
+		ref.userNotifier.addInfo(codeName);
+		final user = ref.user(watch: false)!;
 		await Future.wait([
-			ref.read(usersRepositoryProvider).addUserInfo(),
-			if (user.isInstructor) ref.read(scheduleRepositoryProvider).addInstructor(
+			ref.usersRepository().addUserInfo(),
+			if (user.isInstructor) ref.instructorsNotifier.add(
 				Instructor(id: user.id, codeName: codeName)
 			)
 		]);
-		ref.read(appStateNotifierProvider.notifier).set(AppState.home);
+		ref.appStateNotifier.set(AppState.home);
 	}
 }

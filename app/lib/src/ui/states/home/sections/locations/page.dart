@@ -4,15 +4,13 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:distress/src/domain/entities/location.dart';
 
 import 'package:distress/src/ui/core/app_icon.dart';
-import 'package:distress/src/ui/core/open_page.dart';
+import 'package:distress/src/ui/core/extensions/navigation_context.dart';
+import 'package:distress/src/ui/core/extensions/providers_references.dart';
 
-import '../../providers/courses.dart';
-import '../../providers/locations.dart';
 import '../../providers/pages/location.dart';
-
 import '../../widgets/entity_page.dart';
-import '../schedule/tile.dart';
 
+import '../schedule/tile.dart';
 import 'form.dart';
 
 
@@ -24,7 +22,7 @@ class LocationPage extends ConsumerWidget {
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
 		final location = ref.watch(locationPageNotifierProvider(this.location));
-		final courses = ref.watch(coursesNotifierProvider).value?.where(
+		final courses = ref.courses().value?.where(
 			(course) => course.location == location
 		);
 
@@ -48,7 +46,7 @@ class LocationPage extends ConsumerWidget {
 				IconButton(
 					icon: AppIcon.change,
 					tooltip: "Змінити",
-					onPressed: () => openPage(context, (_) => LocationForm(location))
+					onPressed: () => context.openPage((_) => LocationForm(location))
 				),
 				IconButton(
 					icon: AppIcon.delete,
@@ -60,8 +58,8 @@ class LocationPage extends ConsumerWidget {
 	}
 
 	void _delete(BuildContext context, WidgetRef ref) {
-		ref.read(coursesNotifierProvider.notifier).deleteWithLocation(location);
-		ref.read(locationsNotifierProvider.notifier).delete(location);
+		ref.coursesNotifier.deleteWithLocation(location);
+		ref.locationsNotifier.delete(location);
 		Navigator.pop(context);
 	}
 }

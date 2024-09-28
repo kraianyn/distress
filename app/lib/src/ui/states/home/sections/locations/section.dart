@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:distress/src/ui/core/providers/user.dart';
+import 'package:distress/src/ui/core/extensions/providers_references.dart';
 
-import '../../providers/locations.dart';
 import '../entities_section.dart';
 
 import 'tile.dart';
@@ -15,8 +14,8 @@ class LocationsSection extends ConsumerWidget {
 
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
-		final locations = ref.watch(locationsNotifierProvider);
-		final userCanAdd = ref.watch(userNotifierProvider)!.canManageSchedule;
+		final locations = ref.locations();
+		final userCanAdd = ref.user()!.canManageSchedule;
 
 		return EntitiesSection(
 			entities: locations,

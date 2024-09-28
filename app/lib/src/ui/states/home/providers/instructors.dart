@@ -2,8 +2,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:distress/src/data/repositories/schedule_repository.dart';
 import 'package:distress/src/domain/entities/instructor.dart';
-
-import 'schedule_repository.dart';
+import 'package:distress/src/ui/core/extensions/providers_references.dart';
 
 part 'instructors.g.dart';
 
@@ -12,7 +11,7 @@ part 'instructors.g.dart';
 class InstructorsNotifier extends _$InstructorsNotifier {
 	@override
 	Future<List<Instructor>> build() async {
-		return await ref.watch(scheduleRepositoryProvider).instructors()..sort();
+		return await _repository.instructors()..sort();
 	}
 
 	Future<void> add(Instructor instructor) async {
@@ -26,5 +25,5 @@ class InstructorsNotifier extends _$InstructorsNotifier {
 		state = AsyncValue.data(state.value!..remove(instructor));
 	}
 
-	ScheduleRepository get _repository => ref.watch(scheduleRepositoryProvider);
+	ScheduleRepository get _repository => ref.scheduleRepository();
 }

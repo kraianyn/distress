@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:distress/src/ui/core/app_icon.dart';
-import 'package:distress/src/ui/core/open_page.dart';
-
-import 'package:distress/src/ui/core/providers/app_state.dart';
-import 'package:distress/src/ui/core/providers/user.dart';
+import 'package:distress/src/ui/core/extensions/navigation_context.dart';
+import 'package:distress/src/ui/core/extensions/providers_references.dart';
 
 import 'new_user_page.dart';
 
@@ -15,7 +13,7 @@ class SettingsSection extends ConsumerWidget {
 
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
-		final userCanAddUsers = ref.watch(userNotifierProvider)!.canAddUsers;
+		final userCanAddUsers = ref.user()!.canAddUsers;
 
 		return Scaffold(
 			body: Container(
@@ -25,11 +23,11 @@ class SettingsSection extends ConsumerWidget {
 					children: [
 						if (userCanAddUsers) FilledButton(
 							child: AppIcon.addUser,
-							onPressed: () => openPage(context, (_) => const NewUserPage())
+							onPressed: () => context.openPage((_) => const NewUserPage())
 						),
 						FilledButton(
 							child: AppIcon.signOut,
-							onPressed: ref.read(appStateNotifierProvider.notifier).signOut
+							onPressed: ref.appStateNotifier.signOut
 						)
 					]
 				)

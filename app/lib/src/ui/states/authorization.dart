@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import 'package:distress/src/ui/core/extensions/providers_references.dart';
+
 import '../app.dart';
 import '../core/theme.dart';
-
-import '../core/providers/app_state.dart';
-import '../core/providers/user.dart';
-import '../core/providers/users_repository.dart';
 
 
 class Authorization extends HookConsumerWidget {
@@ -45,11 +43,11 @@ class Authorization extends HookConsumerWidget {
 		final code = field.text.trim();
 		if (code.isEmpty) return;
 
-		final actions = await ref.read(usersRepositoryProvider).newUserActions(code);
+		final actions = await ref.usersRepository().newUserActions(code);
 		if (actions != null) {
-			ref.read(userNotifierProvider.notifier).addActions(actions);
-			await ref.read(usersRepositoryProvider).initUser();
-			ref.read(appStateNotifierProvider.notifier).set(AppState.userForm);
+			ref.userNotifier.addActions(actions);
+			await ref.usersRepository().initUser();
+			ref.appStateNotifier.set(AppState.userForm);
 		}
 	}
 }

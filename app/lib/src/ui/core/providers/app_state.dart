@@ -1,9 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../app.dart';
-
-import 'user.dart';
-import 'users_repository.dart';
+import '../extensions/providers_references.dart';
 
 part 'app_state.g.dart';
 
@@ -12,26 +10,18 @@ part 'app_state.g.dart';
 class AppStateNotifier extends _$AppStateNotifier {
 	@override
 	AppState build() {
-		final user = ref.read(userNotifierProvider);
-		if (user == null) return AppState.authentication;
+		if (ref.user() == null) return AppState.authentication;
 
 		initWithUser();
 		return AppState.determiningUserStatus;
 	}
 
 	Future<void> initWithUser() async {
-		final repository = ref.read(usersRepositoryProvider);
-		final user = await repository.existingUser();
+		final user = await ref.usersRepository().existingUser();
 
 		if (user != null) {
-			ref.read(userNotifierProvider.notifier).set(user);
-
-			if (user.codeName != null) {
-				state = AppState.home;
-			}
-			else {
-				state = AppState.userForm;
-			}
+			ref.userNotifier.set(user);
+			state = user.codeName != null ? AppState.home : AppState.userForm;
 		}
 		else {
 			state = AppState.authorization;
@@ -39,7 +29,7 @@ class AppStateNotifier extends _$AppStateNotifier {
 	}
 
 	Future<void> signOut() async {
-		await ref.read(userNotifierProvider.notifier).signOut();
+		await ref.userNotifier.signOut();
 		state = AppState.authentication;
 	}
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:distress/src/ui/core/open_page.dart';
-import 'package:distress/src/ui/core/providers/user.dart';
+import 'package:distress/src/ui/core/extensions/navigation_context.dart';
+import 'package:distress/src/ui/core/extensions/providers_references.dart';
 
 
 class EntityPage extends ConsumerWidget {
@@ -16,7 +16,7 @@ class EntityPage extends ConsumerWidget {
 
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
-		final userCanModify = ref.watch(userNotifierProvider)!.canManageSchedule;
+		final userCanModify = ref.user()!.canManageSchedule;
 
 		return Scaffold(body: Stack(
 			children: [
@@ -46,7 +46,7 @@ class EntityTitle extends StatelessWidget {
 	Widget build(BuildContext context) {
 		return ListTile(
 			title: Text(text, style: Theme.of(context).textTheme.headlineMedium),
-			onTap: pageBuilder == null ? null : () => openPage(context, pageBuilder!)
+			onTap: pageBuilder == null ? null : () => context.openPage(pageBuilder!)
 		);
 	}
 }

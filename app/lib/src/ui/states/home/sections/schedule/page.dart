@@ -6,10 +6,10 @@ import 'package:distress/src/domain/entities/course.dart';
 import 'package:distress/src/domain/entities/instructor.dart';
 
 import 'package:distress/src/ui/core/app_icon.dart';
-import 'package:distress/src/ui/core/open_page.dart';
-import 'package:distress/src/ui/core/date_time.dart';
+import 'package:distress/src/ui/core/extensions/date.dart';
+import 'package:distress/src/ui/core/extensions/navigation_context.dart';
+import 'package:distress/src/ui/core/extensions/providers_references.dart';
 
-import '../../providers/courses.dart';
 import '../../providers/pages/course.dart';
 import '../../widgets/entity_page.dart';
 
@@ -42,7 +42,7 @@ class CoursePage extends ConsumerWidget {
 				ListTile(
 					title: Text(course.location.toString()),
 					leading: AppIcon.location,
-					onTap: () => openPage(context, (_) => LocationPage(course.location))
+					onTap: () => context.openPage((_) => LocationPage(course.location))
 				),
 				if (course.instructors.isNotEmpty) ListTile(
 					title: RichText(text: TextSpan(
@@ -70,7 +70,7 @@ class CoursePage extends ConsumerWidget {
 				IconButton(
 					icon: AppIcon.change,
 					tooltip: "Змінити",
-					onPressed: () => openPage(context, (_) => CourseForm(course))
+					onPressed: () => context.openPage((_) => CourseForm(course))
 				),
 				IconButton(
 					icon: AppIcon.deleteEvent,
@@ -84,11 +84,11 @@ class CoursePage extends ConsumerWidget {
 	TextSpan _instructorLink(BuildContext context, Instructor instructor) => TextSpan(
 		text: instructor.codeName,
 		recognizer: TapGestureRecognizer()..onTap = () =>
-			openPage(context, (_) => InstructorPage(instructor))
+			context.openPage((_) => InstructorPage(instructor))
 	);
 
 	void _delete(BuildContext context, WidgetRef ref) {
-		ref.read(coursesNotifierProvider.notifier).delete(course);
+		ref.coursesNotifier.delete(course);
 		Navigator.pop(context);
 	}
 }

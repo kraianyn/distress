@@ -2,13 +2,13 @@ import 'package:flutter/material.dart' hide ErrorWidget;
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:distress/src/ui/core/app_icon.dart';
-import 'package:distress/src/ui/core/open_page.dart';
+import 'package:distress/src/ui/core/extensions/navigation_context.dart';
 
 import '../widgets/error.dart';
 import '../widgets/loading.dart';
 
 
-class EntitiesSection<E> extends ConsumerWidget {
+class EntitiesSection<E> extends StatelessWidget {
 	const EntitiesSection({
 		required this.entities,
 		required this.tileBuilder,
@@ -20,7 +20,7 @@ class EntitiesSection<E> extends ConsumerWidget {
 	final Widget Function()? formBuilder;
 
 	@override
-	Widget build(BuildContext context, WidgetRef ref) {
+	Widget build(BuildContext context) {
 		return entities.when(
 			data: (entities) => Scaffold(
 				body: ListView(
@@ -28,7 +28,7 @@ class EntitiesSection<E> extends ConsumerWidget {
 				),
 				floatingActionButton: formBuilder != null ? FloatingActionButton(
 					child: AppIcon.add,
-					onPressed: () => openPage(context, (_) => formBuilder!())
+					onPressed: () => context.openPage((_) => formBuilder!())
 				) : null
 			),
 			loading: () => const LoadingWidget(),

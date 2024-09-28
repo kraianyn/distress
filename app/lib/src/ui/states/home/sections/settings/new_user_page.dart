@@ -7,7 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:distress/src/domain/user.dart';
 
 import 'package:distress/src/ui/core/theme.dart';
-import 'package:distress/src/ui/core/providers/users_repository.dart';
+import 'package:distress/src/ui/core/extensions/providers_references.dart';
 
 import '../../widgets/error.dart';
 import '../../widgets/loading.dart';
@@ -97,7 +97,7 @@ class AccessCodeCreationWidget extends HookConsumerWidget {
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
 		final snapshot = useFuture(useMemoized(
-			() => ref.read(usersRepositoryProvider).createAccessCode(actions)
+			() => ref.usersRepository().createAccessCode(actions)
 		));
 
 		if (snapshot.connectionState == ConnectionState.waiting) {

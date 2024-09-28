@@ -9,15 +9,11 @@ import 'package:distress/src/domain/entities/instructor.dart';
 import 'package:distress/src/domain/entities/location.dart';
 
 import 'package:distress/src/ui/core/app_icon.dart';
-import 'package:distress/src/ui/core/date_time.dart';
-import 'package:distress/src/ui/core/open_page.dart';
+import 'package:distress/src/ui/core/extensions/date.dart';
+import 'package:distress/src/ui/core/extensions/navigation_context.dart';
+import 'package:distress/src/ui/core/extensions/providers_references.dart';
 
-import '../../providers/courses.dart';
-import '../../providers/course_types.dart';
-import '../../providers/instructors.dart';
-import '../../providers/locations.dart';
 import '../../providers/pages/course.dart';
-
 import '../../widgets/entity_form.dart';
 import '../../widgets/object_field.dart';
 
@@ -32,6 +28,10 @@ class CourseForm extends HookConsumerWidget {
 
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
+		final types = ref.courseTypes().value!;
+		final locations = ref.locations().value!;
+		final instructorsOptions = ref.instructors().value!;
+
 		final typeField = useTextEditingController(text: course?.type.name);
 		final dateField = useTextEditingController(text: course?.date.dateString(monthAsName: true));
 		final locationField = useTextEditingController(text: course?.location.name);
@@ -45,18 +45,13 @@ class CourseForm extends HookConsumerWidget {
 		final instructors = useRef(course?.instructors.toList() ?? <Instructor>[]);
 		final leadInstructor = useRef(course?.leadInstructor);
 
-		// ensured not to be null in ScheduleSection
-		final types = ref.watch(courseTypesNotifierProvider).value!;
-		final locations = ref.watch(locationsNotifierProvider).value!;
-		final instructorsOptions = ref.watch(instructorsNotifierProvider).value!;
-
 		return EntityForm(
 			content: [
 				ObjectField(
 					controller: typeField,
 					name: "Курс",
 					isHeadline: true,
-					onTap: () => openPage(context, (_) => OptionsPage(
+					onTap: () => context.openPage((_) => OptionsPage(
 						options: types,
 						selected: type,
 						field: typeField,
@@ -73,7 +68,7 @@ class CourseForm extends HookConsumerWidget {
 					controller: locationField,
 					name: "Локація",
 					icon: AppIcon.location,
-					onTap: () => openPage(context, (_) => OptionsPage(
+					onTap: () => context.openPage((_) => OptionsPage(
 						options: locations,
 						selected: location,
 						field: locationField,
@@ -164,7 +159,7 @@ class CourseForm extends HookConsumerWidget {
 		ObjectRef<Instructor?> leadInstructor,
 		TextEditingController leadInstructorField
 	) async {
-		await openPage(context, (_) => InstructorsOptionsPage(
+		await context.openPage((_) => InstructorsOptionsPage(
 			options: options,
 			selected: selected,
 			field: instructorsField
@@ -182,7 +177,7 @@ class CourseForm extends HookConsumerWidget {
 		List<Instructor> instructors
 	) {
 		if (instructors.isNotEmpty) {
-			openPage(context, (_) => OptionsPage(
+			context.openPage((_) => OptionsPage(
 				options: instructors,
 				selected: selected,
 				field: field
@@ -216,7 +211,7 @@ class CourseForm extends HookConsumerWidget {
 			leadInstructor: leadInstructor,
 			note: _note(noteField)
 		);
-		ref.read(coursesNotifierProvider.notifier).add(course);
+		ref.coursesNotifier.add(course);
 		Navigator.pop(context);
 	}
 
@@ -251,7 +246,7 @@ class CourseForm extends HookConsumerWidget {
 			note: note
 		);
 		ref.read(coursePageNotifierProvider(course!).notifier).update(updatedCourse);
-		ref.read(coursesNotifierProvider.notifier).updateCourse(updatedCourse);
+		ref.coursesNotifier.updateCourse(updatedCourse);
 		Navigator.pop(context);
 	}
 
@@ -299,7 +294,7 @@ class OptionsPage<O> extends StatelessWidget {
 	}
 
 	Future<void> _addOption(BuildContext context) async {
-		final option = await openPage<O>(context, (_) => formBuilder!());
+		final option = await context.openPage<O>((_) => formBuilder!());
 		if (option == null) return;
 
 		selected.value = option;

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:distress/src/ui/core/providers/user.dart';
+import 'package:distress/src/ui/core/extensions/providers_references.dart';
 
-import '../../providers/course_types.dart';
 import '../entities_section.dart';
 
 import 'form.dart';
@@ -15,8 +14,8 @@ class CourseTypesSection extends ConsumerWidget {
 
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
-		final types = ref.watch(courseTypesNotifierProvider);
-		final userCanAdd = ref.watch(userNotifierProvider)!.canManageSchedule;
+		final types = ref.courseTypes();
+		final userCanAdd = ref.user()!.canManageSchedule;
 
 		return EntitiesSection(
 			entities: types,

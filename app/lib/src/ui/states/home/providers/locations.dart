@@ -2,8 +2,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:distress/src/data/repositories/schedule_repository.dart';
 import 'package:distress/src/domain/entities/location.dart';
-
-import 'schedule_repository.dart';
+import 'package:distress/src/ui/core/extensions/providers_references.dart';
 
 part 'locations.g.dart';
 
@@ -12,7 +11,7 @@ part 'locations.g.dart';
 class LocationsNotifier extends _$LocationsNotifier {
 	@override
 	Future<List<Location>> build() async {
-		return await ref.watch(scheduleRepositoryProvider).locations()..sort();
+		return await _repository.locations()..sort();
 	}
 
 	Future<void> add(Location location) async {
@@ -35,5 +34,5 @@ class LocationsNotifier extends _$LocationsNotifier {
 
 	List<Location> get _locations => state.value!;
 
-	ScheduleRepository get _repository => ref.watch(scheduleRepositoryProvider);
+	ScheduleRepository get _repository => ref.scheduleRepository();
 }

@@ -3,11 +3,9 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../app.dart';
-import '../core/app_icon.dart';
 
-import '../core/providers/app_state.dart';
-import '../core/providers/user.dart';
-import '../core/providers/users_repository.dart';
+import '../core/app_icon.dart';
+import '../core/extensions/providers_references.dart';
 
 
 class Authentication extends ConsumerWidget {
@@ -28,15 +26,14 @@ class Authentication extends ConsumerWidget {
 		final account = await GoogleSignIn().signIn();
 		if (account == null) return;
 
-		final credential = await ref.read(usersRepositoryProvider).signIn(account);
-		ref.read(userNotifierProvider.notifier).init(credential.user!.uid);
+		final credential = await ref.usersRepository().signIn(account);
+		ref.userNotifier.init(credential.user!.uid);
 
-		final appStateNotifier = ref.read(appStateNotifierProvider.notifier);
 		if (credential.additionalUserInfo!.isNewUser) {
-			appStateNotifier.set(AppState.authorization);
+			ref.appStateNotifier.set(AppState.authorization);
 		}
 		else {
-			await appStateNotifier.initWithUser();
+			await ref.appStateNotifier.initWithUser();
 		}
 	}
 }

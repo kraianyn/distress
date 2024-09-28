@@ -3,7 +3,7 @@ extension Date on DateTime {
 		if (!monthAsName) {
 			return "${day.twoDigitString}.${month.twoDigitString}";
 		}
-		
+
 		final monthString = switch (month) {
 			DateTime.january => "січня",
 			DateTime.february => "лютого",

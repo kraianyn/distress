@@ -38,12 +38,9 @@ Rename the `data` collection to `schedule`.
 
 ## Consider
 
-Redefine `EntityModel.fromEntity` as casting the entity instead of instantiating 
-a model.
+Move course notifier calls from widgets to other notifiers.
 
 Reorder imports.
-
-Extend `WidgetRef` for common use cases.
 
 Reduce duplication across entity actions.
 

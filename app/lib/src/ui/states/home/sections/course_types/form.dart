@@ -6,11 +6,9 @@ import 'package:distress/src/domain/entities/course_type.dart';
 
 import 'package:distress/src/ui/core/app_icon.dart';
 import 'package:distress/src/ui/core/theme.dart';
+import 'package:distress/src/ui/core/extensions/providers_references.dart';
 
-import '../../providers/courses.dart';
-import '../../providers/course_types.dart';
 import '../../providers/pages/course_type.dart';
-
 import '../../widgets/entity_form.dart';
 
 
@@ -62,7 +60,7 @@ class CourseTypeForm extends HookConsumerWidget {
 		if (name.isEmpty || courseCount == null) return;
 
 		final type = CourseType.added(name: name, courseCount: courseCount);
-		ref.read(courseTypesNotifierProvider.notifier).add(type);
+		ref.courseTypesNotifier.add(type);
 		Navigator.pop(context, type);
 	}
 
@@ -72,8 +70,8 @@ class CourseTypeForm extends HookConsumerWidget {
 
 		final updatedType = type!.copyWith(name: name);
 		ref.read(courseTypePageNotifierProvider(type!).notifier).update(updatedType);
-		ref.read(courseTypesNotifierProvider.notifier).updateType(updatedType);
-		ref.read(coursesNotifierProvider.notifier).updateType(updatedType);
+		ref.courseTypesNotifier.updateType(updatedType);
+		ref.coursesNotifier.updateType(updatedType);
 		Navigator.pop(context);
 	}
 }

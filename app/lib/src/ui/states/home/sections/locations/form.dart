@@ -6,11 +6,9 @@ import 'package:distress/src/domain/entities/location.dart';
 
 import 'package:distress/src/ui/core/app_icon.dart';
 import 'package:distress/src/ui/core/theme.dart';
+import 'package:distress/src/ui/core/extensions/providers_references.dart';
 
-import '../../providers/courses.dart';
-import '../../providers/locations.dart';
 import '../../providers/pages/location.dart';
-
 import '../../widgets/entity_form.dart';
 
 
@@ -73,7 +71,7 @@ class LocationForm extends HookConsumerWidget {
 		if (name.isEmpty || city.isEmpty || link.isEmpty) return;
 
 		final location = Location.added(name: name, city: city, link: link);
-		ref.read(locationsNotifierProvider.notifier).add(location);
+		ref.locationsNotifier.add(location);
 		Navigator.pop(context, location);
 	}
 
@@ -95,8 +93,8 @@ class LocationForm extends HookConsumerWidget {
 
 		final updatedLocation = location!.copyWith(name: name, city: city, link: link);
 		ref.read(locationPageNotifierProvider(location!).notifier).update(updatedLocation);
-		ref.read(locationsNotifierProvider.notifier).updateLocation(updatedLocation);
-		ref.read(coursesNotifierProvider.notifier).updateLocation(updatedLocation);
+		ref.locationsNotifier.updateLocation(updatedLocation);
+		ref.coursesNotifier.updateLocation(updatedLocation);
 		Navigator.pop(context);
 	}
 }

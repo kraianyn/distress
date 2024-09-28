@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:distress/src/ui/core/providers/user.dart';
-
-import '../../providers/courses.dart';
-import '../../providers/course_types.dart';
-import '../../providers/instructors.dart';
-import '../../providers/locations.dart';
+import 'package:distress/src/ui/core/extensions/providers_references.dart';
 
 import '../entities_section.dart';
 
@@ -19,12 +14,12 @@ class ScheduleSection extends ConsumerWidget {
 
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
-		final courses = ref.watch(coursesNotifierProvider);
-		final types = ref.watch(courseTypesNotifierProvider);
-		final locations = ref.watch(locationsNotifierProvider);
-		final instructors = ref.watch(instructorsNotifierProvider);
+		final courses = ref.courses();
+		final types = ref.courseTypes();
+		final locations = ref.locations();
+		final instructors = ref.instructors();
 
-		final userCanAdd = ref.watch(userNotifierProvider)!.canManageSchedule;
+		final userCanAdd = ref.user()!.canManageSchedule;
 		final componentsFetched = types.hasValue && locations.hasValue && instructors.hasValue;
 		final showButton = userCanAdd && componentsFetched;
 
