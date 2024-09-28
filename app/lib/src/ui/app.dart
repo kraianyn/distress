@@ -6,9 +6,9 @@ import 'core/providers/app_state.dart';
 
 import 'states/authentication.dart';
 import 'states/authorization.dart';
-import 'states/home/home.dart';
 import 'states/determining_user_status.dart';
-import 'states/user_form.dart';
+import 'states/home/home.dart';
+import 'states/introduction.dart';
 
 
 class App extends ConsumerWidget {
@@ -31,7 +31,7 @@ enum AppState {
 	authentication(Authentication()),
 	determiningUserStatus(DeterminingUserStatus()),
 	authorization(Authorization()),
-	userForm(UserForm()),
+	introduction(Introduction()),
 	home(Home());
 
 	const AppState(this.widget);

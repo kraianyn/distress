@@ -37,7 +37,7 @@ class AppStateNotifier extends _$AppStateNotifier {
 
 		if (user != null) {
 			ref.userNotifier.set(user);
-			state = user.codeName != null ? AppState.home : AppState.userForm;
+			state = user.codeName != null ? AppState.home : AppState.introduction;
 		}
 		else {
 			state = AppState.authorization;
@@ -47,7 +47,7 @@ class AppStateNotifier extends _$AppStateNotifier {
 	Future<void> authorizeUser(List<UserAction> actions) async {
 		ref.userNotifier.addActions(actions);
 		await ref.usersRepository().initializeUser();
-		state = AppState.userForm;
+		state = AppState.introduction;
 	}
 
 	Future<void> saveUserInfo(String codeName) async {
