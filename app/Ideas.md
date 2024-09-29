@@ -4,6 +4,8 @@
 
 Decide how location cities should be displayed: after the name preceded by a comma or in parentheses, or as a subtitle.
 
+Change the app bar.
+
 Use regular buttons instead of FABs if the page is dedicated to an action.
 
 Make the user know if field values are invalid.
@@ -37,8 +39,6 @@ Rename the `data` collection to `schedule`.
 # Code
 
 ## Consider
-
-Move course notifier calls from widgets to other notifiers.
 
 Reorder imports.
 

@@ -75,3 +75,17 @@ class CoursesNotifier extends _$CoursesNotifier {
 
 	ScheduleRepository get _repository => ref.scheduleRepository();
 }
+
+extension Courses on AsyncValue<List<Course>> {
+	Iterable<Course>? ofType(CourseType type) => value?.where(
+		(course) => course.type == type
+	);
+
+	Iterable<Course>? withInstructor(Instructor instructor) => value?.where(
+		(course) => course.instructors.contains(instructor)
+	);
+
+	Iterable<Course>? atLocation(Location location) => value?.where(
+		(course) => course.location == location
+	);
+}

@@ -7,6 +7,7 @@ import 'package:distress/src/ui/core/app_icon.dart';
 import 'package:distress/src/ui/core/extensions/navigation_context.dart';
 import 'package:distress/src/ui/core/extensions/providers_references.dart';
 
+import '../../providers/courses.dart';
 import '../../providers/pages/course_type.dart';
 import '../../widgets/entity_page.dart';
 
@@ -22,9 +23,7 @@ class CourseTypePage extends ConsumerWidget {
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
 		final type = ref.watch(courseTypePageNotifierProvider(this.type));
-		final courses = ref.courses().value?.where(
-			(course) => course.type == type
-		);
+		final courses = ref.courses().ofType(type);
 
 		return EntityPage(
 			content: [

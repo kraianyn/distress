@@ -6,6 +6,7 @@ import 'package:distress/src/domain/entities/location.dart';
 import 'package:distress/src/ui/core/app_icon.dart';
 import 'package:distress/src/ui/core/extensions/navigation_context.dart';
 import 'package:distress/src/ui/core/extensions/providers_references.dart';
+import 'package:distress/src/ui/states/home/providers/courses.dart';
 
 import '../../providers/pages/location.dart';
 import '../../widgets/entity_page.dart';
@@ -22,9 +23,7 @@ class LocationPage extends ConsumerWidget {
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
 		final location = ref.watch(locationPageNotifierProvider(this.location));
-		final courses = ref.courses().value?.where(
-			(course) => course.location == location
-		);
+		final courses = ref.courses().atLocation(location);
 
 		return EntityPage(
 			content: [

@@ -5,6 +5,7 @@ import 'package:distress/src/domain/entities/instructor.dart';
 
 import 'package:distress/src/ui/core/app_icon.dart';
 import 'package:distress/src/ui/core/extensions/providers_references.dart';
+import 'package:distress/src/ui/states/home/providers/courses.dart';
 
 import '../../widgets/entity_page.dart';
 import '../schedule/tile.dart';
@@ -17,9 +18,7 @@ class InstructorPage extends ConsumerWidget {
 
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
-		final courses = ref.courses().value?.where(
-			(course) => course.instructors.contains(instructor)
-		);
+		final courses = ref.courses().withInstructor(instructor);
 
 		return EntityPage(
 			content: [

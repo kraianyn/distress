@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:distress/src/ui/core/extensions/providers_references.dart';
+import 'package:distress/src/ui/states/home/providers/courses.dart';
 
-import '../../widgets/entity_tile.dart';
 import '../entities_section.dart';
-import 'page.dart';
+import 'tile.dart';
 
 
 class InstructorsSection extends ConsumerWidget {
@@ -14,12 +14,13 @@ class InstructorsSection extends ConsumerWidget {
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
 		final instructors = ref.instructors();
+		final courses = ref.courses();
 
 		return EntitiesSection(
 			entities: instructors,
-			tileBuilder: (instructor) => EntityTile(
-				title: instructor.codeName,
-				pageBuilder: (_) => InstructorPage(instructor)
+			tileBuilder: (instructor) => InstructorTile(
+				instructor,
+				courseCount: courses.withInstructor(instructor)?.length
 			)
 		);
 	}
