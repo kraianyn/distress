@@ -6,6 +6,7 @@ import 'package:distress/src/domain/entities/course_type.dart';
 import 'package:distress/src/ui/core/app_icon.dart';
 import 'package:distress/src/ui/core/extensions/navigation_context.dart';
 import 'package:distress/src/ui/core/extensions/providers_references.dart';
+import 'package:distress/src/ui/core/extensions/quantity.dart';
 
 import '../../providers/courses.dart';
 import '../../providers/pages/course_type.dart';
@@ -28,7 +29,7 @@ class CourseTypePage extends ConsumerWidget {
 			title: type.name,
 			content: [
 				ListTile(
-					title: Text("${type.courseCount} курсів"),
+					title: Text(type.courseCount.courses),
 					leading: AppIcon.courseCount
 				)
 			],

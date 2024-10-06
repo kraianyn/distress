@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:distress/src/domain/entities/course.dart';
 
 import 'package:distress/src/ui/core/app_icon.dart';
+import 'package:distress/src/ui/core/extensions/quantity.dart';
 
 import '../sections/schedule/tile.dart';
 import 'entity_page.dart';
@@ -32,7 +33,7 @@ class CourseComponentPage extends StatelessWidget {
 				if (courses != null) ...[
 					const ListTile(),
 					ListTile(title: Text(
-						"${courses!.length} курсів",
+						courses!.length.courses,
 						style: Theme.of(context).textTheme.headlineSmall
 					), leading: AppIcon.schedule),
 					...courses!.map((course) => CourseTile(
