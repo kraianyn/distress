@@ -1,6 +1,6 @@
 name: distress
-description: "A mobile app for the Hospitallers Training Center."
-publish_to: 'none'
+description: "A mobile app for the instructors of Hospitallers Training Center."
+publish_to: "none"
 version: 0.1.0
 repository: https://github.com/kraianyn/distress
 
@@ -26,7 +26,7 @@ dependencies:
 
 dev_dependencies:
   custom_lint: ^0.6.4
-  flutter_lints: ^4.0.0
+  flutter_lints: ^5.0.0
   riverpod_lint: ^2.3.10
 
   build_runner: ^2.4.11

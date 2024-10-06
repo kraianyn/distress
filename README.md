@@ -1,3 +1,3 @@
 # Distress
 
-A mobile app for the Hospitallers Training Center.
+A mobile app for the instructors of Hospitallers Training Center.

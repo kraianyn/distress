@@ -3,16 +3,18 @@ import 'package:google_fonts/google_fonts.dart';
 
 
 const seedColor = HSLColor.fromAHSL(1, 65, .5, .5);
-const spacingUnit = 8;
+const spacingUnit = 8.0;
 
 final seed = ThemeData(
 	colorScheme: ColorScheme.fromSeed(
 		seedColor: seedColor.toColor(),
 		surfaceContainer: seedColor.withSaturation(.3).withLightness(.55).toColor()
 	),
+	scaffoldBackgroundColor: seedColor.withLightness(.8).toColor(),
 	textTheme: GoogleFonts.ubuntuTextTheme(const TextTheme(
 		titleMedium: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-		headlineMedium: TextStyle(fontSize: 24, fontWeight: FontWeight.w700)
+		headlineMedium: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
+		headlineLarge: TextStyle(fontSize: 28, height: 1, fontWeight: FontWeight.w700)
 	))
 );
 
@@ -35,11 +37,6 @@ final headlineHintTextStyle = headlineTextStyle.copyWith(
 const padding = EdgeInsets.all(paddingSize);
 
 final theme = seed.copyWith(
-	scaffoldBackgroundColor: seedColor.withLightness(.8).toColor(),
-	appBarTheme: AppBarTheme(
-		backgroundColor: seed.colorScheme.surfaceContainer,
-		titleTextStyle: seed.textTheme.headlineMedium
-	),
 	navigationBarTheme: const NavigationBarThemeData(
 		height: spacingUnit * 8,
 		labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
