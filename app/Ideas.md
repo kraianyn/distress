@@ -4,20 +4,21 @@
 
 Finish the authentication, authorization and introduction pages.
 
-Finish the settings section. Add a subsection for the app users.
-
-Add a title for courses on entity pages.
+Finish the settings section.
 
 Use regular buttons instead of FABs if the page is dedicated to the action.
+Replace the button to add a new entity when adding a course with a tile.
 
 Make the user know if field values are invalid.
 
 Make dates on course pages clickable to show all courses scheduled for the date.
 
-### Negligible
+Make location links interactive: copying, following.
 
-Make it impossible to access the course form if the component entities are 
-empty.
+Hide impossible course component options (locations and instructors with a 
+course on the chosen date).
+
+### Negligible
 
 Make forms look like pages.
 

@@ -69,7 +69,7 @@ class CoursePage extends ConsumerWidget {
 			],
 			actions: [
 				IconButton(
-					icon: AppIcon.change,
+					icon: AppIcon.modify,
 					tooltip: "Змінити",
 					onPressed: () => context.openPage((_) => CourseForm(course))
 				),

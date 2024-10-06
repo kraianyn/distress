@@ -8,7 +8,7 @@ import 'package:distress/src/ui/core/extensions/providers_references.dart';
 class EntityPage extends ConsumerWidget {
 	const EntityPage({
 		required this.content,
-		required this.actions
+		this.actions = const []
 	});
 
 	final List<Widget> content;
@@ -25,7 +25,7 @@ class EntityPage extends ConsumerWidget {
 					crossAxisAlignment: CrossAxisAlignment.start,
 					children: content
 				),
-				if (userCanModify) SafeArea(
+				if (actions.isNotEmpty && userCanModify) SafeArea(
 					child: Row(
 						mainAxisAlignment: MainAxisAlignment.end,
 						children: actions

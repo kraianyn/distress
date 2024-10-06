@@ -13,6 +13,7 @@ final seed = ThemeData(
 	scaffoldBackgroundColor: seedColor.withLightness(.85).toColor(),
 	textTheme: GoogleFonts.ubuntuTextTheme(const TextTheme(
 		titleMedium: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+		headlineSmall: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
 		headlineMedium: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
 		headlineLarge: TextStyle(fontSize: 28, height: 1, fontWeight: FontWeight.w700)
 	))

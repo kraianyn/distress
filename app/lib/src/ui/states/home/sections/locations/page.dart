@@ -9,9 +9,8 @@ import 'package:distress/src/ui/core/extensions/providers_references.dart';
 import 'package:distress/src/ui/states/home/providers/courses.dart';
 
 import '../../providers/pages/location.dart';
-import '../../widgets/entity_page.dart';
+import '../../widgets/course_component_page.dart';
 
-import '../schedule/tile.dart';
 import 'form.dart';
 
 
@@ -23,11 +22,11 @@ class LocationPage extends ConsumerWidget {
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
 		final location = ref.watch(locationPageNotifierProvider(this.location));
-		final courses = ref.courses().atLocation(location);
+		final courses = ref.courses().atLocation(location)?.toList();
 
-		return EntityPage(
+		return CourseComponentPage(
+			title: location.name,
 			content: [
-				EntityTitle(location.name),
 				ListTile(
 					title: Text(location.city),
 					leading: AppIcon.city
@@ -35,15 +34,12 @@ class LocationPage extends ConsumerWidget {
 				ListTile(
 					title: Text(location.link),
 					leading: AppIcon.link
-				),
-				if (courses != null) ...[
-					const ListTile(),
-					...courses.map(CourseTile.new)
-				]
+				)
 			],
+			courses: courses,
 			actions: [
 				IconButton(
-					icon: AppIcon.change,
+					icon: AppIcon.modify,
 					tooltip: "Змінити",
 					onPressed: () => context.openPage((_) => LocationForm(location))
 				),

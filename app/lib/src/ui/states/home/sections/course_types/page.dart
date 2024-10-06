@@ -9,9 +9,8 @@ import 'package:distress/src/ui/core/extensions/providers_references.dart';
 
 import '../../providers/courses.dart';
 import '../../providers/pages/course_type.dart';
-import '../../widgets/entity_page.dart';
+import '../../widgets/course_component_page.dart';
 
-import '../schedule/tile.dart';
 import 'form.dart';
 
 
@@ -23,26 +22,21 @@ class CourseTypePage extends ConsumerWidget {
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
 		final type = ref.watch(courseTypePageNotifierProvider(this.type));
-		final courses = ref.courses().ofType(type);
+		final courses = ref.courses().ofType(type)?.toList();
 
-		return EntityPage(
+		return CourseComponentPage(
+			title: type.name,
 			content: [
-				EntityTitle(type.name),
 				ListTile(
 					title: Text("${type.courseCount} курсів"),
 					leading: AppIcon.courseCount
-				),
-				if (courses != null) ...[
-					const ListTile(),
-					...courses.map((course) => CourseTile(
-						course,
-						showLocation: true,
-					))
-				]
+				)
 			],
+			courses: courses,
+			showCourseLocation: true,
 			actions: [
 				IconButton(
-					icon: AppIcon.change,
+					icon: AppIcon.modify,
 					tooltip: "Змінити",
 					onPressed: () => context.openPage((_) => CourseTypeForm(type))
 				),

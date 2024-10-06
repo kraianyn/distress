@@ -183,7 +183,7 @@ enum _Document {
 	}
 
 	DocumentReference<ObjectMap> get ref =>
-		FirebaseFirestore.instance.collection('data').doc(name);
+		FirebaseFirestore.instance.collection('schedule').doc(name);
 }
 
 typedef _DocumentMap = Map<String, ObjectMap>;

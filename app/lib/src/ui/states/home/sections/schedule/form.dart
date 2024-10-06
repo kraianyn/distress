@@ -281,8 +281,7 @@ class OptionsPage<O> extends StatelessWidget {
 						option: option,
 						selected: selected,
 						field: field
-					)),
-					const ListTile()
+					))
 				]
 			)),
 			floatingActionButton: formBuilder != null

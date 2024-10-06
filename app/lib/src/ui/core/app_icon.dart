@@ -20,7 +20,7 @@ abstract class AppIcon {
 	static const note = Icon(Icons.short_text);
 
 	static const add = Icon(Icons.add);
-	static const change = Icon(Icons.edit);
+	static const modify = Icon(Icons.edit);
 	static const confirm = Icon(Icons.done);
 	static const delete = Icon(Icons.delete);
 	static const deleteEvent = Icon(Icons.event_busy);
