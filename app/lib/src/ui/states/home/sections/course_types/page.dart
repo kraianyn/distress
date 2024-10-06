@@ -36,7 +36,7 @@ class CourseTypePage extends ConsumerWidget {
 					const ListTile(),
 					...courses.map((course) => CourseTile(
 						course,
-						title: course.location.name
+						showLocation: true,
 					))
 				]
 			],

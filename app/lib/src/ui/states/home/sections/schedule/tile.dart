@@ -9,15 +9,16 @@ import 'page.dart';
 
 
 class CourseTile extends StatelessWidget {
-	const CourseTile(this.course, {this.title});
+	const CourseTile(this.course, {this.showLocation = false});
 
 	final Course course;
-	final String? title;
+	final bool showLocation;
 
 	@override
 	Widget build(BuildContext context) {
 		return EntityTile(
-			title: title ?? course.type.name,
+			title: !showLocation ? course.type.name : course.location.name,
+			subtitle: !showLocation ? null : course.location.city,
 			trailing: course.date.dateString(),
 			pageBuilder: (_) => CoursePage(course)
 		);

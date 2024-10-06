@@ -40,7 +40,8 @@ class CoursePage extends ConsumerWidget {
 					leading: AppIcon.date
 				),
 				ListTile(
-					title: Text(course.location.toString()),
+					title: Text(course.location.name),
+					subtitle: Text(course.location.city),
 					leading: AppIcon.location,
 					onTap: () => context.openPage((_) => LocationPage(course.location))
 				),

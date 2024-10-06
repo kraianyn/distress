@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 
-const seedColor = HSLColor.fromAHSL(1, 65, .5, .5);
+const seedColor = HSLColor.fromAHSL(1, 70, .5, .5);
 const spacingUnit = 8.0;
 
 final seed = ThemeData(
@@ -10,7 +10,7 @@ final seed = ThemeData(
 		seedColor: seedColor.toColor(),
 		surfaceContainer: seedColor.withSaturation(.3).withLightness(.55).toColor()
 	),
-	scaffoldBackgroundColor: seedColor.withLightness(.8).toColor(),
+	scaffoldBackgroundColor: seedColor.withLightness(.85).toColor(),
 	textTheme: GoogleFonts.ubuntuTextTheme(const TextTheme(
 		titleMedium: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
 		headlineMedium: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
@@ -19,7 +19,7 @@ final seed = ThemeData(
 );
 
 
-const paddingSize = spacingUnit * 2.0;
+const paddingSize = spacingUnit * 2;
 
 const iconColor = Colors.black;
 const hintTextColor = Color.fromRGBO(0, 0, 0, .6);

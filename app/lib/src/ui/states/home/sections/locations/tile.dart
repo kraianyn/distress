@@ -17,7 +17,8 @@ class LocationTile extends StatelessWidget {
 		final showCourseCount = courseCount != null && courseCount != 0;
 
 		return EntityTile(
-			title: location.toString(),
+			title: location.name,
+			subtitle: location.city,
 			trailing: showCourseCount ? courseCount.toString() : null,
 			pageBuilder: (_) => LocationPage(location)
 		);

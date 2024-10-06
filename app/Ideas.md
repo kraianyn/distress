@@ -6,9 +6,6 @@ Finish the authentication, authorization and introduction pages.
 
 Finish the settings section. Add a subsection for the app users.
 
-Decide how location cities should be displayed: after the name preceded by a 
-comma or in parentheses, as a subtitle, in the right part of the tile...
-
 Add a title for courses on entity pages.
 
 Use regular buttons instead of FABs if the page is dedicated to the action.
@@ -27,6 +24,9 @@ Make forms look like pages.
 Remove the tiny built-in padding in action icon buttons on entity pages.
 
 ## Fix
+
+Deleting an instructor who is the lead instructor of a course does not set the 
+course's lead instructor to null.
 
 Updating the date of a course with a date before today causes an error, since 
 the initial date of the calendar widget is no longer in the valid range.
@@ -48,6 +48,11 @@ Rename the `data` collection to `schedule`.
 # Code
 
 ## Consider
+
+Make sure `AsyncNotifier`s await their `future` where needed.
+
+Should `CoursesNotifier.[deleteWithType, deleteWithLocation]` set the state?
+Is it ok that `CourseNotifier.removeInstructor` does not replace the courses?
 
 Reorder imports.
 
