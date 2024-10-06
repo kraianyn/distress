@@ -235,18 +235,19 @@ class CourseForm extends HookConsumerWidget {
 			|| ! const ListEquality().equals(instructors, course!.instructors)
 			|| leadInstructor != course!.leadInstructor
 			|| note != course!.note
-		) return;
+		) {
+			final updatedCourse = course!.copyWith(
+				type: type,
+				date: date,
+				location: location,
+				instructors: instructors,
+				leadInstructor: leadInstructor,
+				note: note
+			);
+			ref.read(coursePageNotifierProvider(course!).notifier).update(updatedCourse);
+			ref.coursesNotifier.updateCourse(updatedCourse);
+		}
 
-		final updatedCourse = course!.copyWith(
-			type: type,
-			date: date,
-			location: location,
-			instructors: instructors,
-			leadInstructor: leadInstructor,
-			note: note
-		);
-		ref.read(coursePageNotifierProvider(course!).notifier).update(updatedCourse);
-		ref.coursesNotifier.updateCourse(updatedCourse);
 		Navigator.pop(context);
 	}
 

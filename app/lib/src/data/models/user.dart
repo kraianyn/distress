@@ -5,6 +5,10 @@ import 'package:distress/src/domain/user.dart';
 import '../types.dart';
 
 
+/// `{
+/// 	codeName?: String,
+/// 	actions: List<String>
+/// }`
 class UserModel extends User {
 	const UserModel({
 		required super.id,
@@ -12,10 +16,6 @@ class UserModel extends User {
 		required super.actions
 	});
 
-	/// `{
-	/// 	codeName?: String,
-	/// 	actions: List<String>
-	/// }`
 	factory UserModel.fromDocument(DocumentSnapshot<ObjectMap> snapshot) {
 		final data = snapshot.data()!;
 		return UserModel(

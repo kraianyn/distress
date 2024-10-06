@@ -66,11 +66,11 @@ class CourseTypeForm extends HookConsumerWidget {
 
 	void _update(BuildContext context, WidgetRef ref, TextEditingController nameField) {
 		final name = nameField.text.trim();
-		if (name == type!.name) return;
-
-		final updatedType = type!.copyWith(name: name);
-		ref.read(courseTypePageNotifierProvider(type!).notifier).update(updatedType);
-		ref.courseTypesNotifier.updateType(updatedType);
+		if (name != type!.name) {
+			final updatedType = type!.copyWith(name: name);
+			ref.read(courseTypePageNotifierProvider(type!).notifier).update(updatedType);
+			ref.courseTypesNotifier.updateType(updatedType);
+		}
 		Navigator.pop(context);
 	}
 }

@@ -86,14 +86,15 @@ class LocationForm extends HookConsumerWidget {
 			city = cityField.text.trim(),
 			link = linkField.text.trim();
 		if (
-			name == location!.name
-			&& city == location!.city
-			&& link == location!.link
-		) return;
+			name != location!.name
+			|| city != location!.city
+			|| link != location!.link
+		) {
+			final updatedLocation = location!.copyWith(name: name, city: city, link: link);
+			ref.read(locationPageNotifierProvider(location!).notifier).update(updatedLocation);
+			ref.locationsNotifier.updateLocation(updatedLocation);
+		}
 
-		final updatedLocation = location!.copyWith(name: name, city: city, link: link);
-		ref.read(locationPageNotifierProvider(location!).notifier).update(updatedLocation);
-		ref.locationsNotifier.updateLocation(updatedLocation);
 		Navigator.pop(context);
 	}
 }
