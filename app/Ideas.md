@@ -13,6 +13,8 @@ Make the user know if field values are invalid.
 
 Make dates on course pages clickable to show all courses scheduled for the date.
 
+Add confirmation before deleting entities.
+
 Make location links interactive: copying, following.
 
 Hide impossible course component options (locations and instructors with a 
@@ -40,20 +42,9 @@ is not reflected on the first page.
 
 Split courses into military and non-military ones.
 
-# Cloud
-
-## Do
-
-Rename the `data` collection to `schedule`.
-
 # Code
 
 ## Consider
-
-Make sure `AsyncNotifier`s await their `future` where needed.
-
-Should `CoursesNotifier.[deleteWithType, deleteWithLocation]` set the state?
-Is it ok that `CourseNotifier.removeInstructor` does not replace the courses?
 
 Reorder imports.
 

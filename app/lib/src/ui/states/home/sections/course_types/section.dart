@@ -23,7 +23,7 @@ class CourseTypesSection extends ConsumerWidget {
 			entities: types,
 			tileBuilder: (type) => CourseTypeTile(
 				type,
-				courseCount: courses.ofType(type)?.length
+				courseCount: courses.withType(type)?.length
 			),
 			formBuilder: userCanAdd ? CourseTypeForm.new : null
 		);

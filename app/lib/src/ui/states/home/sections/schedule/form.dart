@@ -50,7 +50,7 @@ class CourseForm extends HookConsumerWidget {
 				ObjectField(
 					controller: typeField,
 					name: "Курс",
-					isHeadline: true,
+					isTitle: true,
 					onTap: () => context.openPage((_) => OptionsPage(
 						options: types,
 						selected: type,

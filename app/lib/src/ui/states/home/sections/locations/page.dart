@@ -22,7 +22,7 @@ class LocationPage extends ConsumerWidget {
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
 		final location = ref.watch(locationPageNotifierProvider(this.location));
-		final courses = ref.courses().atLocation(location)?.toList();
+		final courses = ref.courses().withLocation(location)?.toList();
 
 		return CourseComponentPage(
 			title: location.name,

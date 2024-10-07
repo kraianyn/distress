@@ -8,20 +8,20 @@ class ObjectField extends StatelessWidget {
 		required this.controller,
 		required this.name,
 		this.icon,
-		this.isHeadline = false,
+		this.isTitle = false,
 		required this.onTap
 	});
 
 	final TextEditingController controller;
 	final String name;
 	final Icon? icon;
-	final bool isHeadline;
+	final bool isTitle;
 	final void Function() onTap;
 
 	@override
 	Widget build(BuildContext context) {
 		final textTheme = Theme.of(context).textTheme;
-		final textStyle = !isHeadline ? textTheme.titleMedium : textTheme.headlineMedium;
+		final textStyle = !isTitle ? textTheme.titleMedium : textTheme.headlineMedium;
 
 		return TextField(
 			controller: controller,
@@ -29,7 +29,7 @@ class ObjectField extends StatelessWidget {
 			decoration: InputDecoration(
 				hintText: name,
 				icon: icon,
-				hintStyle: !isHeadline ? null : headlineHintTextStyle
+				hintStyle: !isTitle ? null : headlineHintTextStyle
 			),
 			readOnly: true,
 			onTap: onTap

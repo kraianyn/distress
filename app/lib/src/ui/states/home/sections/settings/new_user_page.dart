@@ -97,7 +97,7 @@ class AccessCodeCreationWidget extends HookConsumerWidget {
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
 		final snapshot = useFuture(useMemoized(
-			() => ref.usersRepository().createAccessCode(actions)
+			() => ref.usersRepository.createAccessCode(actions)
 		));
 
 		if (snapshot.connectionState == ConnectionState.waiting) {

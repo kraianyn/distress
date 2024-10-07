@@ -21,7 +21,7 @@ class AppStateNotifier extends _$AppStateNotifier {
 	}
 
 	Future<void> authenticateUser(GoogleSignInAccount account) async {
-		final credential = await ref.usersRepository().signIn(account);
+		final credential = await ref.usersRepository.signIn(account);
 		ref.userNotifier.initialize(credential.user!.uid);
 
 		if (credential.additionalUserInfo!.isNewUser) {
@@ -33,7 +33,7 @@ class AppStateNotifier extends _$AppStateNotifier {
 	}
 
 	Future<void> initializeWithUser() async {
-		final user = await ref.usersRepository().existingUser();
+		final user = await ref.usersRepository.existingUser();
 
 		if (user != null) {
 			ref.userNotifier.set(user);
@@ -46,7 +46,7 @@ class AppStateNotifier extends _$AppStateNotifier {
 
 	Future<void> authorizeUser(List<UserAction> actions) async {
 		ref.userNotifier.addActions(actions);
-		await ref.usersRepository().initializeUser();
+		await ref.usersRepository.initializeUser();
 		state = AppState.introduction;
 	}
 
@@ -54,7 +54,7 @@ class AppStateNotifier extends _$AppStateNotifier {
 		ref.userNotifier.addInfo(codeName);
 		final user = ref.user(watch: false)!;
 		await Future.wait([
-			ref.usersRepository().saveUserInfo(),
+			ref.usersRepository.saveUserInfo(),
 			if (user.isInstructor) ref.instructorsNotifier.add(
 				Instructor(id: user.id, codeName: codeName)
 			)
@@ -63,7 +63,7 @@ class AppStateNotifier extends _$AppStateNotifier {
 	}
 
 	Future<void> signOut() async {
-		await ref.usersRepository().signOut();
+		await ref.usersRepository.signOut();
 		ref.userNotifier.signOut();
 		state = AppState.authentication;
 	}

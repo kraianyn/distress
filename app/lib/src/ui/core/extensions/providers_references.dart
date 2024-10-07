@@ -25,9 +25,9 @@ extension ProvidersReference on Ref {
 		? this.watch(userNotifierProvider)
 		: read(userNotifierProvider);
 
-	UsersRepository usersRepository() => read(usersRepositoryProvider);
+	UsersRepository get usersRepository => read(usersRepositoryProvider);
 
-	ScheduleRepository scheduleRepository() => read(scheduleRepositoryProvider);
+	ScheduleRepository get scheduleRepository => read(scheduleRepositoryProvider);
 
 	UserNotifier get userNotifier => read(userNotifierProvider.notifier);
 
@@ -49,7 +49,7 @@ extension ProvidersWidgetReference on WidgetRef {
 
 	AsyncValue<List<Location>> locations() => watch(locationsNotifierProvider);
 
-	UsersRepository usersRepository() => read(usersRepositoryProvider);
+	UsersRepository get usersRepository => read(usersRepositoryProvider);
 
 	AppStateNotifier get appStateNotifier => read(appStateNotifierProvider.notifier);
 

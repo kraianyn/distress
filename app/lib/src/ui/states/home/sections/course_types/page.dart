@@ -23,7 +23,7 @@ class CourseTypePage extends ConsumerWidget {
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
 		final type = ref.watch(courseTypePageNotifierProvider(this.type));
-		final courses = ref.courses().ofType(type)?.toList();
+		final courses = ref.courses().withType(type)?.toList();
 
 		return CourseComponentPage(
 			title: type.name,
