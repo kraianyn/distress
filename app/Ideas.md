@@ -13,8 +13,6 @@ Make the user know if field values are invalid.
 
 Make dates on course pages clickable to show all courses scheduled for the date.
 
-Add confirmation before deleting entities.
-
 Make location links interactive: copying, following.
 
 Hide impossible course component options (locations and instructors with a 
@@ -23,9 +21,7 @@ course on the chosen date).
 ### Negligible
 
 Make forms look like pages.
-
-Remove the tiny built-in padding in action icon buttons on entity pages.
-
+ 
 ## Fix
 
 Deleting an instructor who is the lead instructor of a course does not set the 
@@ -56,6 +52,8 @@ Reduce duplication between `OptionsPage` and `InstructorsOptionsPage`.
 
 If schedule forms become more complex, create classes for form data to avoid 
 duplication of field processing logic.
+
+# Cloud
 
 # Questions
 

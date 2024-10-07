@@ -10,7 +10,9 @@ import 'package:distress/src/ui/core/extensions/quantity.dart';
 
 import '../../providers/courses.dart';
 import '../../providers/pages/course_type.dart';
+
 import '../../widgets/course_component_page.dart';
+import '../../widgets/delete_action_button.dart';
 
 import 'form.dart';
 
@@ -41,17 +43,12 @@ class CourseTypePage extends ConsumerWidget {
 					tooltip: "Змінити",
 					onPressed: () => context.openPage((_) => CourseTypeForm(type))
 				),
-				IconButton(
-					icon: AppIcon.delete,
-					tooltip: "Видалити",
-					onPressed: () => _delete(context, ref)
+				DeleteActionButton(
+					title: "Видалити тип курсу?",
+					text: "Заплановані курси цього типу теж буде видалено.",
+					delete: () => ref.courseTypesNotifier.delete(type)
 				)
 			]
 		);
-	}
-
-	void _delete(BuildContext context, WidgetRef ref) {
-		ref.courseTypesNotifier.delete(type);
-		Navigator.pop(context);
 	}
 }

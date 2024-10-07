@@ -11,6 +11,7 @@ import 'package:distress/src/ui/core/extensions/navigation_context.dart';
 import 'package:distress/src/ui/core/extensions/providers_references.dart';
 
 import '../../providers/pages/course.dart';
+import '../../widgets/delete_action_button.dart';
 import '../../widgets/entity_page.dart';
 
 import '../course_types/page.dart';
@@ -73,10 +74,9 @@ class CoursePage extends ConsumerWidget {
 					tooltip: "Змінити",
 					onPressed: () => context.openPage((_) => CourseForm(course))
 				),
-				IconButton(
-					icon: AppIcon.deleteEvent,
-					tooltip: "Видалити",
-					onPressed: () => _delete(context, ref)
+				DeleteActionButton(
+					title: "Видалити курс?",
+					delete: () => ref.coursesNotifier.delete(course)
 				)
 			]
 		);
@@ -87,9 +87,4 @@ class CoursePage extends ConsumerWidget {
 		recognizer: TapGestureRecognizer()..onTap = () =>
 			context.openPage((_) => InstructorPage(instructor))
 	);
-
-	void _delete(BuildContext context, WidgetRef ref) {
-		ref.coursesNotifier.delete(course);
-		Navigator.pop(context);
-	}
 }

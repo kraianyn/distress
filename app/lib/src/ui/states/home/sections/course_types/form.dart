@@ -6,6 +6,7 @@ import 'package:distress/src/domain/entities/course_type.dart';
 
 import 'package:distress/src/ui/core/app_icon.dart';
 import 'package:distress/src/ui/core/theme.dart';
+import 'package:distress/src/ui/core/extensions/navigation_context.dart';
 import 'package:distress/src/ui/core/extensions/providers_references.dart';
 
 import '../../providers/pages/course_type.dart';
@@ -61,7 +62,7 @@ class CourseTypeForm extends HookConsumerWidget {
 
 		final type = CourseType.added(name: name, courseCount: courseCount);
 		ref.courseTypesNotifier.add(type);
-		Navigator.pop(context, type);
+		context.closePage(type);
 	}
 
 	void _update(BuildContext context, WidgetRef ref, TextEditingController nameField) {
@@ -71,6 +72,6 @@ class CourseTypeForm extends HookConsumerWidget {
 			ref.read(courseTypePageNotifierProvider(type!).notifier).update(updatedType);
 			ref.courseTypesNotifier.updateType(updatedType);
 		}
-		Navigator.pop(context);
+		context.closePage();
 	}
 }

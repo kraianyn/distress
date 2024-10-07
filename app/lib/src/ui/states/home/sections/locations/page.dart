@@ -6,10 +6,12 @@ import 'package:distress/src/domain/entities/location.dart';
 import 'package:distress/src/ui/core/app_icon.dart';
 import 'package:distress/src/ui/core/extensions/navigation_context.dart';
 import 'package:distress/src/ui/core/extensions/providers_references.dart';
-import 'package:distress/src/ui/states/home/providers/courses.dart';
 
+import '../../providers/courses.dart';
 import '../../providers/pages/location.dart';
+
 import '../../widgets/course_component_page.dart';
+import '../../widgets/delete_action_button.dart';
 
 import 'form.dart';
 
@@ -43,17 +45,12 @@ class LocationPage extends ConsumerWidget {
 					tooltip: "Змінити",
 					onPressed: () => context.openPage((_) => LocationForm(location))
 				),
-				IconButton(
-					icon: AppIcon.delete,
-					tooltip: "Видалити",
-					onPressed: () => _delete(context, ref)
+				DeleteActionButton(
+					title: "Видалити локацію?",
+					text: "Заплановані на ній курси теж буде видалено.",
+					delete: () => ref.locationsNotifier.delete(location)
 				)
 			]
 		);
-	}
-
-	void _delete(BuildContext context, WidgetRef ref) {
-		ref.locationsNotifier.delete(location);
-		Navigator.pop(context);
 	}
 }

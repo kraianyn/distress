@@ -2,20 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 
-const seedColor = HSLColor.fromAHSL(1, 70, .5, .5);
+const seedColor = HSLColor.fromAHSL(1, 70, 1, .5);
 const spacingUnit = 8.0;
 
 final seed = ThemeData(
 	colorScheme: ColorScheme.fromSeed(
 		seedColor: seedColor.toColor(),
-		surfaceContainer: seedColor.withSaturation(.3).withLightness(.55).toColor()
+		surface: seedColor.withLightness(.9).toColor(),
+		primaryContainer: seedColor.withSaturation(.38).withLightness(.6).toColor()
 	),
-	scaffoldBackgroundColor: seedColor.withLightness(.85).toColor(),
 	textTheme: GoogleFonts.ubuntuTextTheme(const TextTheme(
+		headlineLarge: TextStyle(fontSize: 28, height: 1, fontWeight: FontWeight.bold),
+		headlineMedium: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+		headlineSmall: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
 		titleMedium: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-		headlineSmall: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
-		headlineMedium: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
-		headlineLarge: TextStyle(fontSize: 28, height: 1, fontWeight: FontWeight.w700)
+		bodyMedium: TextStyle(fontSize: 16, fontWeight: FontWeight.normal)
 	))
 );
 
@@ -36,10 +37,13 @@ final headlineHintTextStyle = headlineTextStyle.copyWith(
 );
 
 const padding = EdgeInsets.all(paddingSize);
+const verticalSpaceSmall = SizedBox(height: spacingUnit);
+const verticalSpaceMedium = SizedBox(height: spacingUnit * 2);
 
 final theme = seed.copyWith(
-	navigationBarTheme: const NavigationBarThemeData(
+	navigationBarTheme: NavigationBarThemeData(
 		height: spacingUnit * 8,
+		backgroundColor: seed.colorScheme.primaryContainer,
 		labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
 		iconTheme: WidgetStatePropertyAll(IconThemeData(
 			color: iconColor
@@ -49,10 +53,11 @@ final theme = seed.copyWith(
 		titleTextStyle: seed.textTheme.titleMedium,
 		leadingAndTrailingTextStyle: seed.textTheme.titleMedium,
 		iconColor: iconColor,
-		selectedTileColor: seed.colorScheme.surfaceContainer,
-		selectedColor: seed.colorScheme.onSurface,
+		selectedTileColor: seed.colorScheme.primaryContainer,
+		selectedColor: seed.colorScheme.onPrimaryContainer,
 		contentPadding: const EdgeInsets.symmetric(horizontal: paddingSize)
 	),
+	bottomSheetTheme: BottomSheetThemeData(backgroundColor: seed.colorScheme.surface),
 	inputDecorationTheme: InputDecorationTheme(
 		hintStyle: seed.textTheme.titleMedium!.copyWith(color: hintTextColor),
 		iconColor: iconColor,

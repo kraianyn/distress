@@ -212,7 +212,7 @@ class CourseForm extends HookConsumerWidget {
 			note: _note(noteField)
 		);
 		ref.coursesNotifier.add(course);
-		Navigator.pop(context);
+		context.closePage();
 	}
 
 	void _update(
@@ -248,7 +248,7 @@ class CourseForm extends HookConsumerWidget {
 			ref.coursesNotifier.updateCourse(updatedCourse);
 		}
 
-		Navigator.pop(context);
+		context.closePage();
 	}
 
 	String? _note(TextEditingController field) {
@@ -299,7 +299,7 @@ class OptionsPage<O> extends StatelessWidget {
 
 		selected.value = option;
 		field.text = option.toString();
-		Navigator.pop(context);
+		context.closePage();
 	}
 }
 
@@ -324,7 +324,7 @@ class OptionTile<O> extends HookWidget {
 			onTap: () {
 				selected.value = option;
 				field.text = option.toString();
-				Navigator.pop(context);
+				context.closePage();
 			}
 		);
 	}
@@ -368,7 +368,7 @@ class InstructorsOptionsPage extends StatelessWidget {
 
 	void _confirm(BuildContext context) {
 		_updateField();
-		Navigator.pop(context);
+		context.closePage();
 	}
 }
 

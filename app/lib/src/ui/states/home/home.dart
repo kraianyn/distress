@@ -40,7 +40,7 @@ class Home extends HookWidget {
 					crossAxisAlignment: CrossAxisAlignment.start,
 					children: [
 						Text(section.name, style: textStyle),
-						const SizedBox(height: paddingSize),
+						verticalSpaceMedium,
 						Container(height: lineHeight, color: Colors.black)
 					]
 				)

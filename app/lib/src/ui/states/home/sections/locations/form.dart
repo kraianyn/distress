@@ -6,6 +6,7 @@ import 'package:distress/src/domain/entities/location.dart';
 
 import 'package:distress/src/ui/core/app_icon.dart';
 import 'package:distress/src/ui/core/theme.dart';
+import 'package:distress/src/ui/core/extensions/navigation_context.dart';
 import 'package:distress/src/ui/core/extensions/providers_references.dart';
 
 import '../../providers/pages/location.dart';
@@ -72,7 +73,7 @@ class LocationForm extends HookConsumerWidget {
 
 		final location = Location.added(name: name, city: city, link: link);
 		ref.locationsNotifier.add(location);
-		Navigator.pop(context, location);
+		context.closePage(location);
 	}
 
 	void _update(
@@ -95,6 +96,6 @@ class LocationForm extends HookConsumerWidget {
 			ref.locationsNotifier.updateLocation(updatedLocation);
 		}
 
-		Navigator.pop(context);
+		context.closePage();
 	}
 }
