@@ -4,7 +4,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:distress/src/domain/entities/location.dart';
 
 import 'package:distress/src/ui/core/app_icon.dart';
-import 'package:distress/src/ui/core/extensions/navigation_context.dart';
 import 'package:distress/src/ui/core/extensions/providers_references.dart';
 
 import '../../providers/courses.dart';
@@ -12,6 +11,7 @@ import '../../providers/pages/location.dart';
 
 import '../../widgets/course_component_page.dart';
 import '../../widgets/delete_action_button.dart';
+import '../../widgets/modify_action_button.dart';
 
 import 'form.dart';
 
@@ -40,11 +40,7 @@ class LocationPage extends ConsumerWidget {
 			],
 			courses: courses,
 			actions: [
-				IconButton(
-					icon: AppIcon.modify,
-					tooltip: "Змінити",
-					onPressed: () => context.openPage((_) => LocationForm(location))
-				),
+				ModifyActionButton(formBuilder: (_) => LocationForm(location)),
 				DeleteActionButton(
 					title: "Видалити локацію?",
 					text: "Заплановані на ній курси теж буде видалено.",

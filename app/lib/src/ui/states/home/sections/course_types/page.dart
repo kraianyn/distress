@@ -4,7 +4,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:distress/src/domain/entities/course_type.dart';
 
 import 'package:distress/src/ui/core/app_icon.dart';
-import 'package:distress/src/ui/core/extensions/navigation_context.dart';
 import 'package:distress/src/ui/core/extensions/providers_references.dart';
 import 'package:distress/src/ui/core/extensions/quantity.dart';
 
@@ -13,6 +12,7 @@ import '../../providers/pages/course_type.dart';
 
 import '../../widgets/course_component_page.dart';
 import '../../widgets/delete_action_button.dart';
+import '../../widgets/modify_action_button.dart';
 
 import 'form.dart';
 
@@ -38,11 +38,7 @@ class CourseTypePage extends ConsumerWidget {
 			courses: courses,
 			showCourseLocation: true,
 			actions: [
-				IconButton(
-					icon: AppIcon.modify,
-					tooltip: "Змінити",
-					onPressed: () => context.openPage((_) => CourseTypeForm(type))
-				),
+				ModifyActionButton(formBuilder: (_) => CourseTypeForm(type)),
 				DeleteActionButton(
 					title: "Видалити тип курсу?",
 					text: "Заплановані курси цього типу теж буде видалено.",

@@ -13,6 +13,7 @@ import 'package:distress/src/ui/core/extensions/providers_references.dart';
 import '../../providers/pages/course.dart';
 import '../../widgets/delete_action_button.dart';
 import '../../widgets/entity_page.dart';
+import '../../widgets/modify_action_button.dart';
 
 import '../course_types/page.dart';
 import '../instructors/page.dart';
@@ -69,11 +70,7 @@ class CoursePage extends ConsumerWidget {
 				)
 			],
 			actions: [
-				IconButton(
-					icon: AppIcon.modify,
-					tooltip: "Змінити",
-					onPressed: () => context.openPage((_) => CourseForm(course))
-				),
+				ModifyActionButton(formBuilder: (_) => CourseForm(course)),
 				DeleteActionButton(
 					title: "Видалити курс?",
 					delete: () => ref.coursesNotifier.delete(course)
