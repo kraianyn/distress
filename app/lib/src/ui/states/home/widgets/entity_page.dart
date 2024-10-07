@@ -20,11 +20,14 @@ class EntityPage extends ConsumerWidget {
 
 		return Scaffold(body: Stack(
 			children: [
-				Column(
-					mainAxisAlignment: MainAxisAlignment.center,
-					crossAxisAlignment: CrossAxisAlignment.start,
-					children: content
-				),
+				Center(child: ListView(
+					shrinkWrap: true,
+					children: [
+						const ListTile(),
+						...content,
+						const ListTile()
+					]
+				)),
 				if (actions.isNotEmpty && userCanModify) SafeArea(
 					child: Row(
 						mainAxisAlignment: MainAxisAlignment.end,
