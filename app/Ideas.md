@@ -2,9 +2,11 @@
 
 ## Do
 
-Finish the settings section.
+Add confirmation before signing out.
 
 Make the user know if field values are invalid.
+
+Replace empty `ListTile`s with `verticalSpace`s.
 
 Use regular buttons instead of FABs if the page is dedicated to the action.
 Replace the button to add a new entity when adding a course with a tile.
@@ -18,10 +20,8 @@ course on the chosen date).
 
 ### Negligible
 
-Replace empty `ListTile`s with `verticalSpace`s.
-
 Make forms look like pages.
- 
+
 ## Fix
 
 Deleting an instructor who is the lead instructor of a course does not set the 
@@ -43,8 +43,6 @@ Split courses into military and non-military ones.
 ## Consider
 
 Reorder imports.
-
-Reduce duplication across entity actions.
 
 Reduce duplication across the entity `AsyncNotifier`s.
 

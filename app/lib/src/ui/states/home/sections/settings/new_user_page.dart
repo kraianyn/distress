@@ -1,3 +1,4 @@
+import 'package:distress/src/ui/core/app_icon.dart';
 import 'package:flutter/material.dart' hide ErrorWidget;
 import 'package:flutter/services.dart';
 
@@ -20,19 +21,16 @@ class NewUserPage extends HookWidget {
 		final actions = useState<List<UserAction>?>(null);
 
 		return Scaffold(
-			appBar: AppBar(
-				title: const Text("Додання користувача"),
-				automaticallyImplyLeading: false
-			),
 			body: actions.value == null
-				? ActionsForm(onCreateCode: (givenActions) => actions.value = givenActions)
+				? UserActionsForm(onCreateCode: (givenActions) => actions.value = givenActions)
 				: AccessCodeCreationWidget(actions.value!)
 		);
 	}
 }
 
-class ActionsForm extends HookWidget {
-	const ActionsForm({required this.onCreateCode});
+
+class UserActionsForm extends HookWidget {
+	const UserActionsForm({required this.onCreateCode});
 
 	final void Function(List<UserAction>) onCreateCode;
 
@@ -42,33 +40,57 @@ class ActionsForm extends HookWidget {
 		final canManageSchedule = useRef(false);
 		final canAddUsers = useRef(false);
 
-		return Column (
+		return Column(
 			mainAxisAlignment: MainAxisAlignment.center,
+			crossAxisAlignment: CrossAxisAlignment.stretch,
 			children: [
-				ActionTile(title: "Інструктор", state: isInstructor),
-				ActionTile(title: "Може змінювати розклад", state: canManageSchedule),
-				ActionTile(title: "Може додавати користувачів", state: canAddUsers),
+				Padding(
+					padding: horizontalPadding,
+					child: Text("Новий користувач", style: Theme.of(context).textTheme.headlineLarge)
+				),
 				const ListTile(),
-				FilledButton(
-					child: const Text("Створити код"),
-					onPressed: () => onCreateCode([
-						if (isInstructor.value) UserAction.teaching,
-						if (canManageSchedule.value) UserAction.managingSchedule,
-						if (canAddUsers.value) UserAction.addingUsers,
-					])
+				UserActionTile(
+					title: "Інструктор",
+					icon: AppIcon.instructor,
+					state: isInstructor
+				),
+				UserActionTile(
+					title: "Може змінювати розклад",
+					icon: AppIcon.schedule,
+					state: canManageSchedule
+				),
+				UserActionTile(
+					title: "Може додавати користувачів",
+					icon: AppIcon.addUser,
+					state: canAddUsers
+				),
+				const ListTile(),
+				Padding(
+					padding: horizontalPadding,
+					child: FilledButton.icon(
+						icon: AppIcon.accessCode,
+						label: const Text("Створити код доступу"),
+						onPressed: () => onCreateCode([
+							if (isInstructor.value) UserAction.teaching,
+							if (canManageSchedule.value) UserAction.managingSchedule,
+							if (canAddUsers.value) UserAction.addingUsers
+						])
+					)
 				)
 			]
 		);
 	}
 }
 
-class ActionTile extends HookWidget {
-	const ActionTile({
+class UserActionTile extends HookWidget {
+	const UserActionTile({
 		required this.title,
+		required this.icon,
 		required this.state
 	});
 
 	final String title;
+	final Icon icon;
 	final ObjectRef<bool> state;
 
 	@override
@@ -77,6 +99,7 @@ class ActionTile extends HookWidget {
 
 		return SwitchListTile(
 			title: Text(title),
+			secondary: icon,
 			value: currentState.value,
 			onChanged: (newState) => _onSwitch(newState, currentState)
 		);
@@ -87,6 +110,7 @@ class ActionTile extends HookWidget {
 		state.value = newState;
 	}
 }
+
 
 class AccessCodeCreationWidget extends HookConsumerWidget {
 	const AccessCodeCreationWidget(this.actions);
@@ -99,6 +123,23 @@ class AccessCodeCreationWidget extends HookConsumerWidget {
 			() => ref.usersRepository.createAccessCode(actions)
 		));
 
+		return Padding(
+			padding: padding,
+			child: Column(
+				mainAxisAlignment: MainAxisAlignment.center,
+				crossAxisAlignment: CrossAxisAlignment.stretch,
+				children: [
+					Text("Код доступу", style: Theme.of(context).textTheme.headlineLarge),
+					const ListTile(),
+					_codeWidget(snapshot),
+					const ListTile(),
+					const Text("Передай цей код новому користувачу.")
+				]
+			)
+		);
+	}
+
+	Widget _codeWidget(AsyncSnapshot snapshot) {
 		if (snapshot.connectionState == ConnectionState.waiting) {
 			return const LoadingWidget();
 		}
@@ -107,7 +148,7 @@ class AccessCodeCreationWidget extends HookConsumerWidget {
 			final code = snapshot.data!;
 			Clipboard.setData(ClipboardData(text: code));
 
-			return Center(child: Text(code, style: codeTextStyle));
+			return Text(code, style: accessCodeTextStyle, textAlign: TextAlign.center);
 		}
 
 		return ErrorWidget(snapshot.error!, snapshot.stackTrace);

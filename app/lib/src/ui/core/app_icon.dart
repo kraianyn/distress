@@ -9,16 +9,17 @@ abstract class AppIcon {
 
 	static const home = Icon(Icons.home);
 	static const schedule = Icon(Icons.calendar_month);
-	static const courseType = Icon(Icons.school);
-	static const instructors = Icon(Icons.group);
-	static const location = Icon(Icons.place);
+	static const courseType = Icon(Icons.category);
+	static const instructors = Icon(Icons.people_alt);
 	static const settings = Icon(Icons.settings);
 
 	static const courseCount = Icon(Icons.numbers);
 	static const city = Icon(Icons.business);
 	static const date = Icon(Icons.today);
+	static const instructor = Icon(Icons.school);
 	static const leadInstructor = Icon(Icons.visibility);
 	static const link = Icon(Icons.link);
+	static const location = Icon(Icons.place);
 	static const note = Icon(Icons.short_text);
 
 	static const add = Icon(Icons.add);

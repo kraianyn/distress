@@ -22,7 +22,7 @@ class Authorization extends HookConsumerWidget {
 			content: [
 				TextField(
 					controller: codeField,
-					style: codeTextStyle,
+					style: accessCodeTextStyle,
 					textAlign: TextAlign.center,
 					decoration: InputDecoration(
 						hintText: "Код",
@@ -32,7 +32,7 @@ class Authorization extends HookConsumerWidget {
 				const ListTile(),
 				FilledButton.icon(
 					icon: AppIcon.accessCode,
-					label: Text("Далі"),
+					label: const Text("Далі"),
 					onPressed: () => _handleCode(ref, codeField)
 				)
 			]

@@ -28,7 +28,7 @@ const iconColor = Colors.black;
 const hintTextColor = Color.fromRGBO(0, 0, 0, .6);
 
 final headlineTextStyle = seed.textTheme.headlineMedium!;
-final codeTextStyle = GoogleFonts.oxanium(
+final accessCodeTextStyle = GoogleFonts.oxanium(
 	fontSize: 24,
 	fontWeight: FontWeight.w700,
 	letterSpacing: 10
@@ -38,6 +38,7 @@ final headlineHintTextStyle = headlineTextStyle.copyWith(
 );
 
 const padding = EdgeInsets.all(paddingSize);
+const horizontalPadding = EdgeInsets.symmetric(horizontal: paddingSize);
 const verticalSpaceSmall = SizedBox(height: spacingUnit);
 const verticalSpaceMedium = SizedBox(height: spacingUnit * 2);
 

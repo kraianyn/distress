@@ -21,12 +21,15 @@ class SettingsSection extends ConsumerWidget {
 				child: Column(
 					mainAxisAlignment: MainAxisAlignment.center,
 					children: [
-						if (userCanAddUsers) FilledButton(
-							child: AppIcon.addUser,
+						if (userCanAddUsers) FilledButton.icon(
+							icon: AppIcon.addUser,
+							label: const Text("Додати користувача"),
 							onPressed: () => context.openPage((_) => const NewUserPage())
 						),
-						FilledButton(
-							child: AppIcon.signOut,
+						const ListTile(),
+						FilledButton.icon(
+							icon: AppIcon.signOut,
+							label: const Text("Вийти"),
 							onPressed: ref.appStateNotifier.signOut
 						)
 					]
