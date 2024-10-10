@@ -72,7 +72,7 @@ class CoursePage extends ConsumerWidget {
 			actions: [
 				ModifyActionButton(formBuilder: (_) => CourseForm(course)),
 				DeleteActionButton(
-					title: "Видалити курс?",
+					question: "Видалити курс?",
 					delete: () => ref.coursesNotifier.delete(course)
 				)
 			]

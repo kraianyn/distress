@@ -19,7 +19,7 @@ class Authentication extends ConsumerWidget {
 			content: [
 				FilledButton.icon(
 					icon: AppIcon.account,
-					label: Text("Увійти"),
+					label: const Text("Увійти"),
 					onPressed: () => _signIn(ref)
 				)
 			]

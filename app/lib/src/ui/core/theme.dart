@@ -15,9 +15,9 @@ final seed = ThemeData(
 		headlineLarge: TextStyle(fontSize: 28, height: 1, fontWeight: FontWeight.bold),
 		headlineMedium: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
 		headlineSmall: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-		titleMedium: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-		bodyMedium: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
-		bodySmall: TextStyle(fontSize: 14, fontWeight: FontWeight.normal)
+		titleMedium: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
+		bodyMedium: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+		bodySmall: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)
 	))
 );
 
@@ -47,7 +47,7 @@ final theme = seed.copyWith(
 		height: spacingUnit * 8,
 		backgroundColor: seed.colorScheme.primaryContainer,
 		labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-		iconTheme: WidgetStatePropertyAll(IconThemeData(
+		iconTheme: const WidgetStatePropertyAll(IconThemeData(
 			color: iconColor
 		))
 	),
@@ -62,7 +62,7 @@ final theme = seed.copyWith(
 		contentPadding: const EdgeInsets.symmetric(horizontal: paddingSize)
 	),
 	filledButtonTheme: FilledButtonThemeData(style: ButtonStyle(
-		padding: WidgetStatePropertyAll(padding),
+		padding: const WidgetStatePropertyAll(padding),
 		textStyle: WidgetStatePropertyAll(seed.textTheme.bodyMedium)
 	)),
 	inputDecorationTheme: InputDecorationTheme(
@@ -74,4 +74,9 @@ final theme = seed.copyWith(
 	iconButtonTheme: const IconButtonThemeData(style: ButtonStyle(
 		padding: WidgetStatePropertyAll(EdgeInsets.only(right: paddingSize))
 	))
+);
+
+final smallButtonStyle = ButtonStyle(
+	padding: const WidgetStatePropertyAll(EdgeInsets.all(spacingUnit)),
+	textStyle: WidgetStatePropertyAll(seed.textTheme.bodySmall)
 );

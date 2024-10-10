@@ -29,7 +29,7 @@ class Introduction extends HookConsumerWidget {
 				const ListTile(),
 				FilledButton.icon(
 					icon: AppIcon.home,
-					label: Text("Перейти в додаток"),
+					label: const Text("Перейти в додаток"),
 					onPressed: () => _addInfo(ref, codeNameField)
 				)
 			]

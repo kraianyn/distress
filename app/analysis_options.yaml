@@ -2,6 +2,7 @@ include: package:flutter_lints/flutter.yaml
 
 linter:
   rules:
+    prefer_const_constructors: true
     use_key_in_widget_constructors: false
     sort_child_properties_last: false
 

@@ -42,7 +42,7 @@ class LocationPage extends ConsumerWidget {
 			actions: [
 				ModifyActionButton(formBuilder: (_) => LocationForm(location)),
 				DeleteActionButton(
-					title: "Видалити локацію?",
+					question: "Видалити локацію?",
 					text: "Заплановані на ній курси теж буде видалено.",
 					delete: () => ref.locationsNotifier.delete(location)
 				)

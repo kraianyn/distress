@@ -5,6 +5,7 @@ import 'package:distress/src/ui/core/app_icon.dart';
 import 'package:distress/src/ui/core/extensions/navigation_context.dart';
 import 'package:distress/src/ui/core/extensions/providers_references.dart';
 
+import '../../widgets/show_action_confirmation.dart';
 import 'new_user_page.dart';
 
 
@@ -30,7 +31,11 @@ class AccountSection extends ConsumerWidget {
 						FilledButton.icon(
 							icon: AppIcon.signOut,
 							label: const Text("Вийти"),
-							onPressed: ref.appStateNotifier.signOut
+							onPressed: () => showActionConfirmation(
+								context: context,
+								question: "Може залишишся?",
+								action: ref.appStateNotifier.signOut
+							)
 						)
 					]
 				)

@@ -40,7 +40,7 @@ class CourseTypePage extends ConsumerWidget {
 			actions: [
 				ModifyActionButton(formBuilder: (_) => CourseTypeForm(type)),
 				DeleteActionButton(
-					title: "Видалити тип курсу?",
+					question: "Видалити тип курсу?",
 					text: "Заплановані курси цього типу теж буде видалено.",
 					delete: () => ref.courseTypesNotifier.delete(type)
 				)

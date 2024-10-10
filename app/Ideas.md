@@ -2,8 +2,6 @@
 
 ## Do
 
-Add confirmation before signing out.
-
 Make the user know if field values are invalid.
 
 Replace empty `ListTile`s with `verticalSpace`s.
