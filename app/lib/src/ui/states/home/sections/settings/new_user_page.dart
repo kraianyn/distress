@@ -8,9 +8,8 @@ import 'package:distress/src/domain/user.dart';
 
 import 'package:distress/src/ui/core/theme.dart';
 import 'package:distress/src/ui/core/extensions/providers_references.dart';
-
-import '../../widgets/error.dart';
-import '../../widgets/loading.dart';
+import 'package:distress/src/ui/core/widgets/error.dart';
+import 'package:distress/src/ui/core/widgets/loading.dart';
 
 
 class NewUserPage extends HookWidget {

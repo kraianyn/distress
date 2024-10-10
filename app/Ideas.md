@@ -2,14 +2,12 @@
 
 ## Do
 
-Finish the authentication, authorization and introduction pages.
-
 Finish the settings section.
+
+Make the user know if field values are invalid.
 
 Use regular buttons instead of FABs if the page is dedicated to the action.
 Replace the button to add a new entity when adding a course with a tile.
-
-Make the user know if field values are invalid.
 
 Make dates on course pages clickable to show all courses scheduled for the date.
 
@@ -19,6 +17,8 @@ Hide impossible course component options (locations and instructors with a
 course on the chosen date).
 
 ### Negligible
+
+Replace empty `ListTile`s with `verticalSpace`s.
 
 Make forms look like pages.
  

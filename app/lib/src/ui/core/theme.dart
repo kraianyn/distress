@@ -16,7 +16,8 @@ final seed = ThemeData(
 		headlineMedium: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
 		headlineSmall: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
 		titleMedium: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-		bodyMedium: TextStyle(fontSize: 16, fontWeight: FontWeight.normal)
+		bodyMedium: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
+		bodySmall: TextStyle(fontSize: 14, fontWeight: FontWeight.normal)
 	))
 );
 
@@ -49,15 +50,20 @@ final theme = seed.copyWith(
 			color: iconColor
 		))
 	),
+	bottomSheetTheme: BottomSheetThemeData(backgroundColor: seed.colorScheme.surface),
 	listTileTheme: ListTileThemeData(
 		titleTextStyle: seed.textTheme.titleMedium,
+		subtitleTextStyle: seed.textTheme.bodySmall,
 		leadingAndTrailingTextStyle: seed.textTheme.titleMedium,
 		iconColor: iconColor,
 		selectedTileColor: seed.colorScheme.primaryContainer,
 		selectedColor: seed.colorScheme.onPrimaryContainer,
 		contentPadding: const EdgeInsets.symmetric(horizontal: paddingSize)
 	),
-	bottomSheetTheme: BottomSheetThemeData(backgroundColor: seed.colorScheme.surface),
+	filledButtonTheme: FilledButtonThemeData(style: ButtonStyle(
+		padding: WidgetStatePropertyAll(padding),
+		textStyle: WidgetStatePropertyAll(seed.textTheme.bodyMedium)
+	)),
 	inputDecorationTheme: InputDecorationTheme(
 		hintStyle: seed.textTheme.titleMedium!.copyWith(color: hintTextColor),
 		iconColor: iconColor,

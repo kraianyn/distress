@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../core/app_icon.dart';
 import '../core/extensions/providers_references.dart';
+import '../core/widgets/described_page.dart';
 
 
 class Authentication extends ConsumerWidget {
@@ -11,12 +12,17 @@ class Authentication extends ConsumerWidget {
 
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
-		return Scaffold(
-			appBar: AppBar(title: const Text("Автентифікація")),
-			body: Center(child: FilledButton(
-				child: AppIcon.account,
-				onPressed: () => _signIn(ref)
-			))
+		return DescribedPage(
+			title: "Автентифікація",
+			text: "Створення акаунту в системі та доступ до нього "
+				"здійснюється через акаунт Google.",
+			content: [
+				FilledButton.icon(
+					icon: AppIcon.account,
+					label: Text("Увійти"),
+					onPressed: () => _signIn(ref)
+				)
+			]
 		);
 	}
 

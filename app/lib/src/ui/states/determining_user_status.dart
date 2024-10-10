@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'home/widgets/loading.dart';
+import '../core/widgets/loading.dart';
 
 
 class DeterminingUserStatus extends StatelessWidget {
@@ -8,9 +8,6 @@ class DeterminingUserStatus extends StatelessWidget {
 
 	@override
 	Widget build(BuildContext context) {
-		return Scaffold(
-			appBar: AppBar(title: const Text("Визначення статусу")),
-			body: const LoadingWidget()
-		);
+		return Scaffold(body: const LoadingWidget());
 	}
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:distress/src/ui/core/app_icon.dart';
+import '../app_icon.dart';
 
 
 class LoadingWidget extends StatelessWidget {

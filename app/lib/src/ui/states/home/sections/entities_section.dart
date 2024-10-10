@@ -3,9 +3,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:distress/src/ui/core/app_icon.dart';
 import 'package:distress/src/ui/core/extensions/navigation_context.dart';
-
-import '../widgets/error.dart';
-import '../widgets/loading.dart';
+import 'package:distress/src/ui/core/widgets/error.dart';
+import 'package:distress/src/ui/core/widgets/loading.dart';
 
 
 class EntitiesSection<E> extends StatelessWidget {

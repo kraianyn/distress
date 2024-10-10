@@ -18,6 +18,8 @@ class DeleteActionButton extends StatelessWidget {
 
 	@override
 	Widget build(BuildContext context) {
+		final textTheme = Theme.of(context).textTheme;
+
 		return IconButton(
 			icon: AppIcon.delete,
 			tooltip: "Видалити",
@@ -29,10 +31,10 @@ class DeleteActionButton extends StatelessWidget {
 						mainAxisSize: MainAxisSize.min,
 						crossAxisAlignment: CrossAxisAlignment.start,
 						children: [
-							Text(title, style: Theme.of(context).textTheme.headlineSmall),
+							Text(title, style: textTheme.headlineSmall),
 							if (text != null) ...[
 								verticalSpaceSmall,
-								Text(text!, style: Theme.of(context).textTheme.bodyMedium)
+								Text(text!, style: textTheme.bodySmall)
 							],
 							verticalSpaceMedium,
 							Row(

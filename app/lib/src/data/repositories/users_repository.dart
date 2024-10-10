@@ -27,7 +27,7 @@ class UsersRepository {
 		return await FirebaseAuth.instance.signInWithCredential(credential);
 	}
 
-	Future<List<UserAction>?> newUserActions(String code) async {
+	Future<List<UserAction>?> accessCodeUserActions(String code) async {
 		final document = _accessCodeDocument(code);
 		final snapshot = await document.get();
 		if (!snapshot.exists) return null;

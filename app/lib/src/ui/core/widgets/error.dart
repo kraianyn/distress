@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:distress/src/ui/core/theme.dart';
+import '../theme.dart';
 
 
 class ErrorWidget extends StatelessWidget {
@@ -22,6 +22,7 @@ class ErrorWidget extends StatelessWidget {
 						error.toString(),
 						style: Theme.of(context).textTheme.titleMedium
 					),
+					verticalSpaceMedium,
 					Text(stackTrace.toString())
 				]
 			)
