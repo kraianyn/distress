@@ -6,7 +6,7 @@ import 'course_types/section.dart';
 import 'instructors/section.dart';
 import 'locations/section.dart';
 import 'schedule/section.dart';
-import 'settings/settings.dart';
+import 'account/section.dart';
 
 
 enum Section {
@@ -30,10 +30,10 @@ enum Section {
 		icon: AppIcon.location,
 		widget: LocationsSection()
 	),
-	settings(
-		name: "Налаштування",
-		icon: AppIcon.settings,
-		widget: SettingsSection()
+	account(
+		name: "Акаунт",
+		icon: AppIcon.account,
+		widget: AccountSection()
 	);
 
 	const Section({

@@ -8,8 +8,8 @@ import 'package:distress/src/ui/core/extensions/providers_references.dart';
 import 'new_user_page.dart';
 
 
-class SettingsSection extends ConsumerWidget {
-	const SettingsSection();
+class AccountSection extends ConsumerWidget {
+	const AccountSection();
 
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {

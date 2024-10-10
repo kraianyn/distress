@@ -11,7 +11,6 @@ abstract class AppIcon {
 	static const schedule = Icon(Icons.calendar_month);
 	static const courseType = Icon(Icons.category);
 	static const instructors = Icon(Icons.people_alt);
-	static const settings = Icon(Icons.settings);
 
 	static const courseCount = Icon(Icons.numbers);
 	static const city = Icon(Icons.business);
