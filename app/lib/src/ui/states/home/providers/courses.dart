@@ -73,11 +73,15 @@ extension Courses on AsyncValue<List<Course>> {
 		(course) => course.type == type
 	);
 
-	Iterable<Course>? withInstructor(Instructor instructor) => value?.where(
-		(course) => course.instructors.contains(instructor)
+	Iterable<Course>? withDate(DateTime date) => value?.where(
+		(course) => course.date == date
 	);
 
 	Iterable<Course>? withLocation(Location location) => value?.where(
 		(course) => course.location == location
+	);
+
+	Iterable<Course>? withInstructor(Instructor instructor) => value?.where(
+		(course) => course.instructors.contains(instructor)
 	);
 }

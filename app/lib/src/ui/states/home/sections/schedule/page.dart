@@ -19,6 +19,7 @@ import '../course_types/page.dart';
 import '../instructors/page.dart';
 import '../locations/page.dart';
 
+import 'date_page.dart';
 import 'form.dart';
 
 
@@ -39,7 +40,8 @@ class CoursePage extends ConsumerWidget {
 				),
 				ListTile(
 					title: Text(course.date.dateString(monthName: true)),
-					leading: AppIcon.date
+					leading: AppIcon.date,
+					onTap: () => context.openPage((_) => DatePage(course.date)),
 				),
 				ListTile(
 					title: Text(course.location.name),

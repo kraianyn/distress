@@ -9,8 +9,6 @@ Replace empty `ListTile`s with `verticalSpace`s.
 Use regular buttons instead of FABs if the page is dedicated to the action.
 Replace the button to add a new entity when adding a course with a tile.
 
-Make dates on course pages clickable to show all courses scheduled for the date.
-
 Make location links interactive: copying, following.
 
 Hide impossible course component options (locations and instructors with a 
