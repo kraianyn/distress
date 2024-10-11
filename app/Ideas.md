@@ -2,15 +2,10 @@
 
 ## Do
 
-Make location links interactive: copying, following.
-
 Hide impossible course component options (locations and instructors with a 
 course on the chosen date).
 
 ## Fix
-
-Deleting an instructor who is the lead instructor of a course does not set the 
-course's lead instructor to null.
 
 Updating the date of a course with a date before today causes an error, since 
 the initial date of the calendar widget is no longer in the valid range.

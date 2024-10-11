@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:distress/src/domain/entities/location.dart';
 
@@ -35,7 +37,11 @@ class LocationPage extends ConsumerWidget {
 				),
 				ListTile(
 					title: Text(location.link),
-					leading: AppIcon.link
+					leading: AppIcon.link,
+					onTap: () => _openLink(context),
+					onLongPress: () => Clipboard.setData(
+						ClipboardData(text: location.link)
+					)
 				)
 			],
 			courses: courses,
@@ -48,5 +54,17 @@ class LocationPage extends ConsumerWidget {
 				)
 			]
 		);
+	}
+
+	Future<void> _openLink(BuildContext context) async {
+		try {
+			await launchUrl(Uri.parse(location.link));
+		}
+		on PlatformException {
+			ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+				content: Text("Не вдалося відкрити посилання"),
+				duration: Duration(seconds: 2)
+			));
+		}
 	}
 }

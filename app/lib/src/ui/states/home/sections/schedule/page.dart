@@ -64,7 +64,10 @@ class CoursePage extends ConsumerWidget {
 				),
 				if (course.leadInstructor != null) ListTile(
 					title: Text(course.leadInstructor!.codeName),
-					leading: AppIcon.leadInstructor
+					leading: AppIcon.leadInstructor,
+					onTap: () => context.openPage(
+						(_) => InstructorPage(course.leadInstructor!)
+					)
 				),
 				if (course.note != null) ListTile(
 					title: Text(course.note!),
