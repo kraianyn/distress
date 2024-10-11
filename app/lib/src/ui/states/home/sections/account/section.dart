@@ -33,7 +33,7 @@ class AccountSection extends ConsumerWidget {
 							label: const Text("Вийти"),
 							onPressed: () => showActionConfirmation(
 								context: context,
-								question: "Може залишишся?",
+								question: "Вийти з акаунта?",
 								action: ref.appStateNotifier.signOut
 							)
 						)

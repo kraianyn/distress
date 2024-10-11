@@ -13,6 +13,7 @@ class Authorization extends HookConsumerWidget {
 
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
+		final awaitingActions = useState(false);
 		final codeField = useTextEditingController();
 
 		return DescribedPage(
@@ -33,19 +34,34 @@ class Authorization extends HookConsumerWidget {
 				FilledButton.icon(
 					icon: AppIcon.accessCode,
 					label: const Text("Далі"),
-					onPressed: () => _handleCode(ref, codeField)
+					onPressed: !awaitingActions.value
+						? () => _authorize(context, ref, codeField, awaitingActions)
+						: null
 				)
 			]
 		);
 	}
 
-	Future<void> _handleCode(WidgetRef ref, TextEditingController field) async {
+	Future<void> _authorize(
+		BuildContext context,
+		WidgetRef ref,
+		TextEditingController field,
+		ValueNotifier<bool> awaitingActions
+	) async {
 		final code = field.text.trim();
 		if (code.isEmpty) return;
 
+		awaitingActions.value = true;
 		final actions = await ref.usersRepository.accessCodeUserActions(code);
 		if (actions != null) {
 			await ref.appStateNotifier.authorizeUser(actions);
+		}
+		else {
+			ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+				content: Text("Код хибний"),
+				duration: Duration(seconds: 2)
+			));
+			awaitingActions.value = false;
 		}
 	}
 }

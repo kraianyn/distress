@@ -2,8 +2,6 @@
 
 ## Do
 
-Make the user know if field values are invalid.
-
 Replace empty `ListTile`s with `verticalSpace`s.
 
 Use regular buttons instead of FABs if the page is dedicated to the action.
