@@ -26,6 +26,10 @@ class CourseTypeForm extends HookConsumerWidget {
 		final textTheme = Theme.of(context).textTheme;
 
 		return EntityForm(
+			adding: type == null,
+			action: type == null
+				? () => _add(context, ref, nameField, courseCountField)
+				: () => _update(context, ref, nameField),
 			content: [
 				TextField(
 					controller: nameField,
@@ -43,10 +47,7 @@ class CourseTypeForm extends HookConsumerWidget {
 						icon: AppIcon.courseCount
 					)
 				)
-			],
-			onConfirm: type == null
-				? () => _add(context, ref, nameField, courseCountField)
-				: () => _update(context, ref, nameField)
+			]
 		);
 	}
 

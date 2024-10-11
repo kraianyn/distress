@@ -27,6 +27,10 @@ class LocationForm extends HookConsumerWidget {
 		final textTheme = Theme.of(context).textTheme;
 
 		return EntityForm(
+			adding: location == null,
+			action: location ==  null
+				? () => _add(context, ref, nameField, cityField, linkField)
+				: () => _update(context, ref, nameField, cityField, linkField),
 			content: [
 				TextField(
 					controller: nameField,
@@ -52,10 +56,7 @@ class LocationForm extends HookConsumerWidget {
 						hintText: "Посилання"
 					)
 				)
-			],
-			onConfirm: location ==  null
-				? () => _add(context, ref, nameField, cityField, linkField)
-				: () => _update(context, ref, nameField, cityField, linkField)
+			]
 		);
 	}
 

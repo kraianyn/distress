@@ -9,6 +9,7 @@ import 'package:distress/src/domain/entities/instructor.dart';
 import 'package:distress/src/domain/entities/location.dart';
 
 import 'package:distress/src/ui/core/app_icon.dart';
+import 'package:distress/src/ui/core/theme.dart';
 import 'package:distress/src/ui/core/extensions/date.dart';
 import 'package:distress/src/ui/core/extensions/navigation_context.dart';
 import 'package:distress/src/ui/core/extensions/providers_references.dart';
@@ -19,6 +20,7 @@ import '../../widgets/object_field.dart';
 
 import '../course_types/form.dart';
 import '../locations/form.dart';
+import '../section.dart';
 
 
 class CourseForm extends HookConsumerWidget {
@@ -42,20 +44,44 @@ class CourseForm extends HookConsumerWidget {
 		final type = useRef(course?.type);
 		final date = useRef(course?.date);
 		final location = useRef(course?.location);
-		final instructors = useRef(course?.instructors.toList() ?? const <Instructor>[]);
+		final instructors = useRef(course?.instructors.toList() ?? <Instructor>[]);
 		final leadInstructor = useRef(course?.leadInstructor);
 
 		return EntityForm(
+			adding: course == null,
+			action: course == null
+				? () => _add(
+					context,
+					ref,
+					type.value,
+					date.value,
+					location.value,
+					instructors.value,
+					leadInstructor.value,
+					noteField
+				)
+				: () => _update(
+					context,
+					ref,
+					type.value!,
+					date.value!,
+					location.value!,
+					instructors.value,
+					leadInstructor.value,
+					noteField
+				),
 			content: [
 				ObjectField(
 					controller: typeField,
 					name: "Курс",
 					isTitle: true,
 					onTap: () => context.openPage((_) => OptionsPage(
+						title: Section.courseTypes.name,
 						options: typeOptions,
 						selected: type,
 						field: typeField,
-						formBuilder: CourseTypeForm.new
+						optionFormBuilder: CourseTypeForm.new,
+						addOptionButtonLabel: "Додати курс"
 					))
 				),
 				ObjectField(
@@ -69,10 +95,12 @@ class CourseForm extends HookConsumerWidget {
 					name: "Локація",
 					icon: AppIcon.location,
 					onTap: () => context.openPage((_) => OptionsPage(
+						title: Section.locations.name,
 						options: locationOptions,
 						selected: location,
 						field: locationField,
-						formBuilder: LocationForm.new
+						optionFormBuilder: LocationForm.new,
+						addOptionButtonLabel: "Додати локацію"
 					))
 				),
 				ObjectField(
@@ -108,28 +136,7 @@ class CourseForm extends HookConsumerWidget {
 						icon: AppIcon.note
 					)
 				)
-			],
-			onConfirm: course == null
-				? () => _add(
-					context,
-					ref,
-					type.value,
-					date.value,
-					location.value,
-					instructors.value,
-					leadInstructor.value,
-					noteField
-				)
-				: () => _update(
-					context,
-					ref,
-					type.value!,
-					date.value!,
-					location.value!,
-					instructors.value,
-					leadInstructor.value,
-					noteField
-				)
+			]
 		);
 	}
 
@@ -178,6 +185,7 @@ class CourseForm extends HookConsumerWidget {
 	) {
 		if (instructors.isNotEmpty) {
 			context.openPage((_) => OptionsPage(
+				title: "Інструктори курсу",
 				options: instructors,
 				selected: selected,
 				field: field
@@ -260,16 +268,20 @@ class CourseForm extends HookConsumerWidget {
 
 class OptionsPage<O> extends StatelessWidget {
 	const OptionsPage({
+		required this.title,
 		required this.options,
 		required this.selected,
 		required this.field,
-		this.formBuilder
+		this.optionFormBuilder,
+		this.addOptionButtonLabel
 	});
 
+	final String title;
 	final Iterable<O> options;
 	final ObjectRef<O?> selected;
 	final TextEditingController field;
-	final Widget Function()? formBuilder;
+	final Widget Function()? optionFormBuilder;
+	final String? addOptionButtonLabel;
 
 	@override
 	Widget build(BuildContext context) {
@@ -277,24 +289,35 @@ class OptionsPage<O> extends StatelessWidget {
 			body: Center(child: ListView(
 				shrinkWrap: true,
 				children: [
+					Padding(
+						padding: horizontalPadding,
+						child: Text(
+							title,
+							style: Theme.of(context).textTheme.headlineMedium
+						)
+					),
+					verticalSpaceLarge,
 					...options.map((option) => OptionTile(
 						option: option,
 						selected: selected,
 						field: field
-					))
+					)),
+					verticalSpaceLarge,
+					if (optionFormBuilder != null) Padding(
+						padding: horizontalPadding,
+						child: FilledButton.tonalIcon(
+							icon: AppIcon.add,
+							label: Text(addOptionButtonLabel!),
+							onPressed: () => _addOption(context)
+						)
+					)
 				]
-			)),
-			floatingActionButton: formBuilder != null
-				? FloatingActionButton(
-					child: AppIcon.add,
-					onPressed: () => _addOption(context)
-				)
-				: null
+			))
 		);
 	}
 
 	Future<void> _addOption(BuildContext context) async {
-		final option = await context.openPage<O>((_) => formBuilder!());
+		final option = await context.openPage<O>((_) => optionFormBuilder!());
 		if (option == null) return;
 
 		selected.value = option;
@@ -349,10 +372,20 @@ class InstructorsOptionsPage extends StatelessWidget {
 			child: Scaffold(
 				body: Center(child: ListView(
 					shrinkWrap: true,
-					children: options.map((instructor) => InstructorOptionTile(
-						instructor: instructor,
-						selected: selected
-					)).toList()
+					children: [
+						Padding(
+							padding: horizontalPadding,
+							child: Text(
+								"Інструктори",
+								style: Theme.of(context).textTheme.headlineMedium
+							),
+						),
+						verticalSpaceLarge,
+						...options.map((instructor) => InstructorOptionTile(
+							instructor: instructor,
+							selected: selected
+						))
+					]
 				)),
 				floatingActionButton: FloatingActionButton(
 					child: AppIcon.confirm,

@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 
-const seedColor = HSLColor.fromAHSL(1, 70, 1, .5);
+const primaryColor = HSLColor.fromAHSL(1, 70, .3, .3);
 final seed = ThemeData(
 	colorScheme: ColorScheme.fromSeed(
-		seedColor: seedColor.toColor(),
-		surface: seedColor.withLightness(.9).toColor(),
-		primaryContainer: seedColor.withSaturation(.38).withLightness(.6).toColor()
+		seedColor: primaryColor.toColor(),
+		primary: primaryColor.toColor(),
+		primaryContainer: primaryColor.withLightness(.55).toColor(),
+		surface: primaryColor.withSaturation(.7).withLightness(.9).toColor()
 	),
 	textTheme: GoogleFonts.ubuntuTextTheme(const TextTheme(
 		headlineLarge: TextStyle(fontSize: 28, height: 1, fontWeight: FontWeight.bold),

@@ -6,12 +6,14 @@ import 'package:distress/src/ui/core/theme.dart';
 
 class EntityForm extends StatelessWidget {
 	const EntityForm({
-		required this.content,
-		required this.onConfirm
+		this.adding = true,
+		required this.action,
+		required this.content
 	});
 
+	final bool adding;
+	final void Function() action;
 	final List<Widget> content;
-	final void Function() onConfirm;
 
 	@override
 	Widget build(BuildContext context) {
@@ -20,12 +22,17 @@ class EntityForm extends StatelessWidget {
 				padding: paddingAround,
 				child: Column(
 					mainAxisAlignment: MainAxisAlignment.center,
-					children: content
+					crossAxisAlignment: CrossAxisAlignment.stretch,
+					children: [
+						...content,
+						verticalSpaceLarge,
+						FilledButton.icon(
+							label: Text(adding ? "Додати" : "Змінити"),
+							icon: AppIcon.confirm,
+							onPressed: action
+						)
+					]
 				)
-			),
-			floatingActionButton: FloatingActionButton(
-				child: AppIcon.confirm,
-				onPressed: onConfirm
 			)
 		);
 	}
