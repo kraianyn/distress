@@ -8,7 +8,7 @@ import 'package:distress/src/ui/core/extensions/providers_references.dart';
 import 'package:distress/src/ui/core/extensions/quantity.dart';
 
 import '../../providers/courses.dart';
-import '../../providers/pages/course_type.dart';
+import '../../providers/entities/course_type.dart';
 
 import '../../widgets/course_component_page.dart';
 import '../../widgets/delete_action_button.dart';
@@ -24,7 +24,7 @@ class CourseTypePage extends ConsumerWidget {
 
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
-		final type = ref.watch(courseTypePageNotifierProvider(this.type));
+		final type = ref.watch(courseTypeNotifierProvider(this.type));
 		final courses = ref.courses().withType(type)?.toList();
 
 		return CourseComponentPage(

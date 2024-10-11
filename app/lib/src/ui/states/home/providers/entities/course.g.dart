@@ -6,8 +6,7 @@ part of 'course.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$coursePageNotifierHash() =>
-    r'f6b80014dbc5beb86e8b2011ea02a856c1ba9a7a';
+String _$courseNotifierHash() => r'0f19434ba9cea9101207441de179872468099667';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -30,8 +29,7 @@ class _SystemHash {
   }
 }
 
-abstract class _$CoursePageNotifier
-    extends BuildlessAutoDisposeNotifier<Course> {
+abstract class _$CourseNotifier extends BuildlessAutoDisposeNotifier<Course> {
   late final Course course;
 
   Course build(
@@ -39,27 +37,27 @@ abstract class _$CoursePageNotifier
   );
 }
 
-/// See also [CoursePageNotifier].
-@ProviderFor(CoursePageNotifier)
-const coursePageNotifierProvider = CoursePageNotifierFamily();
+/// See also [CourseNotifier].
+@ProviderFor(CourseNotifier)
+const courseNotifierProvider = CourseNotifierFamily();
 
-/// See also [CoursePageNotifier].
-class CoursePageNotifierFamily extends Family<Course> {
-  /// See also [CoursePageNotifier].
-  const CoursePageNotifierFamily();
+/// See also [CourseNotifier].
+class CourseNotifierFamily extends Family<Course> {
+  /// See also [CourseNotifier].
+  const CourseNotifierFamily();
 
-  /// See also [CoursePageNotifier].
-  CoursePageNotifierProvider call(
+  /// See also [CourseNotifier].
+  CourseNotifierProvider call(
     Course course,
   ) {
-    return CoursePageNotifierProvider(
+    return CourseNotifierProvider(
       course,
     );
   }
 
   @override
-  CoursePageNotifierProvider getProviderOverride(
-    covariant CoursePageNotifierProvider provider,
+  CourseNotifierProvider getProviderOverride(
+    covariant CourseNotifierProvider provider,
   ) {
     return call(
       provider.course,
@@ -78,30 +76,30 @@ class CoursePageNotifierFamily extends Family<Course> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'coursePageNotifierProvider';
+  String? get name => r'courseNotifierProvider';
 }
 
-/// See also [CoursePageNotifier].
-class CoursePageNotifierProvider
-    extends AutoDisposeNotifierProviderImpl<CoursePageNotifier, Course> {
-  /// See also [CoursePageNotifier].
-  CoursePageNotifierProvider(
+/// See also [CourseNotifier].
+class CourseNotifierProvider
+    extends AutoDisposeNotifierProviderImpl<CourseNotifier, Course> {
+  /// See also [CourseNotifier].
+  CourseNotifierProvider(
     Course course,
   ) : this._internal(
-          () => CoursePageNotifier()..course = course,
-          from: coursePageNotifierProvider,
-          name: r'coursePageNotifierProvider',
+          () => CourseNotifier()..course = course,
+          from: courseNotifierProvider,
+          name: r'courseNotifierProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$coursePageNotifierHash,
-          dependencies: CoursePageNotifierFamily._dependencies,
+                  : _$courseNotifierHash,
+          dependencies: CourseNotifierFamily._dependencies,
           allTransitiveDependencies:
-              CoursePageNotifierFamily._allTransitiveDependencies,
+              CourseNotifierFamily._allTransitiveDependencies,
           course: course,
         );
 
-  CoursePageNotifierProvider._internal(
+  CourseNotifierProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -115,7 +113,7 @@ class CoursePageNotifierProvider
 
   @override
   Course runNotifierBuild(
-    covariant CoursePageNotifier notifier,
+    covariant CourseNotifier notifier,
   ) {
     return notifier.build(
       course,
@@ -123,10 +121,10 @@ class CoursePageNotifierProvider
   }
 
   @override
-  Override overrideWith(CoursePageNotifier Function() create) {
+  Override overrideWith(CourseNotifier Function() create) {
     return ProviderOverride(
       origin: this,
-      override: CoursePageNotifierProvider._internal(
+      override: CourseNotifierProvider._internal(
         () => create()..course = course,
         from: from,
         name: null,
@@ -139,14 +137,13 @@ class CoursePageNotifierProvider
   }
 
   @override
-  AutoDisposeNotifierProviderElement<CoursePageNotifier, Course>
-      createElement() {
-    return _CoursePageNotifierProviderElement(this);
+  AutoDisposeNotifierProviderElement<CourseNotifier, Course> createElement() {
+    return _CourseNotifierProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is CoursePageNotifierProvider && other.course == course;
+    return other is CourseNotifierProvider && other.course == course;
   }
 
   @override
@@ -158,18 +155,18 @@ class CoursePageNotifierProvider
   }
 }
 
-mixin CoursePageNotifierRef on AutoDisposeNotifierProviderRef<Course> {
+mixin CourseNotifierRef on AutoDisposeNotifierProviderRef<Course> {
   /// The parameter `course` of this provider.
   Course get course;
 }
 
-class _CoursePageNotifierProviderElement
-    extends AutoDisposeNotifierProviderElement<CoursePageNotifier, Course>
-    with CoursePageNotifierRef {
-  _CoursePageNotifierProviderElement(super.provider);
+class _CourseNotifierProviderElement
+    extends AutoDisposeNotifierProviderElement<CourseNotifier, Course>
+    with CourseNotifierRef {
+  _CourseNotifierProviderElement(super.provider);
 
   @override
-  Course get course => (origin as CoursePageNotifierProvider).course;
+  Course get course => (origin as CourseNotifierProvider).course;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

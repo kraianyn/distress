@@ -6,9 +6,9 @@ part 'location.g.dart';
 
 
 @riverpod
-class LocationPageNotifier extends _$LocationPageNotifier {
+class LocationNotifier extends _$LocationNotifier {
 	@override
-	Location build(Location type) => type;
+	Location build(Location location) => location;
 
-	void update(Location type) => state = type;
+	void update(Location location) => state = location;
 }

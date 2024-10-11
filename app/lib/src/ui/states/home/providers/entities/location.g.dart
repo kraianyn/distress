@@ -6,8 +6,7 @@ part of 'location.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$locationPageNotifierHash() =>
-    r'dcb53e1ef5ca0213e4032ca55ba96dd185895502';
+String _$locationNotifierHash() => r'a0397830797dff3a84fd4024bef74293becd1be9';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -30,39 +29,39 @@ class _SystemHash {
   }
 }
 
-abstract class _$LocationPageNotifier
+abstract class _$LocationNotifier
     extends BuildlessAutoDisposeNotifier<Location> {
-  late final Location type;
+  late final Location location;
 
   Location build(
-    Location type,
+    Location location,
   );
 }
 
-/// See also [LocationPageNotifier].
-@ProviderFor(LocationPageNotifier)
-const locationPageNotifierProvider = LocationPageNotifierFamily();
+/// See also [LocationNotifier].
+@ProviderFor(LocationNotifier)
+const locationNotifierProvider = LocationNotifierFamily();
 
-/// See also [LocationPageNotifier].
-class LocationPageNotifierFamily extends Family<Location> {
-  /// See also [LocationPageNotifier].
-  const LocationPageNotifierFamily();
+/// See also [LocationNotifier].
+class LocationNotifierFamily extends Family<Location> {
+  /// See also [LocationNotifier].
+  const LocationNotifierFamily();
 
-  /// See also [LocationPageNotifier].
-  LocationPageNotifierProvider call(
-    Location type,
+  /// See also [LocationNotifier].
+  LocationNotifierProvider call(
+    Location location,
   ) {
-    return LocationPageNotifierProvider(
-      type,
+    return LocationNotifierProvider(
+      location,
     );
   }
 
   @override
-  LocationPageNotifierProvider getProviderOverride(
-    covariant LocationPageNotifierProvider provider,
+  LocationNotifierProvider getProviderOverride(
+    covariant LocationNotifierProvider provider,
   ) {
     return call(
-      provider.type,
+      provider.location,
     );
   }
 
@@ -78,98 +77,98 @@ class LocationPageNotifierFamily extends Family<Location> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'locationPageNotifierProvider';
+  String? get name => r'locationNotifierProvider';
 }
 
-/// See also [LocationPageNotifier].
-class LocationPageNotifierProvider
-    extends AutoDisposeNotifierProviderImpl<LocationPageNotifier, Location> {
-  /// See also [LocationPageNotifier].
-  LocationPageNotifierProvider(
-    Location type,
+/// See also [LocationNotifier].
+class LocationNotifierProvider
+    extends AutoDisposeNotifierProviderImpl<LocationNotifier, Location> {
+  /// See also [LocationNotifier].
+  LocationNotifierProvider(
+    Location location,
   ) : this._internal(
-          () => LocationPageNotifier()..type = type,
-          from: locationPageNotifierProvider,
-          name: r'locationPageNotifierProvider',
+          () => LocationNotifier()..location = location,
+          from: locationNotifierProvider,
+          name: r'locationNotifierProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$locationPageNotifierHash,
-          dependencies: LocationPageNotifierFamily._dependencies,
+                  : _$locationNotifierHash,
+          dependencies: LocationNotifierFamily._dependencies,
           allTransitiveDependencies:
-              LocationPageNotifierFamily._allTransitiveDependencies,
-          type: type,
+              LocationNotifierFamily._allTransitiveDependencies,
+          location: location,
         );
 
-  LocationPageNotifierProvider._internal(
+  LocationNotifierProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
     required super.allTransitiveDependencies,
     required super.debugGetCreateSourceHash,
     required super.from,
-    required this.type,
+    required this.location,
   }) : super.internal();
 
-  final Location type;
+  final Location location;
 
   @override
   Location runNotifierBuild(
-    covariant LocationPageNotifier notifier,
+    covariant LocationNotifier notifier,
   ) {
     return notifier.build(
-      type,
+      location,
     );
   }
 
   @override
-  Override overrideWith(LocationPageNotifier Function() create) {
+  Override overrideWith(LocationNotifier Function() create) {
     return ProviderOverride(
       origin: this,
-      override: LocationPageNotifierProvider._internal(
-        () => create()..type = type,
+      override: LocationNotifierProvider._internal(
+        () => create()..location = location,
         from: from,
         name: null,
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
-        type: type,
+        location: location,
       ),
     );
   }
 
   @override
-  AutoDisposeNotifierProviderElement<LocationPageNotifier, Location>
+  AutoDisposeNotifierProviderElement<LocationNotifier, Location>
       createElement() {
-    return _LocationPageNotifierProviderElement(this);
+    return _LocationNotifierProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is LocationPageNotifierProvider && other.type == type;
+    return other is LocationNotifierProvider && other.location == location;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, type.hashCode);
+    hash = _SystemHash.combine(hash, location.hashCode);
 
     return _SystemHash.finish(hash);
   }
 }
 
-mixin LocationPageNotifierRef on AutoDisposeNotifierProviderRef<Location> {
-  /// The parameter `type` of this provider.
-  Location get type;
+mixin LocationNotifierRef on AutoDisposeNotifierProviderRef<Location> {
+  /// The parameter `location` of this provider.
+  Location get location;
 }
 
-class _LocationPageNotifierProviderElement
-    extends AutoDisposeNotifierProviderElement<LocationPageNotifier, Location>
-    with LocationPageNotifierRef {
-  _LocationPageNotifierProviderElement(super.provider);
+class _LocationNotifierProviderElement
+    extends AutoDisposeNotifierProviderElement<LocationNotifier, Location>
+    with LocationNotifierRef {
+  _LocationNotifierProviderElement(super.provider);
 
   @override
-  Location get type => (origin as LocationPageNotifierProvider).type;
+  Location get location => (origin as LocationNotifierProvider).location;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

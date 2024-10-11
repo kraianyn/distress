@@ -14,7 +14,6 @@ import 'package:distress/src/ui/core/extensions/date.dart';
 import 'package:distress/src/ui/core/extensions/navigation_context.dart';
 import 'package:distress/src/ui/core/extensions/providers_references.dart';
 
-import '../../providers/pages/course.dart';
 import '../../widgets/entity_form.dart';
 import '../../widgets/object_field.dart';
 
@@ -36,7 +35,7 @@ class CourseForm extends HookConsumerWidget {
 
 		final typeField = useTextEditingController(text: course?.type.name);
 		final dateField = useTextEditingController(text: course?.date.dateString(monthName: true));
-		final locationField = useTextEditingController(text: course?.location.name);
+		final locationField = useTextEditingController(text: course?.location.toString());
 		final instructorsField = useTextEditingController(text: course?.instructors.join(', '));
 		final leadInstructorField = useTextEditingController(text: course?.leadInstructor?.codeName);
 		final noteField = useTextEditingController(text: course?.note);
@@ -252,7 +251,6 @@ class CourseForm extends HookConsumerWidget {
 				leadInstructor: leadInstructor,
 				note: note
 			);
-			ref.read(coursePageNotifierProvider(course!).notifier).update(updatedCourse);
 			ref.coursesNotifier.updateCourse(updatedCourse);
 		}
 

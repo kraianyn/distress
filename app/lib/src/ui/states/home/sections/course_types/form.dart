@@ -9,7 +9,6 @@ import 'package:distress/src/ui/core/theme.dart';
 import 'package:distress/src/ui/core/extensions/navigation_context.dart';
 import 'package:distress/src/ui/core/extensions/providers_references.dart';
 
-import '../../providers/pages/course_type.dart';
 import '../../widgets/entity_form.dart';
 
 
@@ -70,7 +69,6 @@ class CourseTypeForm extends HookConsumerWidget {
 		final name = nameField.text.trim();
 		if (name != type!.name) {
 			final updatedType = type!.copyWith(name: name);
-			ref.read(courseTypePageNotifierProvider(type!).notifier).update(updatedType);
 			ref.courseTypesNotifier.updateType(updatedType);
 		}
 		context.closePage();

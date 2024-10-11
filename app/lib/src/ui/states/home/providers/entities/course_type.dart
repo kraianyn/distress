@@ -6,7 +6,7 @@ part 'course_type.g.dart';
 
 
 @riverpod
-class CourseTypePageNotifier extends _$CourseTypePageNotifier {
+class CourseTypeNotifier extends _$CourseTypeNotifier {
 	@override
 	CourseType build(CourseType type) => type;
 

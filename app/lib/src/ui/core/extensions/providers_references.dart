@@ -15,6 +15,10 @@ import '../../states/home/providers/instructors.dart';
 import '../../states/home/providers/locations.dart';
 import '../../states/home/providers/schedule_repository.dart';
 
+import '../../states/home/providers/entities/course.dart';
+import '../../states/home/providers/entities/course_type.dart';
+import '../../states/home/providers/entities/location.dart';
+
 import '../providers/app_state.dart';
 import '../providers/user.dart';
 import '../providers/users_repository.dart';
@@ -34,6 +38,12 @@ extension ProvidersReference on Ref {
 	CoursesNotifier get coursesNotifier => read(coursesNotifierProvider.notifier);
 
 	InstructorsNotifier get instructorsNotifier => read(instructorsNotifierProvider.notifier);
+
+	CourseNotifier courseNotifier(Course course) => read(courseNotifierProvider(course).notifier);
+	
+	CourseTypeNotifier courseTypeNotifier(CourseType type) => read(courseTypeNotifierProvider(type).notifier);
+
+	LocationNotifier locationNotifier(Location location) => read(locationNotifierProvider(location).notifier);
 }
 
 extension ProvidersWidgetReference on WidgetRef {

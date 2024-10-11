@@ -6,8 +6,8 @@ part of 'course_type.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$courseTypePageNotifierHash() =>
-    r'c15514ad57d2ef0b1284ccd37301ea1a00c63ab1';
+String _$courseTypeNotifierHash() =>
+    r'ad41ac3556602c3166cf9fb11b59dfea490ad83d';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -30,7 +30,7 @@ class _SystemHash {
   }
 }
 
-abstract class _$CourseTypePageNotifier
+abstract class _$CourseTypeNotifier
     extends BuildlessAutoDisposeNotifier<CourseType> {
   late final CourseType type;
 
@@ -39,27 +39,27 @@ abstract class _$CourseTypePageNotifier
   );
 }
 
-/// See also [CourseTypePageNotifier].
-@ProviderFor(CourseTypePageNotifier)
-const courseTypePageNotifierProvider = CourseTypePageNotifierFamily();
+/// See also [CourseTypeNotifier].
+@ProviderFor(CourseTypeNotifier)
+const courseTypeNotifierProvider = CourseTypeNotifierFamily();
 
-/// See also [CourseTypePageNotifier].
-class CourseTypePageNotifierFamily extends Family<CourseType> {
-  /// See also [CourseTypePageNotifier].
-  const CourseTypePageNotifierFamily();
+/// See also [CourseTypeNotifier].
+class CourseTypeNotifierFamily extends Family<CourseType> {
+  /// See also [CourseTypeNotifier].
+  const CourseTypeNotifierFamily();
 
-  /// See also [CourseTypePageNotifier].
-  CourseTypePageNotifierProvider call(
+  /// See also [CourseTypeNotifier].
+  CourseTypeNotifierProvider call(
     CourseType type,
   ) {
-    return CourseTypePageNotifierProvider(
+    return CourseTypeNotifierProvider(
       type,
     );
   }
 
   @override
-  CourseTypePageNotifierProvider getProviderOverride(
-    covariant CourseTypePageNotifierProvider provider,
+  CourseTypeNotifierProvider getProviderOverride(
+    covariant CourseTypeNotifierProvider provider,
   ) {
     return call(
       provider.type,
@@ -78,30 +78,30 @@ class CourseTypePageNotifierFamily extends Family<CourseType> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'courseTypePageNotifierProvider';
+  String? get name => r'courseTypeNotifierProvider';
 }
 
-/// See also [CourseTypePageNotifier].
-class CourseTypePageNotifierProvider extends AutoDisposeNotifierProviderImpl<
-    CourseTypePageNotifier, CourseType> {
-  /// See also [CourseTypePageNotifier].
-  CourseTypePageNotifierProvider(
+/// See also [CourseTypeNotifier].
+class CourseTypeNotifierProvider
+    extends AutoDisposeNotifierProviderImpl<CourseTypeNotifier, CourseType> {
+  /// See also [CourseTypeNotifier].
+  CourseTypeNotifierProvider(
     CourseType type,
   ) : this._internal(
-          () => CourseTypePageNotifier()..type = type,
-          from: courseTypePageNotifierProvider,
-          name: r'courseTypePageNotifierProvider',
+          () => CourseTypeNotifier()..type = type,
+          from: courseTypeNotifierProvider,
+          name: r'courseTypeNotifierProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$courseTypePageNotifierHash,
-          dependencies: CourseTypePageNotifierFamily._dependencies,
+                  : _$courseTypeNotifierHash,
+          dependencies: CourseTypeNotifierFamily._dependencies,
           allTransitiveDependencies:
-              CourseTypePageNotifierFamily._allTransitiveDependencies,
+              CourseTypeNotifierFamily._allTransitiveDependencies,
           type: type,
         );
 
-  CourseTypePageNotifierProvider._internal(
+  CourseTypeNotifierProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -115,7 +115,7 @@ class CourseTypePageNotifierProvider extends AutoDisposeNotifierProviderImpl<
 
   @override
   CourseType runNotifierBuild(
-    covariant CourseTypePageNotifier notifier,
+    covariant CourseTypeNotifier notifier,
   ) {
     return notifier.build(
       type,
@@ -123,10 +123,10 @@ class CourseTypePageNotifierProvider extends AutoDisposeNotifierProviderImpl<
   }
 
   @override
-  Override overrideWith(CourseTypePageNotifier Function() create) {
+  Override overrideWith(CourseTypeNotifier Function() create) {
     return ProviderOverride(
       origin: this,
-      override: CourseTypePageNotifierProvider._internal(
+      override: CourseTypeNotifierProvider._internal(
         () => create()..type = type,
         from: from,
         name: null,
@@ -139,14 +139,14 @@ class CourseTypePageNotifierProvider extends AutoDisposeNotifierProviderImpl<
   }
 
   @override
-  AutoDisposeNotifierProviderElement<CourseTypePageNotifier, CourseType>
+  AutoDisposeNotifierProviderElement<CourseTypeNotifier, CourseType>
       createElement() {
-    return _CourseTypePageNotifierProviderElement(this);
+    return _CourseTypeNotifierProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is CourseTypePageNotifierProvider && other.type == type;
+    return other is CourseTypeNotifierProvider && other.type == type;
   }
 
   @override
@@ -158,18 +158,18 @@ class CourseTypePageNotifierProvider extends AutoDisposeNotifierProviderImpl<
   }
 }
 
-mixin CourseTypePageNotifierRef on AutoDisposeNotifierProviderRef<CourseType> {
+mixin CourseTypeNotifierRef on AutoDisposeNotifierProviderRef<CourseType> {
   /// The parameter `type` of this provider.
   CourseType get type;
 }
 
-class _CourseTypePageNotifierProviderElement
-    extends AutoDisposeNotifierProviderElement<CourseTypePageNotifier,
-        CourseType> with CourseTypePageNotifierRef {
-  _CourseTypePageNotifierProviderElement(super.provider);
+class _CourseTypeNotifierProviderElement
+    extends AutoDisposeNotifierProviderElement<CourseTypeNotifier, CourseType>
+    with CourseTypeNotifierRef {
+  _CourseTypeNotifierProviderElement(super.provider);
 
   @override
-  CourseType get type => (origin as CourseTypePageNotifierProvider).type;
+  CourseType get type => (origin as CourseTypeNotifierProvider).type;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

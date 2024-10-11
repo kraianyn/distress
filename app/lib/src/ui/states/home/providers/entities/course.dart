@@ -6,7 +6,7 @@ part 'course.g.dart';
 
 
 @riverpod
-class CoursePageNotifier extends _$CoursePageNotifier {
+class CourseNotifier extends _$CourseNotifier {
 	@override
 	Course build(Course course) => course;
 

@@ -9,7 +9,6 @@ import 'package:distress/src/ui/core/theme.dart';
 import 'package:distress/src/ui/core/extensions/navigation_context.dart';
 import 'package:distress/src/ui/core/extensions/providers_references.dart';
 
-import '../../providers/pages/location.dart';
 import '../../widgets/entity_form.dart';
 
 
@@ -93,7 +92,6 @@ class LocationForm extends HookConsumerWidget {
 			|| link != location!.link
 		) {
 			final updatedLocation = location!.copyWith(name: name, city: city, link: link);
-			ref.read(locationPageNotifierProvider(location!).notifier).update(updatedLocation);
 			ref.locationsNotifier.updateLocation(updatedLocation);
 		}
 

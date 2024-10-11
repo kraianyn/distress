@@ -11,9 +11,6 @@ Updating the date of a course with a date before today causes an error, since
 the initial date of the calendar widget is no longer in the valid range.
 Make it impossible to update past courses (might still be needed)?
 
-When updating an entity from a page opened from another entity page, the change 
-is not reflected on the first page.
-
 ## Consider
 
 Split courses into military and non-military ones.

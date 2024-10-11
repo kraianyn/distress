@@ -27,6 +27,7 @@ class CourseTypesNotifier extends _$CourseTypesNotifier {
 		types[types.indexOf(type)] = type;
 		state = AsyncValue.data(types);
 
+		ref.courseTypeNotifier(type).update(type);
 		await ref.coursesNotifier.updateType(type);
 	}
 
