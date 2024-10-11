@@ -16,11 +16,11 @@ class App extends ConsumerWidget {
 
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
-		final widget = ref.watch(appStateNotifierProvider).widget;
+		final state = ref.watch(appStateNotifierProvider);
 
 		return MaterialApp(
 			title: "Дистрес",
-			home: widget,
+			home: state.widget,
 			theme: theme,
 			debugShowCheckedModeBanner: false
 		);

@@ -30,7 +30,7 @@ class Authorization extends HookConsumerWidget {
 						hintStyle: headlineHintTextStyle
 					)
 				),
-				const ListTile(),
+				verticalSpaceLarge,
 				FilledButton.icon(
 					icon: AppIcon.accessCode,
 					label: const Text("Далі"),

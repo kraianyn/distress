@@ -41,9 +41,9 @@ class ScheduleRepository {
 
 		return data.entries.map<Course>((entry) => CourseModel.fromEntry(
 			entry,
-			types: types,
-			instructors: instructors,
-			locations: locations
+			allTypes: types,
+			allInstructors: instructors,
+			allLocations: locations
 		)).toList();
 	}
 

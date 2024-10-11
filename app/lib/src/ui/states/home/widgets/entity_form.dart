@@ -17,7 +17,7 @@ class EntityForm extends StatelessWidget {
 	Widget build(BuildContext context) {
 		return Scaffold(
 			body: Padding(
-				padding: padding,
+				padding: paddingAround,
 				child: Column(
 					mainAxisAlignment: MainAxisAlignment.center,
 					children: content

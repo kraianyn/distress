@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../core/app_icon.dart';
+import '../core/theme.dart';
 import '../core/extensions/providers_references.dart';
 import '../core/widgets/described_page.dart';
 
@@ -26,7 +27,7 @@ class Introduction extends HookConsumerWidget {
 						icon: AppIcon.account
 					)
 				),
-				const ListTile(),
+				verticalSpaceLarge,
 				FilledButton.icon(
 					icon: AppIcon.home,
 					label: const Text("Перейти в додаток"),

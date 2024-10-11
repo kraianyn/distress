@@ -28,8 +28,8 @@ class CourseForm extends HookConsumerWidget {
 
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
-		final types = ref.courseTypes().value!;
-		final locations = ref.locations().value!;
+		final typeOptions = ref.courseTypes().value!;
+		final locationOptions = ref.locations().value!;
 		final instructorsOptions = ref.instructors().value!;
 
 		final typeField = useTextEditingController(text: course?.type.name);
@@ -42,7 +42,7 @@ class CourseForm extends HookConsumerWidget {
 		final type = useRef(course?.type);
 		final date = useRef(course?.date);
 		final location = useRef(course?.location);
-		final instructors = useRef(course?.instructors.toList() ?? <Instructor>[]);
+		final instructors = useRef(course?.instructors.toList() ?? const <Instructor>[]);
 		final leadInstructor = useRef(course?.leadInstructor);
 
 		return EntityForm(
@@ -52,10 +52,10 @@ class CourseForm extends HookConsumerWidget {
 					name: "Курс",
 					isTitle: true,
 					onTap: () => context.openPage((_) => OptionsPage(
-						options: types,
+						options: typeOptions,
 						selected: type,
 						field: typeField,
-						formBuilder: CourseTypeForm.new,
+						formBuilder: CourseTypeForm.new
 					))
 				),
 				ObjectField(
@@ -69,10 +69,10 @@ class CourseForm extends HookConsumerWidget {
 					name: "Локація",
 					icon: AppIcon.location,
 					onTap: () => context.openPage((_) => OptionsPage(
-						options: locations,
+						options: locationOptions,
 						selected: location,
 						field: locationField,
-						formBuilder: LocationForm.new,
+						formBuilder: LocationForm.new
 					))
 				),
 				ObjectField(
@@ -351,7 +351,7 @@ class InstructorsOptionsPage extends StatelessWidget {
 					shrinkWrap: true,
 					children: options.map((instructor) => InstructorOptionTile(
 						instructor: instructor,
-						selectedInstructors: selected
+						selected: selected
 					)).toList()
 				)),
 				floatingActionButton: FloatingActionButton(
@@ -375,25 +375,25 @@ class InstructorsOptionsPage extends StatelessWidget {
 class InstructorOptionTile extends HookWidget {
 	const InstructorOptionTile({
 		required this.instructor,
-		required this.selectedInstructors
+		required this.selected
 	});
 
 	final Instructor instructor;
-	final ObjectRef<List<Instructor>> selectedInstructors;
+	final ObjectRef<List<Instructor>> selected;
 
 	@override
 	Widget build(BuildContext context) {
-		final isSelected = useState(selectedInstructors.value.contains(instructor));
+		final isSelected = useState(selected.value.contains(instructor));
 
 		return ListTile(
 			title: Text(instructor.codeName),
 			selected: isSelected.value,
 			onTap: () {
 				if (!isSelected.value) {
-					selectedInstructors.value.add(instructor);
+					selected.value.add(instructor);
 				}
 				else {
-					selectedInstructors.value.remove(instructor);
+					selected.value.remove(instructor);
 				}
 				isSelected.value = !isSelected.value;
 			}

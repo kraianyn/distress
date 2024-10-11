@@ -1,3 +1,4 @@
+import 'package:distress/src/ui/core/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -27,7 +28,7 @@ class AccountSection extends ConsumerWidget {
 							label: const Text("Додати користувача"),
 							onPressed: () => context.openPage((_) => const NewUserPage())
 						),
-						const ListTile(),
+						verticalSpaceLarge,
 						FilledButton.icon(
 							icon: AppIcon.signOut,
 							label: const Text("Вийти"),

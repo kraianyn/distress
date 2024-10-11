@@ -27,22 +27,25 @@ class Home extends HookWidget {
 	}
 
 	PreferredSize appBar(BuildContext context, Section section) {
-		final textStyle = Theme.of(context).textTheme.headlineLarge;
+		final textStyle = Theme.of(context).textTheme.headlineLarge!;
+		final textHeight = textStyle.fontSize! * textStyle.height!;
 		const lineHeight = 2.0;
-		final height = textStyle!.fontSize! + paddingSize * 2 + lineHeight;
+		final height = textHeight + paddingSize * 2 + lineHeight;
 
 		return PreferredSize(
 			preferredSize: Size.fromHeight(height),
-			child: SafeArea(child: Padding(
-				padding: padding.copyWith(bottom: 0),
-				child: Column(
-					crossAxisAlignment: CrossAxisAlignment.start,
-					children: [
-						Text(section.name, style: textStyle),
-						verticalSpaceMedium,
-						Container(height: lineHeight, color: Colors.black)
-					]
-				)
+			child: SafeArea(child: Column(
+				crossAxisAlignment: CrossAxisAlignment.start,
+				children: [
+					Padding(
+						padding: paddingAround,
+						child: Text(section.name, style: textStyle)
+					),
+					Padding(
+						padding: horizontalPadding,
+						child: Container(height: lineHeight, color: Colors.black)
+					)
+				]
 			))
 		);
 	}

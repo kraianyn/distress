@@ -23,7 +23,7 @@ class LocationsSection extends ConsumerWidget {
 			entities: locations,
 			tileBuilder: (location) => LocationTile(
 				location,
-				courseCount: courses.withLocation(location)?.length,
+				courseCount: courses.withLocation(location)?.length
 			),
 			formBuilder: userCanAdd ? LocationForm.new : null
 		);

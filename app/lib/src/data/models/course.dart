@@ -28,22 +28,24 @@ class CourseModel extends Course implements EntityModel {
 
 	factory CourseModel.fromEntry(
 		EntityEntry entry, {
-			required List<CourseType> types,
-			required List<Location> locations,
-			required List<Instructor> instructors
+			required List<CourseType> allTypes,
+			required List<Location> allLocations,
+			required List<Instructor> allInstructors
 	}) {
 		final typeId = entry.value[Field.type] as String;
-		final timestamp = entry.value[Field.date] as Timestamp;
 		final locationId = entry.value[Field.location] as String;
 		final instructorIds = List<String>.from(entry.value[Field.instructors]);
+		final instructors = allInstructors.where(
+			(i) => instructorIds.contains(i.id)
+		).toList();
 		final leadInstructorId = entry.value[Field.leadInstructor] as String?;
 
 		return CourseModel(
 			id: entry.key,
-			type: types.firstWhere((t) => t.id == typeId),
-			date: timestamp.toDate(),
-			location: locations.firstWhere((l) => l.id == locationId),
-			instructors: instructors.where((i) => instructorIds.contains(i.id)).toList(),
+			type: allTypes.firstWhere((t) => t.id == typeId),
+			date: (entry.value[Field.date] as Timestamp).toDate(),
+			location: allLocations.firstWhere((l) => l.id == locationId),
+			instructors: instructors,
 			leadInstructor: leadInstructorId != null
 				? instructors.firstWhere((i) => i.id == leadInstructorId)
 				: null,

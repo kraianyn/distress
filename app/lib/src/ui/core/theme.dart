@@ -3,8 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 
 
 const seedColor = HSLColor.fromAHSL(1, 70, 1, .5);
-const spacingUnit = 8.0;
-
 final seed = ThemeData(
 	colorScheme: ColorScheme.fromSeed(
 		seedColor: seedColor.toColor(),
@@ -22,29 +20,32 @@ final seed = ThemeData(
 );
 
 
-const paddingSize = spacingUnit * 2;
-
 const iconColor = Colors.black;
-const hintTextColor = Color.fromRGBO(0, 0, 0, .6);
 
-final headlineTextStyle = seed.textTheme.headlineMedium!;
 final accessCodeTextStyle = GoogleFonts.oxanium(
 	fontSize: 24,
 	fontWeight: FontWeight.w700,
 	letterSpacing: 10
 );
-final headlineHintTextStyle = headlineTextStyle.copyWith(
+const hintTextColor = Color.fromRGBO(0, 0, 0, .6);
+final headlineHintTextStyle = seed.textTheme.headlineMedium!.copyWith(
 	color: hintTextColor
 );
 
-const padding = EdgeInsets.all(paddingSize);
+const spaceUnit = 8.0;
+
+const paddingSize = spaceUnit * 2;
+const paddingAround = EdgeInsets.all(paddingSize);
 const horizontalPadding = EdgeInsets.symmetric(horizontal: paddingSize);
-const verticalSpaceSmall = SizedBox(height: spacingUnit);
-const verticalSpaceMedium = SizedBox(height: spacingUnit * 2);
+
+const verticalSpaceLarge = SizedBox(height: spaceUnit * 6);
+const verticalSpaceMedium = SizedBox(height: spaceUnit * 2);
+const verticalSpaceSmall = SizedBox(height: spaceUnit);
+
 
 final theme = seed.copyWith(
 	navigationBarTheme: NavigationBarThemeData(
-		height: spacingUnit * 8,
+		height: spaceUnit * 8,
 		backgroundColor: seed.colorScheme.primaryContainer,
 		labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
 		iconTheme: const WidgetStatePropertyAll(IconThemeData(
@@ -62,7 +63,7 @@ final theme = seed.copyWith(
 		contentPadding: const EdgeInsets.symmetric(horizontal: paddingSize)
 	),
 	filledButtonTheme: FilledButtonThemeData(style: ButtonStyle(
-		padding: const WidgetStatePropertyAll(padding),
+		padding: const WidgetStatePropertyAll(paddingAround),
 		textStyle: WidgetStatePropertyAll(seed.textTheme.bodyMedium)
 	)),
 	inputDecorationTheme: InputDecorationTheme(
@@ -77,6 +78,6 @@ final theme = seed.copyWith(
 );
 
 final smallButtonStyle = ButtonStyle(
-	padding: const WidgetStatePropertyAll(EdgeInsets.all(spacingUnit)),
+	padding: const WidgetStatePropertyAll(EdgeInsets.all(spaceUnit)),
 	textStyle: WidgetStatePropertyAll(seed.textTheme.bodySmall)
 );

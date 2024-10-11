@@ -41,7 +41,7 @@ class CoursePage extends ConsumerWidget {
 				ListTile(
 					title: Text(course.date.dateString(monthName: true)),
 					leading: AppIcon.date,
-					onTap: () => context.openPage((_) => DatePage(course.date)),
+					onTap: () => context.openPage((_) => DatePage(course.date))
 				),
 				ListTile(
 					title: Text(course.location.name),

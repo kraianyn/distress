@@ -15,7 +15,7 @@ void showActionConfirmation({
 	showModalBottomSheet(
 		context: context,
 		builder: (context) => Padding(
-			padding: padding,
+			padding: paddingAround,
 			child: Column(
 				mainAxisSize: MainAxisSize.min,
 				crossAxisAlignment: CrossAxisAlignment.start,

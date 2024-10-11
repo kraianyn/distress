@@ -48,7 +48,7 @@ class UserActionsForm extends HookWidget {
 					padding: horizontalPadding,
 					child: Text("Новий користувач", style: Theme.of(context).textTheme.headlineLarge)
 				),
-				const ListTile(),
+				verticalSpaceLarge,
 				UserActionTile(
 					title: "Інструктор",
 					icon: AppIcon.instructor,
@@ -64,7 +64,7 @@ class UserActionsForm extends HookWidget {
 					icon: AppIcon.addUser,
 					state: canAddUsers
 				),
-				const ListTile(),
+				verticalSpaceLarge,
 				Padding(
 					padding: horizontalPadding,
 					child: FilledButton.icon(
@@ -124,15 +124,15 @@ class AccessCodeCreationWidget extends HookConsumerWidget {
 		));
 
 		return Padding(
-			padding: padding,
+			padding: paddingAround,
 			child: Column(
 				mainAxisAlignment: MainAxisAlignment.center,
 				crossAxisAlignment: CrossAxisAlignment.stretch,
 				children: [
 					Text("Код доступу", style: Theme.of(context).textTheme.headlineLarge),
-					const ListTile(),
+					verticalSpaceLarge,
 					_codeWidget(snapshot),
-					const ListTile(),
+					verticalSpaceLarge,
 					const Text("Передай цей код новому користувачу.")
 				]
 			)

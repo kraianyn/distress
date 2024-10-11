@@ -18,7 +18,7 @@ class DescribedPage extends ConsumerWidget {
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
 		return Scaffold(body: Padding(
-			padding: padding,
+			padding: paddingAround,
 			child: Column(
 				mainAxisAlignment: MainAxisAlignment.center,
 				crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -29,7 +29,7 @@ class DescribedPage extends ConsumerWidget {
 					),
 					verticalSpaceMedium,
 					Text(text),
-					const ListTile(),
+					verticalSpaceLarge,
 					...content
 				]
 			)

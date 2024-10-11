@@ -2,8 +2,6 @@
 
 ## Do
 
-Replace empty `ListTile`s with `verticalSpace`s.
-
 Use regular buttons instead of FABs if the page is dedicated to the action.
 Replace the button to add a new entity when adding a course with a tile.
 
@@ -11,10 +9,6 @@ Make location links interactive: copying, following.
 
 Hide impossible course component options (locations and instructors with a 
 course on the chosen date).
-
-### Negligible
-
-Make forms look like pages.
 
 ## Fix
 
