@@ -210,15 +210,14 @@ class CourseForm extends HookConsumerWidget {
 			|| leadInstructor == null
 		) return;
 
-		final course = Course.added(
+		ref.coursesNotifier.add(Course.added(
 			type: type,
 			date: date,
 			location: location,
 			instructors: instructors,
 			leadInstructor: leadInstructor,
 			note: _note(noteField)
-		);
-		ref.coursesNotifier.add(course);
+		));
 		context.closePage();
 	}
 
@@ -243,15 +242,14 @@ class CourseForm extends HookConsumerWidget {
 			|| leadInstructor != course!.leadInstructor
 			|| note != course!.note
 		) {
-			final updatedCourse = course!.copyWith(
+			ref.coursesNotifier.updateCourse(course!.copyWith(
 				type: type,
 				date: date,
 				location: location,
 				instructors: instructors,
 				leadInstructor: leadInstructor,
 				note: note
-			);
-			ref.coursesNotifier.updateCourse(updatedCourse);
+			));
 		}
 
 		context.closePage();

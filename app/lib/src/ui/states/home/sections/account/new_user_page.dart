@@ -73,7 +73,7 @@ class UserActionsForm extends HookWidget {
 						onPressed: () => onCreateCode([
 							if (isInstructor.value) UserAction.teaching,
 							if (canManageSchedule.value) UserAction.managingSchedule,
-							if (canAddUsers.value) UserAction.addingUsers
+							if (canAddUsers.value) UserAction.managingUsers
 						])
 					)
 				)

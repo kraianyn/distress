@@ -15,7 +15,7 @@ class AccountSection extends ConsumerWidget {
 
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
-		final userCanAddUsers = ref.user()!.canAddUsers;
+		final userCanAddUsers = ref.user()!.canManageUsers;
 
 		return Scaffold(
 			body: Container(

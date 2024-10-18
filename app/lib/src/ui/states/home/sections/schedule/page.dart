@@ -11,6 +11,7 @@ import 'package:distress/src/ui/core/theme.dart';
 import 'package:distress/src/ui/core/extensions/date.dart';
 import 'package:distress/src/ui/core/extensions/navigation_context.dart';
 import 'package:distress/src/ui/core/extensions/providers_references.dart';
+import 'package:distress/src/ui/core/extensions/quantity.dart';
 
 import '../../providers/entities/course.dart';
 import '../../widgets/delete_action_button.dart';
@@ -76,7 +77,7 @@ class CoursePage extends ConsumerWidget {
 					leading: AppIcon.note
 				),
 				if (course.studentCount != null) ListTile(
-					title: Text("Кількість курсантів: ${course.studentCount}"),
+					title: Text(course.studentCount!.students),
 					leading: AppIcon.students
 				),
 				if (course.studentCount == null ) ...[  // && courseIsToday && userIsLeadInstructor

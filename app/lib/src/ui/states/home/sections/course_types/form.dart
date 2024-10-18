@@ -20,7 +20,9 @@ class CourseTypeForm extends HookConsumerWidget {
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
 		final nameField = useTextEditingController(text: type?.name);
-		final courseCountField = useTextEditingController(text: type?.courseCount.toString());
+		final courseCountField = useTextEditingController(
+			text: type?.courseCount.toString()
+		);
 
 		final textTheme = Theme.of(context).textTheme;
 
@@ -60,16 +62,17 @@ class CourseTypeForm extends HookConsumerWidget {
 		final courseCount = int.tryParse(courseCountField.text);
 		if (name.isEmpty || courseCount == null) return;
 
-		final type = CourseType.added(name: name, courseCount: courseCount);
-		ref.courseTypesNotifier.add(type);
+		ref.courseTypesNotifier.add(CourseType.added(
+			name: name,
+			courseCount: courseCount
+		));
 		context.closePage(type);
 	}
 
 	void _update(BuildContext context, WidgetRef ref, TextEditingController nameField) {
 		final name = nameField.text.trim();
 		if (name != type!.name) {
-			final updatedType = type!.copyWith(name: name);
-			ref.courseTypesNotifier.updateType(updatedType);
+			ref.courseTypesNotifier.updateType(type!.copyWith(name: name));
 		}
 		context.closePage();
 	}

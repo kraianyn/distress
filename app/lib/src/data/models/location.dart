@@ -25,7 +25,7 @@ class LocationModel extends Location implements EntityModel {
 	);
 
 	@override
-	ObjectMap get object => {
+	ObjectMap toObject() => {
 		Field.name: name,
 		Field.city: city,
 		Field.link : link

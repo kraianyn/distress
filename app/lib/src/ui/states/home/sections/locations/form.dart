@@ -71,8 +71,11 @@ class LocationForm extends HookConsumerWidget {
 			link = linkField.text.trim();
 		if (name.isEmpty || city.isEmpty || link.isEmpty) return;
 
-		final location = Location.added(name: name, city: city, link: link);
-		ref.locationsNotifier.add(location);
+		ref.locationsNotifier.add(Location.added(
+			name: name,
+			city: city,
+			link: link
+		));
 		context.closePage(location);
 	}
 
@@ -91,8 +94,11 @@ class LocationForm extends HookConsumerWidget {
 			|| city != location!.city
 			|| link != location!.link
 		) {
-			final updatedLocation = location!.copyWith(name: name, city: city, link: link);
-			ref.locationsNotifier.updateLocation(updatedLocation);
+			ref.locationsNotifier.updateLocation(location!.copyWith(
+				name: name,
+				city: city,
+				link: link
+			));
 		}
 
 		context.closePage();

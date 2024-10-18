@@ -70,7 +70,7 @@ class CourseModel extends Course implements EntityModel {
 	);
 
 	@override
-	ObjectMap get object => {
+	ObjectMap toObject() => {
 		Field.type: type.id,
 		Field.date: Timestamp.fromDate(date),
 		Field.location: location.id,

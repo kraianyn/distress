@@ -172,7 +172,7 @@ enum _Document {
 
 	Future<void> update(EntityModel model) async {
 		await ref.update({
-			model.id: model.object
+			model.id: model.toObject()
 		});
 	}
 

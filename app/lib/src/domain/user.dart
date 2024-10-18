@@ -11,11 +11,11 @@ class User {
 
 	bool get isInstructor => actions!.contains(UserAction.teaching);
 	bool get canManageSchedule => actions!.contains(UserAction.managingSchedule);
-	bool get canAddUsers => actions!.contains(UserAction.addingUsers);
+	bool get canManageUsers => actions!.contains(UserAction.managingUsers);
 }
 
 enum UserAction {
 	teaching,
 	managingSchedule,
-	addingUsers
+	managingUsers
 }

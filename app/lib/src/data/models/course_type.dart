@@ -22,7 +22,7 @@ class CourseTypeModel extends CourseType implements EntityModel {
 	);
 
 	@override
-	ObjectMap get object => {
+	ObjectMap toObject() => {
 		Field.name: name,
 		Field.courseCount: courseCount
 	};

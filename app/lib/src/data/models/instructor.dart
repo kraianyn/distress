@@ -19,7 +19,7 @@ class InstructorModel extends Instructor implements EntityModel {
 	);
 
 	@override
-	ObjectMap get object => {
+	ObjectMap toObject() => {
 		Field.codeName: codeName
 	};
 }
