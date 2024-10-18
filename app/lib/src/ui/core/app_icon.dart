@@ -10,18 +10,19 @@ abstract class AppIcon {
 	static const home = Icon(Icons.home);
 	static const schedule = Icon(Icons.calendar_month);
 	static const courseType = Icon(Icons.category);
-	static const instructors = Icon(Icons.people_alt);
-
-	static const courseCount = Icon(Icons.numbers);
-	static const city = Icon(Icons.business);
-	static const date = Icon(Icons.today);
 	static const instructor = Icon(Icons.school);
+	static const location = Icon(Icons.place);
+
+	static const city = Icon(Icons.business);
+	static const courseCount = Icon(Icons.numbers);
+	static const date = Icon(Icons.today);
 	static const leadInstructor = Icon(Icons.visibility);
 	static const link = Icon(Icons.link);
-	static const location = Icon(Icons.place);
 	static const note = Icon(Icons.short_text);
+	static const students = Icon(Icons.people_alt);
 
 	static const add = Icon(Icons.add);
+	static const finishCourse = Icon(Icons.verified);
 	static const modify = Icon(Icons.edit);
 	static const confirm = Icon(Icons.done);
 	static const delete = Icon(Icons.delete);

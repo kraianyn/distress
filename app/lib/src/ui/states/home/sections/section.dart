@@ -22,7 +22,7 @@ enum Section {
 	),
 	instructors(
 		name: "Інструктори",
-		icon: AppIcon.instructors,
+		icon: AppIcon.instructor,
 		widget: InstructorsSection()
 	),
 	locations(

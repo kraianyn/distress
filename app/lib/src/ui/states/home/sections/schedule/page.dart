@@ -1,11 +1,13 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:distress/src/domain/entities/course.dart';
 import 'package:distress/src/domain/entities/instructor.dart';
 
 import 'package:distress/src/ui/core/app_icon.dart';
+import 'package:distress/src/ui/core/theme.dart';
 import 'package:distress/src/ui/core/extensions/date.dart';
 import 'package:distress/src/ui/core/extensions/navigation_context.dart';
 import 'package:distress/src/ui/core/extensions/providers_references.dart';
@@ -60,7 +62,7 @@ class CoursePage extends ConsumerWidget {
 							]
 						]
 					)),
-					leading: AppIcon.instructors
+					leading: AppIcon.instructor
 				),
 				if (course.leadInstructor != null) ListTile(
 					title: Text(course.leadInstructor!.codeName),
@@ -72,7 +74,22 @@ class CoursePage extends ConsumerWidget {
 				if (course.note != null) ListTile(
 					title: Text(course.note!),
 					leading: AppIcon.note
-				)
+				),
+				if (course.studentCount != null) ListTile(
+					title: Text("Кількість курсантів: ${course.studentCount}"),
+					leading: AppIcon.students
+				),
+				if (course.studentCount == null ) ...[  // && courseIsToday && userIsLeadInstructor
+					verticalSpaceLarge,
+					Padding(
+						padding: horizontalPadding,
+						child: FilledButton.icon(
+							icon: AppIcon.finishCourse,
+							label: const Text("Закінчити курс"),
+							onPressed: () => context.openPage((context) => SummaryPage(course))
+						)
+					)
+				]
 			],
 			actions: [
 				ModifyActionButton(formBuilder: (_) => CourseForm(course)),
@@ -90,3 +107,65 @@ class CoursePage extends ConsumerWidget {
 			context.openPage((_) => InstructorPage(instructor))
 	);
 }
+
+class SummaryPage extends HookConsumerWidget {
+	const SummaryPage(this.course);
+
+	final Course course;
+
+	@override
+	Widget build(BuildContext context, WidgetRef ref) {
+		final studentCountField = useTextEditingController();
+
+		return Scaffold(body: Padding(
+			padding: paddingAround,
+			child: Column(
+				mainAxisAlignment: MainAxisAlignment.center,
+				crossAxisAlignment: CrossAxisAlignment.stretch,
+				children: [
+					Text("Закінчення курсу", style: Theme.of(context).textTheme.headlineMedium),
+					verticalSpaceLarge,
+					TextField(
+						controller: studentCountField,
+						style: Theme.of(context).textTheme.titleMedium,
+						decoration: const InputDecoration(
+							hintText: "Кількість курсантів",
+							icon: AppIcon.students
+						)
+					),
+					verticalSpaceLarge,
+					FilledButton(
+						child: const Text("Зберегти"),
+						onPressed: () => _saveStudentCount(context, ref, studentCountField)
+					)
+				]
+			)
+		));
+	}
+
+	void _saveStudentCount(
+		BuildContext context,
+		WidgetRef ref,
+		TextEditingController studentCountField
+	) {
+		final studentCount = int.tryParse(studentCountField.text.trim());
+		if (studentCount == null) return;
+
+		ref.coursesNotifier.updateCourse(course.copyWith(studentCount: studentCount));
+		context.closePage();
+	}
+}
+
+// class CertificatesPage extends HookConsumerWidget {
+// 	const CertificatesPage(this.course);
+
+// 	final Course course;
+
+// 	@override
+// 	Widget build(BuildContext context, WidgetRef ref) {
+// 		return Column(children: [
+// 			Text("Номер курсу: $courseNumber"),
+// 			Text("Номери сертифікатів: $firstCertificateNumber - $lastCertificateNumber")
+// 		]);
+// 	}
+// }

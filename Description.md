@@ -1,11 +1,6 @@
-# Name
+# Attending a course as it is now
 
-- Дистрес
-- Розряд
-
-# Attending a course
-
-1. The students fills the registration form.
+1. The student fills the registration form.
 1. The training center (TC) provides the payment info.
 1. The student pays for the course.
 1. The TC adds the student to the course chat.
@@ -20,17 +15,14 @@
 
 ## Schedule
 
-This section is for the scheduled courses. It has a subsection for all the 
-courses, and another one for the courses the user is an instructor on.
-List and calendar views are available.
+This section is for the scheduled courses. The page of a course contains 
+the type, the date, the location, the instructors, the lead instructor, and an 
+optional note. 
 
-The page of a course contains the type, the date, the location, the instructors, 
-the lead instructor, and an optional note. 
+## Courses
 
-## Course types
-
-This section is for what courses there are, i.e. the course types: Trauma care, 
-BLS, TCCC ASM... They are split into military and non-military ones. The page of 
+This section is for what courses there are, i.e. course types: Trauma care, 
+BLS, TCCC ASM... The page of 
 a course type contains the name, the duration, the price, and the capacity.
 
 ## Instructors
@@ -58,6 +50,10 @@ the schedule. To describe a user, they have a list of the relevant actions:
 
 # Future features
 
+## Calendar view
+
+The schedule section has a calendar view besides the list view.
+
 ## Adding a course schedule
 
 Besides adding courses one by one, there is a way to add a whole course schedule, 
@@ -79,3 +75,9 @@ A page for the feedback responses of a course.
 
 When a new response is submitted, a notification is sent to the instructors of 
 the course.
+
+# Ideas
+
+Split course types into military and non-military ones.
+
+Highlight the user's courses and today's course.

@@ -12,7 +12,8 @@ class Course extends Entity {
 		required this.location,
 		required this.instructors,
 		required this.leadInstructor,
-		this.note
+		this.note,
+		this.studentCount
 	});
 
 	Course.added({
@@ -22,7 +23,8 @@ class Course extends Entity {
 		required this.instructors,
 		required this.leadInstructor,
 		this.note
-	}) : super.added(core: [type, date, location]);
+	}) : studentCount = null,
+		super.added(core: [type, date, location]);
 
 	final CourseType type;
 	final DateTime date;
@@ -30,6 +32,7 @@ class Course extends Entity {
 	final List<Instructor> instructors;
 	final Instructor? leadInstructor;
 	final String? note;
+	final int? studentCount;
 
 	Course copyWith({
 		CourseType? type,
@@ -37,7 +40,8 @@ class Course extends Entity {
 		Location? location,
 		List<Instructor>? instructors,
 		Instructor? leadInstructor,
-		String? note
+		String? note,
+		int? studentCount
 	}) => Course(
 		id: id,
 		type: type ?? this.type,
@@ -45,7 +49,8 @@ class Course extends Entity {
 		location: location ?? this.location,
 		instructors: instructors ?? this.instructors,
 		leadInstructor: leadInstructor ?? this.leadInstructor,
-		note: note ?? this.note
+		note: note ?? this.note,
+		studentCount: studentCount ?? this.studentCount
 	);
 
 	@override

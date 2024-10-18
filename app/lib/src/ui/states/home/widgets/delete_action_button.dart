@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:distress/src/ui/core/app_icon.dart';
+import 'package:distress/src/ui/core/extensions/navigation_context.dart';
 
 import 'show_action_confirmation.dart';
 
@@ -25,7 +26,10 @@ class DeleteActionButton extends StatelessWidget {
 				context: context,
 				question: question,
 				text: text,
-				action: delete
+				action: () {
+					delete();
+					context.closePage();
+				}
 			)
 		);
 	}

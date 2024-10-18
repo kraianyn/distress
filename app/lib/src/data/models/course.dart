@@ -13,7 +13,10 @@ import 'entity.dart';
 /// 	type: String,
 ///     date: Timestamp,
 /// 	location: String,
-/// 	instructors: List<String>
+/// 	instructors: List<String>,
+/// 	leadInstructor: String?
+/// 	note?: String,
+/// 	studentCount?: int
 /// }`
 class CourseModel extends Course implements EntityModel {
 	const CourseModel({
@@ -23,7 +26,8 @@ class CourseModel extends Course implements EntityModel {
 		required super.location,
 		required super.instructors,
 		required super.leadInstructor,
-		super.note
+		super.note,
+		super.studentCount
 	});
 
 	factory CourseModel.fromEntry(
@@ -49,7 +53,8 @@ class CourseModel extends Course implements EntityModel {
 			leadInstructor: leadInstructorId != null
 				? instructors.firstWhere((i) => i.id == leadInstructorId)
 				: null,
-			note: entry.value[Field.note] as String?
+			note: entry.value[Field.note] as String?,
+			studentCount: entry.value[Field.studentCount] as int?
 		);
 	}
 
@@ -60,7 +65,8 @@ class CourseModel extends Course implements EntityModel {
 		location: entity.location,
 		instructors: entity.instructors,
 		leadInstructor: entity.leadInstructor,
-		note: entity.note
+		note: entity.note,
+		studentCount: entity.studentCount
 	);
 
 	@override
@@ -70,6 +76,7 @@ class CourseModel extends Course implements EntityModel {
 		Field.location: location.id,
 		Field.instructors: instructors.map((i) => i.id),
 		Field.leadInstructor: leadInstructor?.id,
-		if (note != null) Field.note: note
+		if (note != null) Field.note: note,
+		if (studentCount != null) Field.studentCount: studentCount
 	};
 }

@@ -105,7 +105,7 @@ class CourseForm extends HookConsumerWidget {
 				ObjectField(
 					controller: instructorsField,
 					name: "Інструктори",
-					icon: AppIcon.instructors,
+					icon: AppIcon.instructor,
 					onTap: () => _askInstructors(
 						context,
 						instructorsOptions,
