@@ -21,10 +21,6 @@ course on the chosen date).
 
 # Code
 
-## Do
-
-Move schedule document methods to the repository.
-
 ## Consider
 
 Reorder imports.

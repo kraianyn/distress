@@ -6,7 +6,7 @@ part of 'app_state.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$appStateNotifierHash() => r'cc837029d2fdf4abec18e37006c13dcf3a33ac26';
+String _$appStateNotifierHash() => r'0ca330213ee17b72a8a05731329b77d04a97cf82';
 
 /// See also [AppStateNotifier].
 @ProviderFor(AppStateNotifier)

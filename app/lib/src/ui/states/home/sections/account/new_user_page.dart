@@ -22,17 +22,17 @@ class NewUserPage extends HookWidget {
 
 		return Scaffold(
 			body: roles.value == null
-				? UserActionsForm(onCreateCode: (givenActions) => roles.value = givenActions)
+				? RolesForm(roles: roles)
 				: AccessCodeCreationWidget(roles.value!)
 		);
 	}
 }
 
 
-class UserActionsForm extends HookWidget {
-	const UserActionsForm({required this.onCreateCode});
+class RolesForm extends HookWidget {
+	const RolesForm({required this.roles});
 
-	final void Function(List<Role>) onCreateCode;
+	final ValueNotifier<List<Role>?> roles;
 
 	@override
 	Widget build(BuildContext context) {
@@ -49,17 +49,17 @@ class UserActionsForm extends HookWidget {
 					child: Text("Новий користувач", style: Theme.of(context).textTheme.headlineLarge)
 				),
 				verticalSpaceLarge,
-				UserActionTile(
+				RoleTile(
 					title: "Інструктор",
 					icon: AppIcon.instructor,
 					state: isInstructor
 				),
-				UserActionTile(
+				RoleTile(
 					title: "Може змінювати розклад",
 					icon: AppIcon.schedule,
 					state: canManageSchedule
 				),
-				UserActionTile(
+				RoleTile(
 					title: "Може додавати користувачів",
 					icon: AppIcon.addUser,
 					state: canAddUsers
@@ -70,11 +70,11 @@ class UserActionsForm extends HookWidget {
 					child: FilledButton.icon(
 						icon: AppIcon.accessCode,
 						label: const Text("Створити код доступу"),
-						onPressed: () => onCreateCode([
+						onPressed: () => roles.value = [
 							if (isInstructor.value) Role.teaching,
 							if (canManageSchedule.value) Role.managingSchedule,
 							if (canAddUsers.value) Role.managingUsers
-						])
+						]
 					)
 				)
 			]
@@ -82,8 +82,8 @@ class UserActionsForm extends HookWidget {
 	}
 }
 
-class UserActionTile extends HookWidget {
-	const UserActionTile({
+class RoleTile extends HookWidget {
+	const RoleTile({
 		required this.title,
 		required this.icon,
 		required this.state

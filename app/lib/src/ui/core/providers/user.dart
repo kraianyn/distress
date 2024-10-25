@@ -16,7 +16,7 @@ class UserNotifier extends _$UserNotifier {
 
 	void initialize(String id) => state = User(id: id);
 
-	void addActions(List<Role> roles) => state = User(
+	void addRoles(List<Role> roles) => state = User(
 		id: state!.id,
 		roles: roles
 	);

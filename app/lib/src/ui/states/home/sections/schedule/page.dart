@@ -88,7 +88,7 @@ class CoursePage extends ConsumerWidget {
 						child: FilledButton.icon(
 							icon: AppIcon.finishCourse,
 							label: const Text("Закінчити курс"),
-							onPressed: () => context.openPage((context) => SummaryPage(course))
+							onPressed: () => context.openPage((context) => FinishingCoursePage(course))
 						)
 					)
 				]
@@ -110,51 +110,91 @@ class CoursePage extends ConsumerWidget {
 	);
 }
 
-class SummaryPage extends HookConsumerWidget {
-	const SummaryPage(this.course);
+class FinishingCoursePage extends HookConsumerWidget {
+	const FinishingCoursePage(this.course);
 
 	final Course course;
 
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
-		final studentCountField = useTextEditingController();
+		final showStudentCountForm = useState(true);
 
 		return Scaffold(body: Padding(
 			padding: paddingAround,
 			child: Column(
 				mainAxisAlignment: MainAxisAlignment.center,
-				crossAxisAlignment: CrossAxisAlignment.stretch,
+				crossAxisAlignment: CrossAxisAlignment.start,
 				children: [
 					Text("Закінчення курсу", style: Theme.of(context).textTheme.headlineMedium),
 					verticalSpaceLarge,
-					TextField(
-						controller: studentCountField,
-						style: Theme.of(context).textTheme.titleMedium,
-						decoration: const InputDecoration(
-							hintText: "Кількість курсантів",
-							icon: AppIcon.students
-						)
-					),
-					verticalSpaceLarge,
-					FilledButton(
-						child: const Text("Зберегти"),
-						onPressed: () => _finishCourse(context, ref, studentCountField)
-					)
+					showStudentCountForm.value
+					 	? StudentCountForm(course, showForm: showStudentCountForm)
+						: CertificatesWidget(course)
 				]
 			)
 		));
 	}
+}
 
-	void _finishCourse(
-		BuildContext context,
+class StudentCountForm extends HookConsumerWidget {
+	const StudentCountForm(this.course, {required this.showForm});
+
+	final Course course;
+	final ValueNotifier<bool> showForm;
+
+	@override
+	Widget build(BuildContext context, WidgetRef ref) {
+		final studentCountField = useTextEditingController();
+		final awaiting = useState(false);
+
+		return Column(
+			crossAxisAlignment: CrossAxisAlignment.stretch,
+			children: [
+				TextField(
+					controller: studentCountField,
+					style: Theme.of(context).textTheme.titleMedium,
+					decoration: const InputDecoration(
+						hintText: "Кількість курсантів",
+						icon: AppIcon.students
+					)
+				),
+				verticalSpaceLarge,
+				FilledButton.icon(
+					icon: AppIcon.confirm,
+					label: const Text("Зберегти"),
+					onPressed: !awaiting.value
+						? () => _finishCourse(ref, studentCountField, awaiting)
+						: null
+				)
+			]
+		);
+	}
+
+	Future<void> _finishCourse(
 		WidgetRef ref,
-		TextEditingController studentCountField
-	) {
-		final studentCount = int.tryParse(studentCountField.text.trim());
+		TextEditingController field,
+		ValueNotifier<bool> awaiting
+	) async {
+		final studentCount = int.tryParse(field.text.trim());
 		if (studentCount == null) return;
 
-		ref.coursesNotifier.updateCourse(course.copyWith(studentCount: studentCount));
-		ref.courseTypesNotifier.incrementCourseCount(course.type);
-		context.closePage();
+		awaiting.value = true;
+		await Future.wait([
+			ref.coursesNotifier.updateCourse(course.copyWith(studentCount: studentCount)),
+			ref.courseTypesNotifier.incrementCourseCount(course.type)
+		]);
+		showForm.value = false;
+	}
+}
+
+class CertificatesWidget extends ConsumerWidget {
+	const CertificatesWidget(this.course);
+
+	final Course course;
+
+	@override
+	Widget build(BuildContext context, WidgetRef ref) {
+		final courseType = ref.courseTypes().value!.firstWhere((t) => t == course.type);
+		return Text("Номер курсу: ${courseType.courseCount}");
 	}
 }

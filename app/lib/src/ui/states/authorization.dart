@@ -14,8 +14,8 @@ class Authorization extends HookConsumerWidget {
 
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
-		final awaitingActions = useState(false);
 		final codeField = useTextEditingController();
+		final awaitingRoles = useState(false);
 
 		return DescribedPage(
 			title: "Доступ",
@@ -35,8 +35,8 @@ class Authorization extends HookConsumerWidget {
 				FilledButton.icon(
 					icon: AppIcon.accessCode,
 					label: const Text("Далі"),
-					onPressed: !awaitingActions.value
-						? () => _authorize(context, ref, codeField, awaitingActions)
+					onPressed: !awaitingRoles.value
+						? () => _authorize(context, ref, codeField, awaitingRoles)
 						: null
 				)
 			]
@@ -47,12 +47,12 @@ class Authorization extends HookConsumerWidget {
 		BuildContext context,
 		WidgetRef ref,
 		TextEditingController field,
-		ValueNotifier<bool> awaitingActions
+		ValueNotifier<bool> awaitingRoles
 	) async {
 		final code = field.text.trim();
 		if (code.isEmpty) return;
 
-		awaitingActions.value = true;
+		awaitingRoles.value = true;
 		final roles = await ref.usersRepository.accessCodeRoles(code);
 
 		if (roles != null) {
@@ -60,7 +60,7 @@ class Authorization extends HookConsumerWidget {
 		}
 		else {
 			context.showSnackBar("Код хибний");
-			awaitingActions.value = false;
+			awaitingRoles.value = false;
 		}
 	}
 }
