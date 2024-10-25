@@ -21,6 +21,16 @@ course on the chosen date).
 
 # Code
 
+## Do
+
+Discard single entity providers.
+
+Rename user actions to roles.
+
+Define `BuildContext.showSnackBar`.
+
+Move schedule document methods to the repository.
+
 ## Consider
 
 Reorder imports.

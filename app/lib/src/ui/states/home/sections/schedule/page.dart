@@ -137,14 +137,14 @@ class SummaryPage extends HookConsumerWidget {
 					verticalSpaceLarge,
 					FilledButton(
 						child: const Text("Зберегти"),
-						onPressed: () => _saveStudentCount(context, ref, studentCountField)
+						onPressed: () => _finishCourse(context, ref, studentCountField)
 					)
 				]
 			)
 		));
 	}
 
-	void _saveStudentCount(
+	void _finishCourse(
 		BuildContext context,
 		WidgetRef ref,
 		TextEditingController studentCountField
@@ -153,20 +153,7 @@ class SummaryPage extends HookConsumerWidget {
 		if (studentCount == null) return;
 
 		ref.coursesNotifier.updateCourse(course.copyWith(studentCount: studentCount));
+		ref.courseTypesNotifier.incrementCourseCount(course.type);
 		context.closePage();
 	}
 }
-
-// class CertificatesPage extends HookConsumerWidget {
-// 	const CertificatesPage(this.course);
-
-// 	final Course course;
-
-// 	@override
-// 	Widget build(BuildContext context, WidgetRef ref) {
-// 		return Column(children: [
-// 			Text("Номер курсу: $courseNumber"),
-// 			Text("Номери сертифікатів: $firstCertificateNumber - $lastCertificateNumber")
-// 		]);
-// 	}
-// }
