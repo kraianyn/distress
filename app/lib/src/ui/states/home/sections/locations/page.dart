@@ -6,6 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:distress/src/domain/entities/location.dart';
 
 import 'package:distress/src/ui/core/app_icon.dart';
+import 'package:distress/src/ui/core/extensions/context.dart';
 import 'package:distress/src/ui/core/extensions/providers_references.dart';
 
 import '../../providers/courses.dart';
@@ -60,10 +61,7 @@ class LocationPage extends ConsumerWidget {
 			await launchUrl(Uri.parse(location.link));
 		}
 		on PlatformException {
-			ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-				content: Text("Не вдалося відкрити посилання"),
-				duration: Duration(seconds: 2)
-			));
+			context.showSnackBar("Не вдалося відкрити посилання");
 		}
 	}
 }

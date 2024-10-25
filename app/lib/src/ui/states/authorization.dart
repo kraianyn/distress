@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../core/app_icon.dart';
 import '../core/theme.dart';
+import '../core/extensions/context.dart';
 import '../core/extensions/providers_references.dart';
 import '../core/widgets/described_page.dart';
 
@@ -58,10 +59,7 @@ class Authorization extends HookConsumerWidget {
 			await ref.appStateNotifier.authorizeUser(roles);
 		}
 		else {
-			ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-				content: Text("Код хибний"),
-				duration: Duration(seconds: 2)
-			));
+			context.showSnackBar("Код хибний");
 			awaitingActions.value = false;
 		}
 	}

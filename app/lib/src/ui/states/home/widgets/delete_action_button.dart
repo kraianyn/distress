@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:distress/src/ui/core/app_icon.dart';
-import 'package:distress/src/ui/core/extensions/navigation_context.dart';
+import 'package:distress/src/ui/core/extensions/context.dart';
 
 import 'show_action_confirmation.dart';
 

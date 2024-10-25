@@ -8,8 +8,8 @@ import 'package:distress/src/domain/entities/instructor.dart';
 
 import 'package:distress/src/ui/core/app_icon.dart';
 import 'package:distress/src/ui/core/theme.dart';
+import 'package:distress/src/ui/core/extensions/context.dart';
 import 'package:distress/src/ui/core/extensions/date.dart';
-import 'package:distress/src/ui/core/extensions/navigation_context.dart';
 import 'package:distress/src/ui/core/extensions/providers_references.dart';
 import 'package:distress/src/ui/core/extensions/quantity.dart';
 

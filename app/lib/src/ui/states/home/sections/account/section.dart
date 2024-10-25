@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:distress/src/ui/core/app_icon.dart';
-import 'package:distress/src/ui/core/extensions/navigation_context.dart';
+import 'package:distress/src/ui/core/extensions/context.dart';
 import 'package:distress/src/ui/core/extensions/providers_references.dart';
 
 import '../../widgets/show_action_confirmation.dart';
