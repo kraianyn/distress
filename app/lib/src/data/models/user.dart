@@ -7,13 +7,13 @@ import '../types.dart';
 
 /// `{
 /// 	codeName?: String,
-/// 	actions: List<String>
+/// 	roles: List<String>
 /// }`
 class UserModel extends User {
 	const UserModel({
 		required super.id,
 		super.codeName,
-		required super.actions
+		required super.roles
 	});
 
 	factory UserModel.fromDocument(DocumentSnapshot<ObjectMap> snapshot) {
@@ -21,13 +21,13 @@ class UserModel extends User {
 		return UserModel(
 			id: snapshot.id,
 			codeName: data[Field.codeName] as String?,
-			actions: actionsFromDocument(data[Field.actions])
+			roles: rolesFromDocument(data[Field.roles])
 		);
 	}
 
-	static List<UserAction> actionsFromDocument(dynamic list) {
+	static List<Role> rolesFromDocument(dynamic list) {
 		return List<String>.from(list).map(
-			(name) => UserAction.values.firstWhere((a) => a.name == name)
+			(name) => Role.values.firstWhere((a) => a.name == name)
 		).toList();
 	}
 }

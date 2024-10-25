@@ -18,12 +18,12 @@ class NewUserPage extends HookWidget {
 
 	@override
 	Widget build(BuildContext context) {
-		final actions = useState<List<UserAction>?>(null);
+		final roles = useState<List<Role>?>(null);
 
 		return Scaffold(
-			body: actions.value == null
-				? UserActionsForm(onCreateCode: (givenActions) => actions.value = givenActions)
-				: AccessCodeCreationWidget(actions.value!)
+			body: roles.value == null
+				? UserActionsForm(onCreateCode: (givenActions) => roles.value = givenActions)
+				: AccessCodeCreationWidget(roles.value!)
 		);
 	}
 }
@@ -32,7 +32,7 @@ class NewUserPage extends HookWidget {
 class UserActionsForm extends HookWidget {
 	const UserActionsForm({required this.onCreateCode});
 
-	final void Function(List<UserAction>) onCreateCode;
+	final void Function(List<Role>) onCreateCode;
 
 	@override
 	Widget build(BuildContext context) {
@@ -71,9 +71,9 @@ class UserActionsForm extends HookWidget {
 						icon: AppIcon.accessCode,
 						label: const Text("Створити код доступу"),
 						onPressed: () => onCreateCode([
-							if (isInstructor.value) UserAction.teaching,
-							if (canManageSchedule.value) UserAction.managingSchedule,
-							if (canAddUsers.value) UserAction.managingUsers
+							if (isInstructor.value) Role.teaching,
+							if (canManageSchedule.value) Role.managingSchedule,
+							if (canAddUsers.value) Role.managingUsers
 						])
 					)
 				)
@@ -113,14 +113,14 @@ class UserActionTile extends HookWidget {
 
 
 class AccessCodeCreationWidget extends HookConsumerWidget {
-	const AccessCodeCreationWidget(this.actions);
+	const AccessCodeCreationWidget(this.roles);
 
-	final List<UserAction> actions;
+	final List<Role> roles;
 
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
 		final snapshot = useFuture(useMemoized(
-			() => ref.usersRepository.createAccessCode(actions)
+			() => ref.usersRepository.createAccessCode(roles)
 		));
 
 		return Padding(

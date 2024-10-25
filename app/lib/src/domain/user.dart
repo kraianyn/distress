@@ -2,19 +2,19 @@ class User {
 	const User({
 		required this.id,
 		this.codeName,
-		this.actions
+		this.roles
 	});
 
 	final String id;
 	final String? codeName;
-	final List<UserAction>? actions;
+	final List<Role>? roles;
 
-	bool get isInstructor => actions!.contains(UserAction.teaching);
-	bool get canManageSchedule => actions!.contains(UserAction.managingSchedule);
-	bool get canManageUsers => actions!.contains(UserAction.managingUsers);
+	bool get isInstructor => roles!.contains(Role.teaching);
+	bool get canManageSchedule => roles!.contains(Role.managingSchedule);
+	bool get canManageUsers => roles!.contains(Role.managingUsers);
 }
 
-enum UserAction {
+enum Role {
 	teaching,
 	managingSchedule,
 	managingUsers

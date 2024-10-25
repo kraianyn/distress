@@ -44,8 +44,8 @@ class AppStateNotifier extends _$AppStateNotifier {
 		}
 	}
 
-	Future<void> authorizeUser(List<UserAction> actions) async {
-		ref.userNotifier.addActions(actions);
+	Future<void> authorizeUser(List<Role> roles) async {
+		ref.userNotifier.addActions(roles);
 		await ref.usersRepository.initializeUser();
 		state = AppState.introduction;
 	}

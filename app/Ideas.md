@@ -23,8 +23,6 @@ course on the chosen date).
 
 ## Do
 
-Rename user actions to roles.
-
 Define `BuildContext.showSnackBar`.
 
 Move schedule document methods to the repository.

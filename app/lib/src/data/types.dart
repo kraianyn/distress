@@ -1,5 +1,5 @@
 abstract class Field {
-	static const actions = 'actions';
+	static const roles = 'roles';
 	static const city = 'city';
 	static const code = 'code';
 	static const codeName = 'codeName';

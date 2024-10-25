@@ -27,18 +27,18 @@ class UsersRepository {
 		return await FirebaseAuth.instance.signInWithCredential(credential);
 	}
 
-	Future<List<UserAction>?> accessCodeUserActions(String code) async {
+	Future<List<Role>?> accessCodeRoles(String code) async {
 		final document = _accessCodeDocument(code);
 		final snapshot = await document.get();
 		if (!snapshot.exists) return null;
 
 		document.delete();
-		return UserModel.actionsFromDocument(snapshot.data()![Field.actions]);
+		return UserModel.rolesFromDocument(snapshot.data()![Field.roles]);
 	}
 
 	Future<void> initializeUser() async {
 		await _userDocument.set({
-			Field.actions: user!.actions!.map((a) => a.name)
+			Field.roles: user!.roles!.map((a) => a.name)
 		});
 	}
 
@@ -48,11 +48,11 @@ class UsersRepository {
 		});
 	}
 
-	Future<String> createAccessCode(List<UserAction> actions) async {
+	Future<String> createAccessCode(List<Role> role) async {
 		String code = DateTime.now().millisecondsSinceEpoch.toRadixString(36);
 		code = (code.split('')..shuffle()).join().toUpperCase();
 		await _accessCodeDocument(code).set({
-			Field.actions: actions.map((a) => a.name).toList()
+			Field.roles: role.map((a) => a.name).toList()
 		});
 		return code;
 	}

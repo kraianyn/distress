@@ -52,10 +52,10 @@ class Authorization extends HookConsumerWidget {
 		if (code.isEmpty) return;
 
 		awaitingActions.value = true;
-		final actions = await ref.usersRepository.accessCodeUserActions(code);
+		final roles = await ref.usersRepository.accessCodeRoles(code);
 
-		if (actions != null) {
-			await ref.appStateNotifier.authorizeUser(actions);
+		if (roles != null) {
+			await ref.appStateNotifier.authorizeUser(roles);
 		}
 		else {
 			ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
