@@ -13,7 +13,6 @@ import 'package:distress/src/ui/core/extensions/navigation_context.dart';
 import 'package:distress/src/ui/core/extensions/providers_references.dart';
 import 'package:distress/src/ui/core/extensions/quantity.dart';
 
-import '../../providers/entities/course.dart';
 import '../../widgets/delete_action_button.dart';
 import '../../widgets/entity_page.dart';
 import '../../widgets/modify_action_button.dart';
@@ -33,7 +32,9 @@ class CoursePage extends ConsumerWidget {
 
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
-		final course = ref.watch(courseNotifierProvider(this.course));
+		final course = ref.courses().value!.firstWhere((c) => c == this.course);
+		ref.courseTypes();
+		ref.locations();
 
 		return EntityPage(
 			content: [

@@ -23,8 +23,6 @@ course on the chosen date).
 
 ## Do
 
-Discard single entity providers.
-
 Rename user actions to roles.
 
 Define `BuildContext.showSnackBar`.

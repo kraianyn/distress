@@ -29,8 +29,6 @@ class CoursesNotifier extends _$CoursesNotifier {
 		final courses = state.value!;
 		courses[courses.indexOf(course)] = course;
 		state = AsyncValue.data(courses..sort());
-
-		ref.courseNotifier(course).update(course);
 	}
 
 	Future<void> updateType(CourseType type) async {
@@ -41,7 +39,6 @@ class CoursesNotifier extends _$CoursesNotifier {
 		for (final (index, course) in indexedTypeCourses) {
 			final updated = course.copyWith(type: type);
 			courses[index] = updated;
-			ref.courseNotifier(course).update(updated);
 		}
 	}
 
@@ -53,7 +50,6 @@ class CoursesNotifier extends _$CoursesNotifier {
 		for (final (index, course) in indexedLocationCourses) {
 			final updated = course.copyWith(location: location);
 			courses[index] = updated;
-			ref.courseNotifier(course).update(updated);
 		}
 	}
 

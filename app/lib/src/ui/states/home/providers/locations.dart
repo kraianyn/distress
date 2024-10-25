@@ -27,7 +27,6 @@ class LocationsNotifier extends _$LocationsNotifier {
 		locations[locations.indexOf(location)] = location;
 		state = AsyncValue.data(locations);
 
-		ref.locationNotifier(location).update(location);
 		await ref.coursesNotifier.updateLocation(location);
 	}
 

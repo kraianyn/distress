@@ -9,7 +9,6 @@ import 'package:distress/src/ui/core/app_icon.dart';
 import 'package:distress/src/ui/core/extensions/providers_references.dart';
 
 import '../../providers/courses.dart';
-import '../../providers/entities/location.dart';
 
 import '../../widgets/course_component_page.dart';
 import '../../widgets/delete_action_button.dart';
@@ -25,7 +24,7 @@ class LocationPage extends ConsumerWidget {
 
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
-		final location = ref.watch(locationNotifierProvider(this.location));
+		final location = ref.locations().value!.firstWhere((l) => l == this.location);
 		final courses = ref.courses().withLocation(location)?.toList();
 
 		return CourseComponentPage(
