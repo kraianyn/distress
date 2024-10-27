@@ -30,12 +30,6 @@ class CourseTypesNotifier extends _$CourseTypesNotifier {
 		await ref.coursesNotifier.updateType(type);
 	}
 
-	Future<void> incrementCourseCount(CourseType type) async {
-		await ref.scheduleRepository.incrementCourseCount(type);
-		ref.invalidateSelf();
-		await future;
-	}
-
 	Future<void> delete(CourseType type) async {
 		await ref.coursesNotifier.deleteWithType(type);
 		await ref.scheduleRepository.deleteCourseType(type);

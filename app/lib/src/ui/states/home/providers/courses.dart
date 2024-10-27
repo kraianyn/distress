@@ -23,9 +23,18 @@ class CoursesNotifier extends _$CoursesNotifier {
 		state = AsyncValue.data(courses..add(course)..sort());
 	}
 
+	Future<FinishedCourse> finish(Course course, {required int studentCount}) async {
+		final finishedCourse = await ref.scheduleRepository.finishCourse(course, studentCount);
+		_updateCourseInState(finishedCourse);
+		return finishedCourse;
+	}
+
 	Future<void> updateCourse(Course course) async {
 		await ref.scheduleRepository.updateCourse(course);
+		_updateCourseInState(course);
+	}
 
+	void _updateCourseInState(Course course) {
 		final courses = state.value!;
 		courses[courses.indexOf(course)] = course;
 		state = AsyncValue.data(courses..sort());

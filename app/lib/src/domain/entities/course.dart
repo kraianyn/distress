@@ -12,8 +12,7 @@ class Course extends Entity {
 		required this.location,
 		required this.instructors,
 		required this.leadInstructor,
-		this.note,
-		this.studentCount
+		this.note
 	});
 
 	Course.added({
@@ -23,7 +22,7 @@ class Course extends Entity {
 		required this.instructors,
 		required this.leadInstructor,
 		this.note
-	}) : studentCount = null,
+	}) :
 		super.added(core: [type, date, location]);
 
 	final CourseType type;
@@ -32,7 +31,20 @@ class Course extends Entity {
 	final List<Instructor> instructors;
 	final Instructor? leadInstructor;
 	final String? note;
-	final int? studentCount;
+
+	FinishedCourse finished({
+		required int number,
+		required int studentCount
+	}) => FinishedCourse(
+		id: id,
+		type: type,
+		date: date,
+		location: location,
+		instructors: instructors,
+		leadInstructor: leadInstructor,
+		number: number,
+		studentCount: studentCount
+	);
 
 	Course copyWith({
 		CourseType? type,
@@ -40,8 +52,7 @@ class Course extends Entity {
 		Location? location,
 		List<Instructor>? instructors,
 		Instructor? leadInstructor,
-		String? note,
-		int? studentCount
+		String? note
 	}) => Course(
 		id: id,
 		type: type ?? this.type,
@@ -49,10 +60,26 @@ class Course extends Entity {
 		location: location ?? this.location,
 		instructors: instructors ?? this.instructors,
 		leadInstructor: leadInstructor ?? this.leadInstructor,
-		note: note ?? this.note,
-		studentCount: studentCount ?? this.studentCount
+		note: note ?? this.note
 	);
 
 	@override
 	int compareTo(covariant Course other) => date.compareTo(other.date);
+}
+
+class FinishedCourse extends Course {
+	const FinishedCourse({
+		required super.id,
+		required super.type,
+		required super.date,
+		required super.location,
+		required super.instructors,
+		required super.leadInstructor,
+		super.note,
+		required this.number,
+		required this.studentCount
+	});
+
+	final int number;
+	final int studentCount;
 }

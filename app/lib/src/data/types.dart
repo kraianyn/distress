@@ -11,6 +11,7 @@ abstract class Field {
 	static const location = 'location';
 	static const name = 'name';
 	static const note = 'note';
+	static const number = 'number';
 	static const studentCount = 'studentCount';
 	static const type = 'type';
 }

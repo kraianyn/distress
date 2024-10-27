@@ -13,6 +13,7 @@ import 'package:distress/src/ui/core/extensions/date.dart';
 import 'package:distress/src/ui/core/extensions/providers_references.dart';
 import 'package:distress/src/ui/core/extensions/quantity.dart';
 
+import '../../providers/course_types.dart';
 import '../../widgets/delete_action_button.dart';
 import '../../widgets/entity_page.dart';
 import '../../widgets/modify_action_button.dart';
@@ -77,11 +78,11 @@ class CoursePage extends ConsumerWidget {
 					title: Text(course.note!),
 					leading: AppIcon.note
 				),
-				if (course.studentCount != null) ListTile(
-					title: Text(course.studentCount!.students),
+				if (course is FinishedCourse) ListTile(
+					title: Text(course.studentCount.students),
 					leading: AppIcon.students
 				),
-				if (course.studentCount == null ) ...[  // && courseIsToday && userIsLeadInstructor
+				if (course is! FinishedCourse) ...[  // && courseIsToday && userIsLeadInstructor
 					verticalSpaceLarge,
 					Padding(
 						padding: horizontalPadding,
@@ -117,7 +118,7 @@ class FinishingCoursePage extends HookConsumerWidget {
 
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
-		final showStudentCountForm = useState(true);
+		final finishedCourse = useState<FinishedCourse?>(null);
 
 		return Scaffold(body: Padding(
 			padding: paddingAround,
@@ -127,9 +128,9 @@ class FinishingCoursePage extends HookConsumerWidget {
 				children: [
 					Text("Закінчення курсу", style: Theme.of(context).textTheme.headlineMedium),
 					verticalSpaceLarge,
-					showStudentCountForm.value
-					 	? StudentCountForm(course, showForm: showStudentCountForm)
-						: CertificatesWidget(course)
+					finishedCourse.value == null
+					 	? StudentCountForm(course, finishedCourse: finishedCourse)
+						: CertificatesWidget(finishedCourse.value!)
 				]
 			)
 		));
@@ -137,10 +138,10 @@ class FinishingCoursePage extends HookConsumerWidget {
 }
 
 class StudentCountForm extends HookConsumerWidget {
-	const StudentCountForm(this.course, {required this.showForm});
+	const StudentCountForm(this.course, {required this.finishedCourse});
 
 	final Course course;
-	final ValueNotifier<bool> showForm;
+	final ValueNotifier<FinishedCourse?> finishedCourse;
 
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
@@ -179,22 +180,18 @@ class StudentCountForm extends HookConsumerWidget {
 		if (studentCount == null) return;
 
 		awaiting.value = true;
-		await Future.wait([
-			ref.coursesNotifier.updateCourse(course.copyWith(studentCount: studentCount)),
-			ref.courseTypesNotifier.incrementCourseCount(course.type)
-		]);
-		showForm.value = false;
+		finishedCourse.value = await ref.coursesNotifier.finish(course, studentCount: studentCount);
+		ref.invalidate(courseTypesNotifierProvider);
 	}
 }
 
 class CertificatesWidget extends ConsumerWidget {
 	const CertificatesWidget(this.course);
 
-	final Course course;
+	final FinishedCourse course;
 
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
-		final courseType = ref.courseTypes().value!.firstWhere((t) => t == course.type);
-		return Text("Номер курсу: ${courseType.courseCount}");
+		return Text("Номер курсу: ${course.number}");
 	}
 }

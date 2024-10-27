@@ -30,7 +30,7 @@ class ScheduleRepository {
 
 	Future<List<Course>> _courses() async {
 		final dataFuture = _Document.courses.data();
-		final typesFuture = courseTypes(useCache: true);
+		final typesFuture = courseTypes();
 		final instructorsFuture = this.instructors();
 		final locationsFuture = this.locations();
 
@@ -47,7 +47,25 @@ class ScheduleRepository {
 		)).toList();
 	}
 
-	Future<List<CourseType>> courseTypes({bool useCache = false}) async {
+	Future<FinishedCourse> finishCourse(Course course, int studentCount) async {
+		await _Document.courseTypes.ref.update({
+			'${course.type.id}.${Field.courseCount}': FieldValue.increment(1)
+		});
+		final types = await courseTypes(useCache: false);
+		final number = types.firstWhere((t) => t == course.type).courseCount;
+		final finishedCourse = course.finished(
+			number: number,
+			studentCount: studentCount
+		);
+
+		await _Document.courses.ref.update({
+			finishedCourse.id: CourseModel.finishedCourseObject(finishedCourse)
+		});
+
+		return finishedCourse;
+	}
+
+	Future<List<CourseType>> courseTypes({bool useCache = true}) async {
 		if (!useCache || _courseTypesFuture == null) {
 			_courseTypesFuture = _simpleEntities(
 				_Document.courseTypes,
@@ -55,12 +73,6 @@ class ScheduleRepository {
 			);
 		}
 		return _courseTypesFuture!;
-	}
-
-	Future<void> incrementCourseCount(CourseType type) async {
-		await _Document.courseTypes.ref.update({
-			'${type.id}.${Field.courseCount}': FieldValue.increment(1)
-		});
 	}
 
 	Future<List<Location>> locations() async {

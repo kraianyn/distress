@@ -14,47 +14,56 @@ import 'entity.dart';
 ///     date: Timestamp,
 /// 	location: String,
 /// 	instructors: List<String>,
-/// 	leadInstructor: String?
+/// 	leadInstructor: String?,
 /// 	note?: String,
-/// 	studentCount?: int
+/// 	{
+/// 		number: int,
+/// 		studentCount: int
+///		}?
 /// }`
 class CourseModel extends Course implements EntityModel {
-	const CourseModel({
-		required super.id,
-		required super.type,
-		required super.date,
-		required super.location,
-		required super.instructors,
-		required super.leadInstructor,
-		super.note,
-		super.studentCount
-	});
-
-	factory CourseModel.fromEntry(
+	static Course fromEntry(
 		EntityEntry entry, {
 			required List<CourseType> allTypes,
 			required List<Location> allLocations,
 			required List<Instructor> allInstructors
 	}) {
-		final typeId = entry.value[Field.type] as String;
-		final locationId = entry.value[Field.location] as String;
-		final instructorIds = List<String>.from(entry.value[Field.instructors]);
-		final instructors = allInstructors.where(
-			(i) => instructorIds.contains(i.id)
-		).toList();
-		final leadInstructorId = entry.value[Field.leadInstructor] as String?;
+		final id = entry.key;
+		final type = allTypes.firstWhere((t) => t.id == entry.value[Field.type]);
+		final date = (entry.value[Field.date] as Timestamp).toDate();
+		final location = allLocations.firstWhere((l) => l.id == entry.value[Field.location]);
 
-		return CourseModel(
-			id: entry.key,
-			type: allTypes.firstWhere((t) => t.id == typeId),
-			date: (entry.value[Field.date] as Timestamp).toDate(),
-			location: allLocations.firstWhere((l) => l.id == locationId),
+		final instructorIds = List<String>.from(entry.value[Field.instructors]);
+		final instructors = allInstructors.where((i) => instructorIds.contains(i.id)).toList();
+
+		final leadInstructorId = entry.value[Field.leadInstructor] as String?;
+		final leadInstructor = leadInstructorId != null
+			? instructors.firstWhere((i) => i.id == leadInstructorId)
+			: null;
+		
+		final note = entry.value[Field.note] as String?;
+
+		if (!entry.value.containsKey(Field.number)) {
+			return Course(
+				id: id,
+				type: type,
+				date: date,
+				location: location,
+				instructors: instructors,
+				leadInstructor: leadInstructor,
+				note: note
+			);
+		}
+		return FinishedCourse(
+			id: id,
+			type: type,
+			date: date,
+			location: location,
 			instructors: instructors,
-			leadInstructor: leadInstructorId != null
-				? instructors.firstWhere((i) => i.id == leadInstructorId)
-				: null,
-			note: entry.value[Field.note] as String?,
-			studentCount: entry.value[Field.studentCount] as int?
+			leadInstructor: leadInstructor,
+			note: note,
+			number: entry.value[Field.number] as int,
+			studentCount: entry.value[Field.studentCount] as int
 		);
 	}
 
@@ -65,8 +74,7 @@ class CourseModel extends Course implements EntityModel {
 		location: entity.location,
 		instructors: entity.instructors,
 		leadInstructor: entity.leadInstructor,
-		note: entity.note,
-		studentCount: entity.studentCount
+		note: entity.note
 	);
 
 	@override
@@ -76,7 +84,12 @@ class CourseModel extends Course implements EntityModel {
 		Field.location: location.id,
 		Field.instructors: instructors.map((i) => i.id),
 		Field.leadInstructor: leadInstructor?.id,
-		if (note != null) Field.note: note,
-		if (studentCount != null) Field.studentCount: studentCount
+		if (note != null) Field.note: note
+	};
+
+	static ObjectMap finishedCourseObject(FinishedCourse course) => {
+		...CourseModel.fromEntity(course).toObject(),
+		Field.number: course.number,
+		Field.studentCount: course.studentCount
 	};
 }

@@ -23,6 +23,9 @@ course on the chosen date).
 
 ## Consider
 
+Replace entity model constructors with methods constructing the entities.
+Can `fromEntity` be replaced by casting now?
+
 Reorder imports.
 
 Replace entity model constructors with methods returning entities.
