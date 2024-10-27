@@ -6,7 +6,6 @@ import 'package:distress/src/domain/entities/instructor.dart';
 import 'package:distress/src/domain/entities/location.dart';
 
 import '../types.dart';
-import 'entity.dart';
 
 
 /// `id: {
@@ -21,7 +20,7 @@ import 'entity.dart';
 /// 		studentCount: int
 ///		}?
 /// }`
-class CourseModel extends Course implements EntityModel {
+extension CourseModel on Course {
 	static Course fromEntry(
 		EntityEntry entry, {
 			required List<CourseType> allTypes,
@@ -67,29 +66,16 @@ class CourseModel extends Course implements EntityModel {
 		);
 	}
 
-	CourseModel.fromEntity(Course entity) : super(
-		id: entity.id,
-		type: entity.type,
-		date: entity.date,
-		location: entity.location,
-		instructors: entity.instructors,
-		leadInstructor: entity.leadInstructor,
-		note: entity.note
-	);
-
-	@override
 	ObjectMap toObject() => {
 		Field.type: type.id,
 		Field.date: Timestamp.fromDate(date),
 		Field.location: location.id,
 		Field.instructors: instructors.map((i) => i.id),
 		Field.leadInstructor: leadInstructor?.id,
-		if (note != null) Field.note: note
-	};
-
-	static ObjectMap finishedCourseObject(FinishedCourse course) => {
-		...CourseModel.fromEntity(course).toObject(),
-		Field.number: course.number,
-		Field.studentCount: course.studentCount
+		if (note != null) Field.note: note,
+		if (this is FinishedCourse) ...{
+			Field.number: (this as FinishedCourse).number,
+			Field.studentCount: (this as FinishedCourse).studentCount
+		}
 	};
 }

@@ -12,7 +12,6 @@ import '../types.dart';
 
 import '../models/course.dart';
 import '../models/course_type.dart';
-import '../models/entity.dart';
 import '../models/instructor.dart';
 import '../models/location.dart';
 
@@ -53,14 +52,14 @@ class ScheduleRepository {
 		});
 		final types = await courseTypes(useCache: false);
 		final number = types.firstWhere((t) => t == course.type).courseCount;
+
 		final finishedCourse = course.finished(
 			number: number,
 			studentCount: studentCount
 		);
-
-		await _Document.courses.ref.update({
-			finishedCourse.id: CourseModel.finishedCourseObject(finishedCourse)
-		});
+		await _Document.courses.updateEntity(
+			finishedCourse.id, finishedCourse.toObject()
+		);
 
 		return finishedCourse;
 	}
@@ -99,36 +98,36 @@ class ScheduleRepository {
 		return data.entries.map<E>(constructor).toList();
 	}
 
-	Future<void> addCourse(Course course) => _Document.courses.update(
-		CourseModel.fromEntity(course)
+	Future<void> addCourse(Course course) => _Document.courses.updateEntity(
+		course.id, course.toObject()
 	);
 
-	Future<void> addCourseType(CourseType type) => _Document.courseTypes.update(
-		CourseTypeModel.fromEntity(type)
+	Future<void> addCourseType(CourseType type) => _Document.courseTypes.updateEntity(
+		type.id, type.toObject()
 	);
 
-	Future<void> addInstructor(Instructor instructor) => _Document.instructors.update(
-		InstructorModel.fromEntity(instructor)
+	Future<void> addInstructor(Instructor instructor) => _Document.instructors.updateEntity(
+		instructor.id, instructor.toObject()
 	);
 
-	Future<void> addLocation(Location location) => _Document.locations.update(
-		LocationModel.fromEntity(location)
+	Future<void> addLocation(Location location) => _Document.locations.updateEntity(
+		location.id, location.toObject()
 	);
 
-	Future<void> updateCourse(Course course) => _Document.courses.update(
-		CourseModel.fromEntity(course)
+	Future<void> updateCourse(Course course) => _Document.courses.updateEntity(
+		course.id, course.toObject()
 	);
 
-	Future<void> updateCourseType(CourseType type) => _Document.courseTypes.update(
-		CourseTypeModel.fromEntity(type)
+	Future<void> updateCourseType(CourseType type) => _Document.courseTypes.updateEntity(
+		type.id, type.toObject()
 	);
 
-	Future<void> updateLocation(Location type) => _Document.locations.update(
-		LocationModel.fromEntity(type)
+	Future<void> updateLocation(Location location) => _Document.locations.updateEntity(
+		location.id, location.toObject()
 	);
 
-	Future<void> deleteCourse(Course course) => _Document.courses.delete(
-		CourseModel.fromEntity(course)
+	Future<void> deleteCourse(Course course) => _Document.courses.deleteEntity(
+		course.id
 	);
 
 	Future<void> deleteCoursesWithType(CourseType type) =>
@@ -166,17 +165,14 @@ class ScheduleRepository {
 		}
 	}
 
-	Future<void> deleteCourseType(CourseType type) => _Document.courseTypes.delete(
-		CourseTypeModel.fromEntity(type)
-	);
+	Future<void> deleteCourseType(CourseType type) =>
+		_Document.courseTypes.deleteEntity(type.id);
 
-	Future<void> deleteInstructor(Instructor instructor) => _Document.instructors.delete(
-		InstructorModel.fromEntity(instructor)
-	);
+	Future<void> deleteInstructor(Instructor instructor) =>
+		_Document.instructors.deleteEntity(instructor.id);
 
-	Future<void> deleteLocation(Location type) => _Document.locations.delete(
-		LocationModel.fromEntity(type)
-	);
+	Future<void> deleteLocation(Location location) =>
+		_Document.locations.deleteEntity(location.id);
 }
 
 enum _Document {
@@ -190,15 +186,15 @@ enum _Document {
 		return _DocumentMap.from(snapshot.data()!);
 	}
 
-	Future<void> update(EntityModel model) async {
+	Future<void> updateEntity(String id, ObjectMap object) async {
 		await ref.update({
-			model.id: model.toObject()
+			id: object
 		});
 	}
 
-	Future<void> delete(EntityModel model) async {
+	Future<void> deleteEntity(String id) async {
 		await ref.update({
-			model.id: FieldValue.delete()
+			id: FieldValue.delete()
 		});
 	}
 

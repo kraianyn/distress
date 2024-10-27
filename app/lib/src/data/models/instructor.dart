@@ -1,24 +1,17 @@
 import 'package:distress/src/domain/entities/instructor.dart';
 
 import '../types.dart';
-import 'entity.dart';
 
 
 /// `id: {
 /// 	codeName: String
 /// }`
-class InstructorModel extends Instructor implements EntityModel {
-	InstructorModel.fromEntry(EntityEntry entry) : super(
+extension InstructorModel on Instructor {
+	static Instructor fromEntry(EntityEntry entry) => Instructor(
 		id: entry.key,
 		codeName: entry.value[Field.codeName] as String
 	);
 
-	InstructorModel.fromEntity(Instructor entity) : super(
-		id: entity.id,
-		codeName: entity.codeName
-	);
-
-	@override
 	ObjectMap toObject() => {
 		Field.codeName: codeName
 	};
