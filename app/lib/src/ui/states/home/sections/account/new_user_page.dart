@@ -9,8 +9,6 @@ import 'package:distress/src/domain/user.dart';
 
 import 'package:distress/src/ui/core/theme.dart';
 import 'package:distress/src/ui/core/extensions/providers_references.dart';
-import 'package:distress/src/ui/core/widgets/error.dart';
-import 'package:distress/src/ui/core/widgets/loading.dart';
 
 
 class NewUserPage extends HookWidget {
@@ -18,27 +16,29 @@ class NewUserPage extends HookWidget {
 
 	@override
 	Widget build(BuildContext context) {
-		final roles = useState<List<Role>?>(null);
+		final code = useState<String?>(null);
 
 		return Scaffold(
-			body: roles.value == null
-				? RolesForm(roles: roles)
-				: AccessCodeCreationWidget(roles.value!)
+			body: code.value == null
+				? RolesForm(codeObject: code)
+				: AccessCodeCreationWidget(code.value!)
 		);
 	}
 }
 
 
-class RolesForm extends HookWidget {
-	const RolesForm({required this.roles});
+class RolesForm extends HookConsumerWidget {
+	const RolesForm({required this.codeObject});
 
-	final ValueNotifier<List<Role>?> roles;
+	final ValueNotifier<String?> codeObject;
 
 	@override
-	Widget build(BuildContext context) {
+	Widget build(BuildContext context, WidgetRef ref) {
 		final isInstructor = useRef(true);
 		final canManageSchedule = useRef(false);
 		final canManageUsers = useRef(false);
+
+		final awaiting = useState(false);
 
 		return Column(
 			mainAxisAlignment: MainAxisAlignment.center,
@@ -70,15 +70,31 @@ class RolesForm extends HookWidget {
 					child: FilledButton.icon(
 						icon: AppIcon.accessCode,
 						label: const Text("Створити код доступу"),
-						onPressed: () => roles.value = [
-							if (isInstructor.value) Role.teaching,
-							if (canManageSchedule.value) Role.managingSchedule,
-							if (canManageUsers.value) Role.managingUsers
-						]
+						onPressed: !awaiting.value
+							? () => _createCode(
+								ref,
+								[
+									if (isInstructor.value) Role.teaching,
+									if (canManageSchedule.value) Role.managingSchedule,
+									if (canManageUsers.value) Role.managingUsers
+								],
+								awaiting
+							)
+							: null
 					)
 				)
 			]
 		);
+	}
+
+	Future<void> _createCode(
+		WidgetRef ref,
+		List<Role> roles,
+		ValueNotifier<bool> awaiting
+	) async {
+		awaiting.value = true;
+		codeObject.value = await ref.usersRepository.createAccessCode(roles);
+		Clipboard.setData(ClipboardData(text: codeObject.value!));
 	}
 }
 
@@ -112,17 +128,13 @@ class RoleTile extends HookWidget {
 }
 
 
-class AccessCodeCreationWidget extends HookConsumerWidget {
-	const AccessCodeCreationWidget(this.roles);
+class AccessCodeCreationWidget extends StatelessWidget {
+	const AccessCodeCreationWidget(this.code);
 
-	final List<Role> roles;
+	final String code;
 
 	@override
-	Widget build(BuildContext context, WidgetRef ref) {
-		final snapshot = useFuture(useMemoized(
-			() => ref.usersRepository.createAccessCode(roles)
-		));
-
+	Widget build(BuildContext context) {
 		return Padding(
 			padding: paddingAround,
 			child: Column(
@@ -131,26 +143,11 @@ class AccessCodeCreationWidget extends HookConsumerWidget {
 				children: [
 					Text("Код доступу", style: Theme.of(context).textTheme.headlineLarge),
 					verticalSpaceLarge,
-					_codeWidget(snapshot),
+					Text(code, style: accessCodeTextStyle, textAlign: TextAlign.center),
 					verticalSpaceLarge,
 					const Text("Передай цей код новому користувачу.")
 				]
 			)
 		);
-	}
-
-	Widget _codeWidget(AsyncSnapshot snapshot) {
-		if (snapshot.connectionState == ConnectionState.waiting) {
-			return const LoadingWidget();
-		}
-
-		if (snapshot.hasData) {
-			final code = snapshot.data!;
-			Clipboard.setData(ClipboardData(text: code));
-
-			return Text(code, style: accessCodeTextStyle, textAlign: TextAlign.center);
-		}
-
-		return ErrorWidget(snapshot.error!, snapshot.stackTrace);
 	}
 }

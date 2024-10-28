@@ -2,8 +2,6 @@
 
 ## Do
 
-Discard `AccessCodeCreationWidget`. Wait for the code to be created on the form page.
-
 For buttons that perform an async operation, change the label while awaiting.
 
 Decide on the colors.
