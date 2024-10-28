@@ -8,10 +8,11 @@ import 'package:distress/src/domain/entities/instructor.dart';
 
 import 'package:distress/src/ui/core/app_icon.dart';
 import 'package:distress/src/ui/core/theme.dart';
-import 'package:distress/src/ui/core/extensions/context.dart';
+import 'package:distress/src/ui/core/extensions/build_context.dart';
 import 'package:distress/src/ui/core/extensions/date.dart';
 import 'package:distress/src/ui/core/extensions/providers_references.dart';
 import 'package:distress/src/ui/core/extensions/quantity.dart';
+import 'package:distress/src/ui/core/extensions/text_editing_controller.dart';
 
 import '../../providers/course_types.dart';
 import '../../widgets/delete_action_button.dart';
@@ -176,7 +177,7 @@ class StudentCountForm extends HookConsumerWidget {
 		TextEditingController field,
 		ValueNotifier<bool> awaiting
 	) async {
-		final studentCount = int.tryParse(field.text.trim());
+		final studentCount = field.number;
 		if (studentCount == null) return;
 
 		awaiting.value = true;

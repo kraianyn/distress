@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:distress/src/ui/core/theme.dart';
-import 'package:distress/src/ui/core/extensions/context.dart';
+import 'package:distress/src/ui/core/extensions/build_context.dart';
 import 'package:distress/src/ui/core/extensions/providers_references.dart';
 
 

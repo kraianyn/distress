@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 
-extension ExtendedContext on BuildContext {
+extension ExtendedBuildContext on BuildContext {
 	Future<T?> openPage<T extends Object?>(Widget Function(BuildContext) builder) =>
 		Navigator.of(this).push(MaterialPageRoute<T>(builder: builder));
 	

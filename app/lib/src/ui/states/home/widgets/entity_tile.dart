@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:distress/src/ui/core/extensions/context.dart';
+import 'package:distress/src/ui/core/extensions/build_context.dart';
 
 
 class EntityTile extends StatelessWidget {

@@ -4,8 +4,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../core/app_icon.dart';
 import '../core/theme.dart';
-import '../core/extensions/context.dart';
+import '../core/extensions/build_context.dart';
 import '../core/extensions/providers_references.dart';
+import '../core/extensions/text_editing_controller.dart';
 import '../core/widgets/described_page.dart';
 
 
@@ -49,9 +50,10 @@ class Authorization extends HookConsumerWidget {
 		TextEditingController field,
 		ValueNotifier<bool> awaitingRoles
 	) async {
-		final code = field.text.trim();
+		final code = field.trimmedText;
 		if (code.isEmpty) return;
 
+		final showSnackBar = context.showSnackBar;
 		awaitingRoles.value = true;
 		final roles = await ref.usersRepository.accessCodeRoles(code);
 
@@ -59,7 +61,7 @@ class Authorization extends HookConsumerWidget {
 			await ref.appStateNotifier.authorizeUser(roles);
 		}
 		else {
-			context.showSnackBar("Код хибний");
+			showSnackBar("Код хибний");
 			awaitingRoles.value = false;
 		}
 	}

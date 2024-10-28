@@ -2,7 +2,7 @@ import 'package:flutter/material.dart' hide ErrorWidget;
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:distress/src/ui/core/app_icon.dart';
-import 'package:distress/src/ui/core/extensions/context.dart';
+import 'package:distress/src/ui/core/extensions/build_context.dart';
 import 'package:distress/src/ui/core/widgets/error.dart';
 import 'package:distress/src/ui/core/widgets/loading.dart';
 

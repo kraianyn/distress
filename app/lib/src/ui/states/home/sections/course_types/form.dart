@@ -6,8 +6,9 @@ import 'package:distress/src/domain/entities/course_type.dart';
 
 import 'package:distress/src/ui/core/app_icon.dart';
 import 'package:distress/src/ui/core/theme.dart';
-import 'package:distress/src/ui/core/extensions/context.dart';
+import 'package:distress/src/ui/core/extensions/build_context.dart';
 import 'package:distress/src/ui/core/extensions/providers_references.dart';
+import 'package:distress/src/ui/core/extensions/text_editing_controller.dart';
 
 import '../../widgets/entity_form.dart';
 
@@ -70,9 +71,9 @@ class CourseTypeForm extends HookConsumerWidget {
 		TextEditingController courseCountField,
 		TextEditingController studentCountField
 	) {
-		final name = nameField.text.trim();
-		final courseCount = int.tryParse(courseCountField.text.trim()),
-			studentCount = int.tryParse(studentCountField.text.trim());
+		final name = nameField.trimmedText;
+		final courseCount = courseCountField.number,
+			studentCount = studentCountField.number;
 		if (name.isEmpty || courseCount == null || studentCount == null) return;
 
 		ref.courseTypesNotifier.add(CourseType.added(
@@ -84,7 +85,7 @@ class CourseTypeForm extends HookConsumerWidget {
 	}
 
 	void _update(BuildContext context, WidgetRef ref, TextEditingController nameField) {
-		final name = nameField.text.trim();
+		final name = nameField.trimmedText;
 		if (name != type!.name) {
 			ref.courseTypesNotifier.updateType(type!.copyWith(name: name));
 		}

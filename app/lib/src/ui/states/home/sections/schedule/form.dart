@@ -10,9 +10,10 @@ import 'package:distress/src/domain/entities/location.dart';
 
 import 'package:distress/src/ui/core/app_icon.dart';
 import 'package:distress/src/ui/core/theme.dart';
-import 'package:distress/src/ui/core/extensions/context.dart';
+import 'package:distress/src/ui/core/extensions/build_context.dart';
 import 'package:distress/src/ui/core/extensions/date.dart';
 import 'package:distress/src/ui/core/extensions/providers_references.dart';
+import 'package:distress/src/ui/core/extensions/text_editing_controller.dart';
 
 import '../../widgets/entity_form.dart';
 import '../../widgets/object_field.dart';
@@ -256,7 +257,7 @@ class CourseForm extends HookConsumerWidget {
 	}
 
 	String? _note(TextEditingController field) {
-		final string = field.text.trim();
+		final string = field.trimmedText;
 		return string.isNotEmpty ? string : null;
 	}
 }
@@ -318,7 +319,9 @@ class OptionsPage<O> extends StatelessWidget {
 
 		selected.value = option;
 		field.text = option.toString();
-		context.closePage();
+		if (context.mounted) {
+			context.closePage();
+		}
 	}
 }
 

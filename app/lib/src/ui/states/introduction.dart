@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../core/app_icon.dart';
 import '../core/theme.dart';
 import '../core/extensions/providers_references.dart';
+import '../core/extensions/text_editing_controller.dart';
 import '../core/widgets/described_page.dart';
 
 
@@ -38,7 +39,7 @@ class Introduction extends HookConsumerWidget {
 	}
 
 	Future<void> _addInfo(WidgetRef ref, TextEditingController codeNameField) async {
-		final codeName = codeNameField.text.trim();
+		final codeName = codeNameField.trimmedText;
 		if (codeName.isNotEmpty) {
 			await ref.appStateNotifier.saveUserInfo(codeName);
 		}

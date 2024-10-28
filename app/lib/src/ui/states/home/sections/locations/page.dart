@@ -6,11 +6,10 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:distress/src/domain/entities/location.dart';
 
 import 'package:distress/src/ui/core/app_icon.dart';
-import 'package:distress/src/ui/core/extensions/context.dart';
+import 'package:distress/src/ui/core/extensions/build_context.dart';
 import 'package:distress/src/ui/core/extensions/providers_references.dart';
 
 import '../../providers/courses.dart';
-
 import '../../widgets/course_component_page.dart';
 import '../../widgets/delete_action_button.dart';
 import '../../widgets/modify_action_button.dart';
@@ -43,7 +42,7 @@ class LocationPage extends ConsumerWidget {
 						ClipboardData(text: location.link)
 					)
 				)
-			],
+		],
 			courses: courses,
 			actions: [
 				ModifyActionButton(formBuilder: (_) => LocationForm(location)),
@@ -57,11 +56,12 @@ class LocationPage extends ConsumerWidget {
 	}
 
 	Future<void> _openLink(BuildContext context) async {
+		final showSnackBar = context.showSnackBar;
 		try {
 			await launchUrl(Uri.parse(location.link));
 		}
 		on PlatformException {
-			context.showSnackBar("Не вдалося відкрити посилання");
+			showSnackBar("Не вдалося відкрити посилання");
 		}
 	}
 }
