@@ -26,10 +26,6 @@ course on the chosen date).
 
 # Code
 
-# Do
-
-Replace functions returning widgets with actual widgets.
-
 ## Consider
 
 Reorder imports.

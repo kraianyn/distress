@@ -1,6 +1,5 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:distress/src/domain/entities/course.dart';
@@ -13,10 +12,7 @@ import 'package:distress/src/ui/core/extensions/date.dart';
 import 'package:distress/src/ui/core/extensions/inset_widget.dart';
 import 'package:distress/src/ui/core/extensions/providers_references.dart';
 import 'package:distress/src/ui/core/extensions/quantity.dart';
-import 'package:distress/src/ui/core/extensions/text_editing_controller.dart';
-import 'package:distress/src/ui/core/widgets/async_action_button.dart';
 
-import '../../providers/course_types.dart';
 import '../../widgets/delete_action_button.dart';
 import '../../widgets/entity_page.dart';
 import '../../widgets/modify_action_button.dart';
@@ -26,6 +22,7 @@ import '../instructors/page.dart';
 import '../locations/page.dart';
 
 import 'date_page.dart';
+import 'finishing_course_page.dart';
 import 'form.dart';
 
 
@@ -122,59 +119,4 @@ class CoursePage extends ConsumerWidget {
 		recognizer: TapGestureRecognizer()..onTap = () =>
 			context.openPage((_) => InstructorPage(instructor))
 	);
-}
-
-
-class FinishingCoursePage extends HookConsumerWidget {
-	const FinishingCoursePage(this.course);
-
-	final Course course;
-
-	@override
-	Widget build(BuildContext context, WidgetRef ref) {
-		final studentCountField = useTextEditingController();
-
-		return Scaffold(body: Column(
-			mainAxisAlignment: MainAxisAlignment.center,
-			crossAxisAlignment: CrossAxisAlignment.stretch,
-			children: [
-				Text(
-					"Закінчення курсу",
-					style: Theme.of(context).textTheme.headlineMedium
-				),
-				verticalSpaceLarge,
-				TextField(
-					controller: studentCountField,
-					style: Theme.of(context).textTheme.titleMedium,
-					decoration: const InputDecoration(
-						hintText: "Кількість курсантів",
-						icon: AppIcon.students
-					)
-				),
-				verticalSpaceLarge,
-				AsyncActionButton(
-					icon: AppIcon.confirm,
-					label: "Закінчити курс",
-					awaitingLabel: "Закінчення",
-					action: () => _finishCourse(context, ref, studentCountField)
-				)
-			]
-		).withHorizontalPadding);
-	}
-
-	Future<void> _finishCourse(
-		BuildContext context,
-		WidgetRef ref,
-		TextEditingController field
-	) async {
-		final studentCount = field.number;
-		if (studentCount == null) return;
-
-		final showSnackBar = context.showSnackBar;
-		await ref.coursesNotifier.finish(course, studentCount: studentCount);
-
-		ref.invalidate(courseTypesNotifierProvider);
-		showSnackBar("Курс закінчено");
-		if (context.mounted) context.closePage();
-	}
 }

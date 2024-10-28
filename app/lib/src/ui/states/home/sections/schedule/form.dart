@@ -9,7 +9,6 @@ import 'package:distress/src/domain/entities/instructor.dart';
 import 'package:distress/src/domain/entities/location.dart';
 
 import 'package:distress/src/ui/core/app_icon.dart';
-import 'package:distress/src/ui/core/theme.dart';
 import 'package:distress/src/ui/core/extensions/build_context.dart';
 import 'package:distress/src/ui/core/extensions/date.dart';
 import 'package:distress/src/ui/core/extensions/inset_widget.dart';
@@ -18,10 +17,12 @@ import 'package:distress/src/ui/core/extensions/text_editing_controller.dart';
 
 import '../../widgets/entity_form.dart';
 import '../../widgets/object_field.dart';
-
 import '../course_types/form.dart';
 import '../locations/form.dart';
 import '../section.dart';
+
+import 'instructors_options_page.dart';
+import 'options_page.dart';
 
 
 class CourseForm extends HookConsumerWidget {
@@ -143,19 +144,19 @@ class CourseForm extends HookConsumerWidget {
 
 	Future<void> _askDate(
 		BuildContext context,
-		ObjectRef<DateTime?> object,
+		ObjectRef<DateTime?> date,
 		TextEditingController field
 	) async {
 		final today = DateTime.now();
-		final date = await showDatePicker(
+		final picked = await showDatePicker(
 			context: context,
-			initialDate: object.value,
+			initialDate: date.value,
 			firstDate: today,
 			lastDate: today.add(const Duration(days: 365))
 		);
-		if (date != null) {
-			object.value = date;
-			field.text = date.dateString(monthName: true);
+		if (picked != null) {
+			date.value = picked;
+			field.text = picked.dateString(monthName: true);
 		}
 	}
 
@@ -260,167 +261,5 @@ class CourseForm extends HookConsumerWidget {
 	String? _note(TextEditingController field) {
 		final string = field.trimmedText;
 		return string.isNotEmpty ? string : null;
-	}
-}
-
-
-class OptionsPage<O> extends StatelessWidget {
-	const OptionsPage({
-		required this.title,
-		required this.options,
-		required this.selected,
-		required this.field,
-		this.optionFormBuilder,
-		this.addOptionButtonLabel
-	});
-
-	final String title;
-	final Iterable<O> options;
-	final ObjectRef<O?> selected;
-	final TextEditingController field;
-	final Widget Function()? optionFormBuilder;
-	final String? addOptionButtonLabel;
-
-	@override
-	Widget build(BuildContext context) {
-		return Scaffold(
-			body: Center(child: ListView(
-				shrinkWrap: true,
-				children: [
-					Text(
-						title,
-						style: Theme.of(context).textTheme.headlineMedium
-					).withHorizontalPadding,
-					verticalSpaceLarge,
-					...options.map((option) => OptionTile(
-						option: option,
-						selected: selected,
-						field: field
-					)),
-					verticalSpaceLarge,
-					if (optionFormBuilder != null) FilledButton.tonalIcon(
-						icon: AppIcon.add,
-						label: Text(addOptionButtonLabel!),
-						onPressed: () => _addOption(context)
-					).withHorizontalPadding
-				]
-			))
-		);
-	}
-
-	Future<void> _addOption(BuildContext context) async {
-		final option = await context.openPage<O>((_) => optionFormBuilder!());
-		if (option == null) return;
-
-		selected.value = option;
-		field.text = option.toString();
-		if (context.mounted) {
-			context.closePage();
-		}
-	}
-}
-
-class OptionTile<O> extends HookWidget {
-	const OptionTile({
-		required this.option,
-		required this.selected,
-		required this.field
-	});
-
-	final O option;
-	final ObjectRef<O?> selected;
-	final TextEditingController field;
-
-	@override
-	Widget build(BuildContext context) {
-		final isSelected = useState(selected.value == option);
-
-		return ListTile(
-			title: Text(option.toString()),
-			selected: isSelected.value,
-			onTap: () {
-				selected.value = option;
-				field.text = option.toString();
-				context.closePage();
-			}
-		);
-	}
-}
-
-
-class InstructorsOptionsPage extends StatelessWidget {
-	const InstructorsOptionsPage({
-		required this.options,
-		required this.selected,
-		required this.field
-	});
-
-	final Iterable<Instructor> options;
-	final ObjectRef<List<Instructor>> selected;
-	final TextEditingController field;
-
-	@override
-	Widget build(BuildContext context) {
-		return PopScope(
-			onPopInvokedWithResult: (_, __) => _updateField(),
-			child: Scaffold(
-				body: Center(child: ListView(
-					shrinkWrap: true,
-					children: [
-						Text(
-							"Інструктори",
-							style: Theme.of(context).textTheme.headlineMedium
-						).withHorizontalPadding,
-						verticalSpaceLarge,
-						...options.map((instructor) => InstructorOptionTile(
-							instructor: instructor,
-							selected: selected
-						))
-					]
-				)),
-				floatingActionButton: FloatingActionButton(
-					child: AppIcon.confirm,
-					onPressed: () => _confirm(context)
-				)
-			)
-		);
-	}
-
-	void _updateField() {
-		field.text = (selected.value..sort()).join(', ');
-	}
-
-	void _confirm(BuildContext context) {
-		_updateField();
-		context.closePage();
-	}
-}
-
-class InstructorOptionTile extends HookWidget {
-	const InstructorOptionTile({
-		required this.instructor,
-		required this.selected
-	});
-
-	final Instructor instructor;
-	final ObjectRef<List<Instructor>> selected;
-
-	@override
-	Widget build(BuildContext context) {
-		final isSelected = useState(selected.value.contains(instructor));
-
-		return ListTile(
-			title: Text(instructor.codeName),
-			selected: isSelected.value,
-			onTap: () {
-				if (!isSelected.value) {
-					selected.value.add(instructor);
-				}
-				else {
-					selected.value.remove(instructor);
-				}
-				isSelected.value = !isSelected.value;
-			}
-		);
 	}
 }
