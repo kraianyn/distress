@@ -12,6 +12,7 @@ import 'package:distress/src/ui/core/app_icon.dart';
 import 'package:distress/src/ui/core/theme.dart';
 import 'package:distress/src/ui/core/extensions/build_context.dart';
 import 'package:distress/src/ui/core/extensions/date.dart';
+import 'package:distress/src/ui/core/extensions/inset_widget.dart';
 import 'package:distress/src/ui/core/extensions/providers_references.dart';
 import 'package:distress/src/ui/core/extensions/text_editing_controller.dart';
 
@@ -136,7 +137,7 @@ class CourseForm extends HookConsumerWidget {
 						icon: AppIcon.note
 					)
 				)
-			]
+			].map((w) => w.withHorizontalPadding)
 		);
 	}
 
@@ -286,13 +287,10 @@ class OptionsPage<O> extends StatelessWidget {
 			body: Center(child: ListView(
 				shrinkWrap: true,
 				children: [
-					Padding(
-						padding: horizontalPadding,
-						child: Text(
-							title,
-							style: Theme.of(context).textTheme.headlineMedium
-						)
-					),
+					Text(
+						title,
+						style: Theme.of(context).textTheme.headlineMedium
+					).withHorizontalPadding,
 					verticalSpaceLarge,
 					...options.map((option) => OptionTile(
 						option: option,
@@ -300,14 +298,11 @@ class OptionsPage<O> extends StatelessWidget {
 						field: field
 					)),
 					verticalSpaceLarge,
-					if (optionFormBuilder != null) Padding(
-						padding: horizontalPadding,
-						child: FilledButton.tonalIcon(
-							icon: AppIcon.add,
-							label: Text(addOptionButtonLabel!),
-							onPressed: () => _addOption(context)
-						)
-					)
+					if (optionFormBuilder != null) FilledButton.tonalIcon(
+						icon: AppIcon.add,
+						label: Text(addOptionButtonLabel!),
+						onPressed: () => _addOption(context)
+					).withHorizontalPadding
 				]
 			))
 		);
@@ -372,13 +367,10 @@ class InstructorsOptionsPage extends StatelessWidget {
 				body: Center(child: ListView(
 					shrinkWrap: true,
 					children: [
-						Padding(
-							padding: horizontalPadding,
-							child: Text(
-								"Інструктори",
-								style: Theme.of(context).textTheme.headlineMedium
-							),
-						),
+						Text(
+							"Інструктори",
+							style: Theme.of(context).textTheme.headlineMedium
+						).withHorizontalPadding,
 						verticalSpaceLarge,
 						...options.map((instructor) => InstructorOptionTile(
 							instructor: instructor,

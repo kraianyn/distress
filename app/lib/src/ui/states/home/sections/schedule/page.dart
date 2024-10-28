@@ -10,6 +10,7 @@ import 'package:distress/src/ui/core/app_icon.dart';
 import 'package:distress/src/ui/core/theme.dart';
 import 'package:distress/src/ui/core/extensions/build_context.dart';
 import 'package:distress/src/ui/core/extensions/date.dart';
+import 'package:distress/src/ui/core/extensions/inset_widget.dart';
 import 'package:distress/src/ui/core/extensions/providers_references.dart';
 import 'package:distress/src/ui/core/extensions/quantity.dart';
 import 'package:distress/src/ui/core/extensions/text_editing_controller.dart';
@@ -81,15 +82,12 @@ class CoursePage extends ConsumerWidget {
 					leading: AppIcon.note
 				),
 				verticalSpaceLarge,
-				if (course is! FinishedCourse) Padding(  // && courseIsToday && userIsLeadInstructor
-					padding: horizontalPadding,
-					child: FilledButton.icon(
-						icon: AppIcon.finishCourse,
-						label: const Text("Закінчити курс"),
-						onPressed: () => context.openPage((context) => FinishingCoursePage(course))
-					)
-				),
-				if (course is FinishedCourse) ...([
+				if (course is! FinishedCourse) FilledButton.icon(  // && courseIsToday && userIsLeadInstructor
+					icon: AppIcon.finishCourse,
+					label: const Text("Закінчити курс"),
+					onPressed: () => context.openPage((_) => FinishingCoursePage(course))
+				).withHorizontalPadding,
+				if (course is FinishedCourse) ...[
 					ListTile(
 						title: Text("Номер курсу: ${course.number}"),
 						leading: AppIcon.number,
@@ -105,10 +103,12 @@ class CoursePage extends ConsumerWidget {
 						),
 						leading: AppIcon.certificate
 					)
-				])
+				]
 			],
 			actions: [
-				ModifyActionButton(formBuilder: (_) => CourseForm(course)),
+				if (course is! FinishedCourse) ModifyActionButton(
+					formBuilder: (_) => CourseForm(course)
+				),
 				DeleteActionButton(
 					question: "Видалити курс?",
 					delete: () => ref.coursesNotifier.delete(course)
@@ -134,35 +134,32 @@ class FinishingCoursePage extends HookConsumerWidget {
 	Widget build(BuildContext context, WidgetRef ref) {
 		final studentCountField = useTextEditingController();
 
-		return Scaffold(body: Padding(
-			padding: paddingAround,
-			child: Column(
-				mainAxisAlignment: MainAxisAlignment.center,
-				crossAxisAlignment: CrossAxisAlignment.stretch,
-				children: [
-					Text(
-						"Закінчення курсу",
-						style: Theme.of(context).textTheme.headlineMedium
-					),
-					verticalSpaceLarge,
-					TextField(
-						controller: studentCountField,
-						style: Theme.of(context).textTheme.titleMedium,
-						decoration: const InputDecoration(
-							hintText: "Кількість курсантів",
-							icon: AppIcon.students
-						)
-					),
-					verticalSpaceLarge,
-					AsyncActionButton(
-						icon: AppIcon.confirm,
-						label: "Закінчити курс",
-						awaitingLabel: "Закінчення",
-						action: () => _finishCourse(context, ref, studentCountField)
+		return Scaffold(body: Column(
+			mainAxisAlignment: MainAxisAlignment.center,
+			crossAxisAlignment: CrossAxisAlignment.stretch,
+			children: [
+				Text(
+					"Закінчення курсу",
+					style: Theme.of(context).textTheme.headlineMedium
+				),
+				verticalSpaceLarge,
+				TextField(
+					controller: studentCountField,
+					style: Theme.of(context).textTheme.titleMedium,
+					decoration: const InputDecoration(
+						hintText: "Кількість курсантів",
+						icon: AppIcon.students
 					)
-				]
-			)
-		));
+				),
+				verticalSpaceLarge,
+				AsyncActionButton(
+					icon: AppIcon.confirm,
+					label: "Закінчити курс",
+					awaitingLabel: "Закінчення",
+					action: () => _finishCourse(context, ref, studentCountField)
+				)
+			]
+		).withHorizontalPadding);
 	}
 
 	Future<void> _finishCourse(

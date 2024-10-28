@@ -35,7 +35,7 @@ class EntityPage extends ConsumerWidget {
 						children: actions
 					)
 				)
-			]	
+			]
 		));
 	}
 }

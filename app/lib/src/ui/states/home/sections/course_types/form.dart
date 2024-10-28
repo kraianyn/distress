@@ -7,6 +7,7 @@ import 'package:distress/src/domain/entities/course_type.dart';
 import 'package:distress/src/ui/core/app_icon.dart';
 import 'package:distress/src/ui/core/theme.dart';
 import 'package:distress/src/ui/core/extensions/build_context.dart';
+import 'package:distress/src/ui/core/extensions/inset_widget.dart';
 import 'package:distress/src/ui/core/extensions/providers_references.dart';
 import 'package:distress/src/ui/core/extensions/text_editing_controller.dart';
 
@@ -44,33 +45,34 @@ class CourseTypeForm extends HookConsumerWidget {
 				)
 				: () => _update(context, ref, nameField),
 			content: [
-				TextField(
-					controller: nameField,
-					style: textTheme.headlineMedium,
-					decoration: InputDecoration(
-						hintText: "Назва",
-						hintStyle: headlineHintTextStyle
+				...[
+					TextField(
+						controller: nameField,
+						style: textTheme.headlineMedium,
+						decoration: InputDecoration(
+							hintText: "Назва",
+							hintStyle: headlineHintTextStyle
+						)
+					),
+					if (type == null) TextField(
+						controller: courseCountField,
+						style: textTheme.titleMedium,
+						decoration: const InputDecoration(
+							hintText: "Кількість проведених курсів",
+							icon: AppIcon.number
+						)
+					),
+					if (type == null) TextField(
+						controller: studentCountField,
+						style: textTheme.titleMedium,
+						decoration: const InputDecoration(
+							hintText: "Кількість навчених курсантів",
+							icon: AppIcon.students
+						)
 					)
-				),
-				if (type == null) TextField(
-					controller: courseCountField,
-					style: textTheme.titleMedium,
-					decoration: const InputDecoration(
-						hintText: "Кількість проведених курсів",
-						icon: AppIcon.number
-					)
-				),
-				if (type == null) TextField(
-					controller: studentCountField,
-					style: textTheme.titleMedium,
-					decoration: const InputDecoration(
-						hintText: "Кількість навчених курсантів",
-						icon: AppIcon.students
-					)
-				),
-				verticalSpaceLarge,	
+				].map((w) => w.withHorizontalPadding),
+				verticalSpaceLarge,
 				if (type == null) SwitchListTile(
-					contentPadding: EdgeInsets.zero,
 					title: const Text("Сертифікати від нашого центру"),
 					secondary: AppIcon.certificate,
 					value: certificatesAreIssuedByTrainingCenter.value,

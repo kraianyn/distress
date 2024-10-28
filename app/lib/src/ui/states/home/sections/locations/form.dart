@@ -7,6 +7,7 @@ import 'package:distress/src/domain/entities/location.dart';
 import 'package:distress/src/ui/core/app_icon.dart';
 import 'package:distress/src/ui/core/theme.dart';
 import 'package:distress/src/ui/core/extensions/build_context.dart';
+import 'package:distress/src/ui/core/extensions/inset_widget.dart';
 import 'package:distress/src/ui/core/extensions/providers_references.dart';
 import 'package:distress/src/ui/core/extensions/text_editing_controller.dart';
 
@@ -56,7 +57,7 @@ class LocationForm extends HookConsumerWidget {
 						hintText: "Посилання"
 					)
 				)
-			]
+			].map((w) => w.withHorizontalPadding)
 		);
 	}
 

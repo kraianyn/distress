@@ -25,8 +25,6 @@ course on the chosen date).
 
 # Do
 
-Remove padding from `ListTile`s. Use `paddingAround` more.
-
 Define `SwitchTile`. Replace `RoleTile` and the tile in `CourseTypeForm`.
 
 Replace functions returning widgets with actual widgets.

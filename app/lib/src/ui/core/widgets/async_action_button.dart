@@ -4,7 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import '../app_icon.dart';
 
 
-class AsyncActionButton<T> extends HookWidget {
+class AsyncActionButton extends HookWidget {
 	const AsyncActionButton({
 		required this.icon,
 		required this.label,
@@ -15,7 +15,7 @@ class AsyncActionButton<T> extends HookWidget {
 	final Icon icon;
 	final String label;
 	final String awaitingLabel;
-	final Future<T> Function() action;
+	final Future<void> Function() action;
 
 	@override
 	Widget build(BuildContext context) {
