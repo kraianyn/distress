@@ -23,13 +23,16 @@ class CourseTypeForm extends HookConsumerWidget {
 		final courseCountField = useTextEditingController(
 			text: type?.courseCount.toString()
 		);
+		final studentCountField = useTextEditingController(
+			text: type?.studentCount.toString()
+		);
 
 		final textTheme = Theme.of(context).textTheme;
 
 		return EntityForm(
 			adding: type == null,
 			action: type == null
-				? () => _add(context, ref, nameField, courseCountField)
+				? () => _add(context, ref, nameField, courseCountField, studentCountField)
 				: () => _update(context, ref, nameField),
 			content: [
 				TextField(
@@ -47,6 +50,14 @@ class CourseTypeForm extends HookConsumerWidget {
 						hintText: "Кількість проведених курсів",
 						icon: AppIcon.courseCount
 					)
+				),
+				if (type == null) TextField(
+					controller: studentCountField,
+					style: textTheme.titleMedium,
+					decoration: const InputDecoration(
+						hintText: "Кількість навчених курсантів",
+						icon: AppIcon.students
+					)
 				)
 			]
 		);
@@ -56,15 +67,18 @@ class CourseTypeForm extends HookConsumerWidget {
 		BuildContext context,
 		WidgetRef ref,
 		TextEditingController nameField,
-		TextEditingController courseCountField
+		TextEditingController courseCountField,
+		TextEditingController studentCountField
 	) {
 		final name = nameField.text.trim();
-		final courseCount = int.tryParse(courseCountField.text);
-		if (name.isEmpty || courseCount == null) return;
+		final courseCount = int.tryParse(courseCountField.text.trim()),
+			studentCount = int.tryParse(studentCountField.text.trim());
+		if (name.isEmpty || courseCount == null || studentCount == null) return;
 
 		ref.courseTypesNotifier.add(CourseType.added(
 			name: name,
-			courseCount: courseCount
+			courseCount: courseCount,
+			studentCount: studentCount
 		));
 		context.closePage(type);
 	}

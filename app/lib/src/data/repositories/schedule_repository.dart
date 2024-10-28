@@ -47,8 +47,10 @@ class ScheduleRepository {
 	}
 
 	Future<FinishedCourse> finishCourse(Course course, int studentCount) async {
+		final typeId = course.type.id;
 		await _Document.courseTypes.ref.update({
-			'${course.type.id}.${Field.courseCount}': FieldValue.increment(1)
+			'$typeId.${Field.courseCount}': FieldValue.increment(1),
+			'$typeId.${Field.studentCount}': FieldValue.increment(studentCount)
 		});
 		final types = await courseTypes(useCache: false);
 		final number = types.firstWhere((t) => t == course.type).courseCount;
