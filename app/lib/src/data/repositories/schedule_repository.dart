@@ -53,11 +53,14 @@ class ScheduleRepository {
 			'$typeId.${Field.studentCount}': FieldValue.increment(studentCount)
 		});
 		final types = await courseTypes(useCache: false);
-		final number = types.firstWhere((t) => t == course.type).courseCount;
+		final type = types.firstWhere((t) => t == course.type);
 
 		final finishedCourse = course.finished(
-			number: number,
-			studentCount: studentCount
+			number: type.courseCount,
+			studentCount: studentCount,
+			firstCertificateNumber: type.certificatesAreIssuedByTrainingCenter
+				? type.studentCount - studentCount + 1
+				: null
 		);
 		await _Document.courses.updateEntity(
 			finishedCourse.id, finishedCourse.toObject()

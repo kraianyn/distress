@@ -5,6 +5,7 @@ abstract class Field {
 	static const codeName = 'codeName';
 	static const courseCount = 'courseCount';
 	static const date = 'date';
+	static const firstCertificateNumber = 'firstCertificateNumber';
 	static const instructors = 'instructors';
 	static const leadInstructor = 'leadInstructor';
 	static const link = 'link';

@@ -13,12 +13,13 @@ abstract class AppIcon {
 	static const instructor = Icon(Icons.school);
 	static const location = Icon(Icons.place);
 
+	static const certificate = Icon(Icons.military_tech);
 	static const city = Icon(Icons.business);
-	static const courseCount = Icon(Icons.numbers);
 	static const date = Icon(Icons.today);
 	static const leadInstructor = Icon(Icons.visibility);
 	static const link = Icon(Icons.link);
 	static const note = Icon(Icons.short_text);
+	static const number = Icon(Icons.numbers);
 	static const students = Icon(Icons.people_alt);
 
 	static const add = Icon(Icons.add);

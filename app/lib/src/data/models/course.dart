@@ -10,15 +10,14 @@ import '../types.dart';
 
 /// `id: {
 /// 	type: String,
-///     date: Timestamp,
+/// 	date: Timestamp,
 /// 	location: String,
 /// 	instructors: List<String>,
 /// 	leadInstructor: String?,
 /// 	note?: String,
-/// 	{
-/// 		number: int,
-/// 		studentCount: int
-///		}?
+/// 	number?: int,
+/// 	studentCount?: int,
+/// 	firstCertificateNumber?: int
 /// }`
 extension CourseModel on Course {
 	static Course fromEntry(
@@ -62,20 +61,29 @@ extension CourseModel on Course {
 			leadInstructor: leadInstructor,
 			note: note,
 			number: entry.value[Field.number] as int,
-			studentCount: entry.value[Field.studentCount] as int
+			studentCount: entry.value[Field.studentCount] as int,
+			firstCertificateNumber: entry.value[Field.firstCertificateNumber] as int?
 		);
 	}
 
-	ObjectMap toObject() => {
-		Field.type: type.id,
-		Field.date: Timestamp.fromDate(date),
-		Field.location: location.id,
-		Field.instructors: instructors.map((i) => i.id),
-		Field.leadInstructor: leadInstructor?.id,
-		if (note != null) Field.note: note,
-		if (this is FinishedCourse) ...{
-			Field.number: (this as FinishedCourse).number,
-			Field.studentCount: (this as FinishedCourse).studentCount
-		}
-	};
+	ObjectMap toObject() {
+		final object = {
+			Field.type: type.id,
+			Field.date: Timestamp.fromDate(date),
+			Field.location: location.id,
+			Field.instructors: instructors.map((i) => i.id),
+			Field.leadInstructor: leadInstructor?.id,
+			if (note != null) Field.note: note
+		};
+		if (this is! FinishedCourse) return object;
+		
+		final course = this as FinishedCourse;
+		return {
+			...object,
+			Field.number: course.number,
+			Field.studentCount: course.studentCount,
+			if (course.firstCertificateNumber != null)
+				Field.firstCertificateNumber: course.firstCertificateNumber
+		};
+	}
 }

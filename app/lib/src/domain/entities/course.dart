@@ -34,7 +34,8 @@ class Course extends Entity {
 
 	FinishedCourse finished({
 		required int number,
-		required int studentCount
+		required int studentCount,
+		int? firstCertificateNumber
 	}) => FinishedCourse(
 		id: id,
 		type: type,
@@ -43,7 +44,8 @@ class Course extends Entity {
 		instructors: instructors,
 		leadInstructor: leadInstructor,
 		number: number,
-		studentCount: studentCount
+		studentCount: studentCount,
+		firstCertificateNumber: firstCertificateNumber
 	);
 
 	Course copyWith({
@@ -77,9 +79,13 @@ class FinishedCourse extends Course {
 		required super.leadInstructor,
 		super.note,
 		required this.number,
-		required this.studentCount
+		required this.studentCount,
+		this.firstCertificateNumber
 	});
 
 	final int number;
 	final int studentCount;
+	final int? firstCertificateNumber;
+
+	int get lastCertificateNumber => firstCertificateNumber! + studentCount - 1;
 }

@@ -31,7 +31,7 @@ class CourseTypePage extends ConsumerWidget {
 			content: [
 				ListTile(
 					title: Text(type.courseCount.courses),
-					leading: AppIcon.courseCount
+					leading: AppIcon.number
 				),
 				ListTile(
 					title: Text(type.studentCount.students),
