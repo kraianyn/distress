@@ -1,4 +1,3 @@
-import 'package:distress/src/ui/core/app_icon.dart';
 import 'package:flutter/material.dart' hide ErrorWidget;
 import 'package:flutter/services.dart';
 
@@ -7,8 +6,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:distress/src/domain/user.dart';
 
+import 'package:distress/src/ui/core/app_icon.dart';
 import 'package:distress/src/ui/core/theme.dart';
 import 'package:distress/src/ui/core/extensions/providers_references.dart';
+import 'package:distress/src/ui/core/widgets/async_action_button.dart';
 
 
 class NewUserPage extends HookWidget {
@@ -38,8 +39,6 @@ class RolesForm extends HookConsumerWidget {
 		final canManageSchedule = useRef(false);
 		final canManageUsers = useRef(false);
 
-		final awaiting = useState(false);
-
 		return Column(
 			mainAxisAlignment: MainAxisAlignment.center,
 			crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -67,20 +66,18 @@ class RolesForm extends HookConsumerWidget {
 				verticalSpaceLarge,
 				Padding(
 					padding: horizontalPadding,
-					child: FilledButton.icon(
+					child: AsyncActionButton(
 						icon: AppIcon.accessCode,
-						label: const Text("Створити код доступу"),
-						onPressed: !awaiting.value
-							? () => _createCode(
-								ref,
-								[
-									if (isInstructor.value) Role.teaching,
-									if (canManageSchedule.value) Role.managingSchedule,
-									if (canManageUsers.value) Role.managingUsers
-								],
-								awaiting
-							)
-							: null
+						label: "Створити код доступу",
+						awaitingLabel: "Створення",
+						action: () => _createCode(
+							ref,
+							[
+								if (isInstructor.value) Role.teaching,
+								if (canManageSchedule.value) Role.managingSchedule,
+								if (canManageUsers.value) Role.managingUsers
+							]
+						)
 					)
 				)
 			]
@@ -89,10 +86,8 @@ class RolesForm extends HookConsumerWidget {
 
 	Future<void> _createCode(
 		WidgetRef ref,
-		List<Role> roles,
-		ValueNotifier<bool> awaiting
+		List<Role> roles
 	) async {
-		awaiting.value = true;
 		codeObject.value = await ref.usersRepository.createAccessCode(roles);
 		Clipboard.setData(ClipboardData(text: codeObject.value!));
 	}

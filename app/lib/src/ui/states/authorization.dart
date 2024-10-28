@@ -7,6 +7,7 @@ import '../core/theme.dart';
 import '../core/extensions/build_context.dart';
 import '../core/extensions/providers_references.dart';
 import '../core/extensions/text_editing_controller.dart';
+import '../core/widgets/async_action_button.dart';
 import '../core/widgets/described_page.dart';
 
 
@@ -16,7 +17,6 @@ class Authorization extends HookConsumerWidget {
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
 		final codeField = useTextEditingController();
-		final awaitingRoles = useState(false);
 
 		return DescribedPage(
 			title: "Доступ",
@@ -33,12 +33,11 @@ class Authorization extends HookConsumerWidget {
 					)
 				),
 				verticalSpaceLarge,
-				FilledButton.icon(
+				AsyncActionButton(
 					icon: AppIcon.accessCode,
-					label: const Text("Далі"),
-					onPressed: !awaitingRoles.value
-						? () => _authorize(context, ref, codeField, awaitingRoles)
-						: null
+					label: "Далі",
+					awaitingLabel: "Перевірка",
+					action: () => _authorize(context, ref, codeField)
 				)
 			]
 		);
@@ -47,14 +46,12 @@ class Authorization extends HookConsumerWidget {
 	Future<void> _authorize(
 		BuildContext context,
 		WidgetRef ref,
-		TextEditingController field,
-		ValueNotifier<bool> awaitingRoles
+		TextEditingController field
 	) async {
 		final code = field.trimmedText;
 		if (code.isEmpty) return;
 
 		final showSnackBar = context.showSnackBar;
-		awaitingRoles.value = true;
 		final roles = await ref.usersRepository.accessCodeRoles(code);
 
 		if (roles != null) {
@@ -62,7 +59,6 @@ class Authorization extends HookConsumerWidget {
 		}
 		else {
 			showSnackBar("Код хибний");
-			awaitingRoles.value = false;
 		}
 	}
 }

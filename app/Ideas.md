@@ -2,8 +2,6 @@
 
 ## Do
 
-For buttons that perform an async operation, change the label while awaiting.
-
 Decide on the colors.
 
 Change the app logo.

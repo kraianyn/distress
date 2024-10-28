@@ -13,6 +13,7 @@ import 'package:distress/src/ui/core/extensions/date.dart';
 import 'package:distress/src/ui/core/extensions/providers_references.dart';
 import 'package:distress/src/ui/core/extensions/quantity.dart';
 import 'package:distress/src/ui/core/extensions/text_editing_controller.dart';
+import 'package:distress/src/ui/core/widgets/async_action_button.dart';
 
 import '../../providers/course_types.dart';
 import '../../widgets/delete_action_button.dart';
@@ -132,7 +133,6 @@ class FinishingCoursePage extends HookConsumerWidget {
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
 		final studentCountField = useTextEditingController();
-		final awaiting = useState(false);
 
 		return Scaffold(body: Padding(
 			padding: paddingAround,
@@ -154,12 +154,11 @@ class FinishingCoursePage extends HookConsumerWidget {
 						)
 					),
 					verticalSpaceLarge,
-					FilledButton.icon(
+					AsyncActionButton(
 						icon: AppIcon.confirm,
-						label: const Text("Зберегти"),
-						onPressed: !awaiting.value
-							? () => _finishCourse(context, ref, studentCountField, awaiting)
-							: null
+						label: "Закінчити курс",
+						awaitingLabel: "Закінчення",
+						action: () => _finishCourse(context, ref, studentCountField)
 					)
 				]
 			)
@@ -169,14 +168,12 @@ class FinishingCoursePage extends HookConsumerWidget {
 	Future<void> _finishCourse(
 		BuildContext context,
 		WidgetRef ref,
-		TextEditingController field,
-		ValueNotifier<bool> awaiting
+		TextEditingController field
 	) async {
 		final studentCount = field.number;
 		if (studentCount == null) return;
 
 		final showSnackBar = context.showSnackBar;
-		awaiting.value = true;
 		await ref.coursesNotifier.finish(course, studentCount: studentCount);
 
 		ref.invalidate(courseTypesNotifierProvider);
