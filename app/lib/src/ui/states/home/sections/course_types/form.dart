@@ -12,6 +12,7 @@ import 'package:distress/src/ui/core/extensions/providers_references.dart';
 import 'package:distress/src/ui/core/extensions/text_editing_controller.dart';
 
 import '../../widgets/entity_form.dart';
+import '../../widgets/switch_tile.dart';
 
 
 class CourseTypeForm extends HookConsumerWidget {
@@ -28,7 +29,7 @@ class CourseTypeForm extends HookConsumerWidget {
 		final studentCountField = useTextEditingController(
 			text: type?.studentCount.toString()
 		);
-		final certificatesAreIssuedByTrainingCenter = useState(true);
+		final certificatesAreIssuedByTrainingCenter = useRef(true);
 
 		final textTheme = Theme.of(context).textTheme;
 
@@ -72,11 +73,10 @@ class CourseTypeForm extends HookConsumerWidget {
 					)
 				].map((w) => w.withHorizontalPadding),
 				verticalSpaceLarge,
-				if (type == null) SwitchListTile(
-					title: const Text("Сертифікати від нашого центру"),
-					secondary: AppIcon.certificate,
-					value: certificatesAreIssuedByTrainingCenter.value,
-					onChanged: (newState) => certificatesAreIssuedByTrainingCenter.value = newState
+				if (type == null) SwitchTile(
+					title: "Сертифікати від нашого центру",
+					icon: AppIcon.certificate,
+					stateObject: certificatesAreIssuedByTrainingCenter
 				)
 			]
 		);
@@ -88,7 +88,7 @@ class CourseTypeForm extends HookConsumerWidget {
 		TextEditingController nameField,
 		TextEditingController courseCountField,
 		TextEditingController studentCountField,
-		ValueNotifier<bool> certificatesAreIssuedByTrainingCenter
+		ObjectRef<bool> certificatesAreIssuedByTrainingCenter
 	) {
 		final name = nameField.trimmedText;
 		final courseCount = courseCountField.number,

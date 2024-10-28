@@ -12,6 +12,8 @@ import 'package:distress/src/ui/core/extensions/inset_widget.dart';
 import 'package:distress/src/ui/core/extensions/providers_references.dart';
 import 'package:distress/src/ui/core/widgets/async_action_button.dart';
 
+import '../../widgets/switch_tile.dart';
+
 
 class NewUserPage extends HookWidget {
 	const NewUserPage();
@@ -22,17 +24,16 @@ class NewUserPage extends HookWidget {
 
 		return Scaffold(
 			body: code.value == null
-				? RolesForm(codeObject: code)
+				? RolesForm(code: code)
 				: AccessCodeWidget(code.value!)
 		);
 	}
 }
 
-
 class RolesForm extends HookConsumerWidget {
-	const RolesForm({required this.codeObject});
+	const RolesForm({required this.code});
 
-	final ValueNotifier<String?> codeObject;
+	final ValueNotifier<String?> code;
 
 	@override
 	Widget build(BuildContext context, WidgetRef ref) {
@@ -49,20 +50,20 @@ class RolesForm extends HookConsumerWidget {
 					style: Theme.of(context).textTheme.headlineLarge
 				).withHorizontalPadding,
 				verticalSpaceLarge,
-				RoleTile(
+				SwitchTile(
 					title: "Інструктор",
 					icon: AppIcon.instructor,
-					state: isInstructor
+					stateObject: isInstructor
 				),
-				RoleTile(
+				SwitchTile(
 					title: "Може змінювати розклад",
 					icon: AppIcon.schedule,
-					state: canManageSchedule
+					stateObject: canManageSchedule
 				),
-				RoleTile(
+				SwitchTile(
 					title: "Може додавати користувачів",
 					icon: AppIcon.addUser,
-					state: canManageUsers
+					stateObject: canManageUsers
 				),
 				verticalSpaceLarge,
 				AsyncActionButton(
@@ -86,40 +87,10 @@ class RolesForm extends HookConsumerWidget {
 		WidgetRef ref,
 		List<Role> roles
 	) async {
-		codeObject.value = await ref.usersRepository.createAccessCode(roles);
-		Clipboard.setData(ClipboardData(text: codeObject.value!));
+		code.value = await ref.usersRepository.createAccessCode(roles);
+		Clipboard.setData(ClipboardData(text: code.value!));
 	}
 }
-
-class RoleTile extends HookWidget {
-	const RoleTile({
-		required this.title,
-		required this.icon,
-		required this.state
-	});
-
-	final String title;
-	final Icon icon;
-	final ObjectRef<bool> state;
-
-	@override
-	Widget build(BuildContext context) {
-		final currentState = useState(state.value);
-
-		return SwitchListTile(
-			title: Text(title),
-			secondary: icon,
-			value: currentState.value,
-			onChanged: (newState) => _onSwitch(newState, currentState)
-		);
-	}
-
-	void _onSwitch(bool newState, ValueNotifier<bool> currentState) {
-		currentState.value = newState;
-		state.value = newState;
-	}
-}
-
 
 class AccessCodeWidget extends StatelessWidget {
 	const AccessCodeWidget(this.code);

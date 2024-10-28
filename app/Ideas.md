@@ -10,6 +10,9 @@ Change the splash screen.
 
 ## Fix
 
+Entity pages watch the entities, so deleting an entity before the page is closed 
+causes en error.
+
 Updating the date of a course with a date before today causes an error, since 
 the initial date of the calendar widget is no longer in the valid range.
 Make it impossible to update past courses (might still be needed)?
@@ -24,8 +27,6 @@ course on the chosen date).
 # Code
 
 # Do
-
-Define `SwitchTile`. Replace `RoleTile` and the tile in `CourseTypeForm`.
 
 Replace functions returning widgets with actual widgets.
 
