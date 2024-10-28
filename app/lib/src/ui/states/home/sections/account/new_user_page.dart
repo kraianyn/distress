@@ -38,7 +38,7 @@ class RolesForm extends HookWidget {
 	Widget build(BuildContext context) {
 		final isInstructor = useRef(true);
 		final canManageSchedule = useRef(false);
-		final canAddUsers = useRef(false);
+		final canManageUsers = useRef(false);
 
 		return Column(
 			mainAxisAlignment: MainAxisAlignment.center,
@@ -62,7 +62,7 @@ class RolesForm extends HookWidget {
 				RoleTile(
 					title: "Може додавати користувачів",
 					icon: AppIcon.addUser,
-					state: canAddUsers
+					state: canManageUsers
 				),
 				verticalSpaceLarge,
 				Padding(
@@ -73,7 +73,7 @@ class RolesForm extends HookWidget {
 						onPressed: () => roles.value = [
 							if (isInstructor.value) Role.teaching,
 							if (canManageSchedule.value) Role.managingSchedule,
-							if (canAddUsers.value) Role.managingUsers
+							if (canManageUsers.value) Role.managingUsers
 						]
 					)
 				)

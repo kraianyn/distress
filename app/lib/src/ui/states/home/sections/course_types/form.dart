@@ -27,13 +27,21 @@ class CourseTypeForm extends HookConsumerWidget {
 		final studentCountField = useTextEditingController(
 			text: type?.studentCount.toString()
 		);
+		final certificatesAreIssuedByTrainingCenter = useState(true);
 
 		final textTheme = Theme.of(context).textTheme;
 
 		return EntityForm(
 			adding: type == null,
 			action: type == null
-				? () => _add(context, ref, nameField, courseCountField, studentCountField)
+				? () => _add(
+					context,
+					ref,
+					nameField,
+					courseCountField,
+					studentCountField,
+					certificatesAreIssuedByTrainingCenter
+				)
 				: () => _update(context, ref, nameField),
 			content: [
 				TextField(
@@ -49,7 +57,7 @@ class CourseTypeForm extends HookConsumerWidget {
 					style: textTheme.titleMedium,
 					decoration: const InputDecoration(
 						hintText: "Кількість проведених курсів",
-						icon: AppIcon.courseCount
+						icon: AppIcon.number
 					)
 				),
 				if (type == null) TextField(
@@ -59,6 +67,14 @@ class CourseTypeForm extends HookConsumerWidget {
 						hintText: "Кількість навчених курсантів",
 						icon: AppIcon.students
 					)
+				),
+				verticalSpaceLarge,	
+				if (type == null) SwitchListTile(
+					contentPadding: EdgeInsets.zero,
+					title: const Text("Сертифікати від нашого центру"),
+					secondary: AppIcon.certificate,
+					value: certificatesAreIssuedByTrainingCenter.value,
+					onChanged: (newState) => certificatesAreIssuedByTrainingCenter.value = newState
 				)
 			]
 		);
@@ -69,7 +85,8 @@ class CourseTypeForm extends HookConsumerWidget {
 		WidgetRef ref,
 		TextEditingController nameField,
 		TextEditingController courseCountField,
-		TextEditingController studentCountField
+		TextEditingController studentCountField,
+		ValueNotifier<bool> certificatesAreIssuedByTrainingCenter
 	) {
 		final name = nameField.trimmedText;
 		final courseCount = courseCountField.number,
@@ -79,7 +96,8 @@ class CourseTypeForm extends HookConsumerWidget {
 		ref.courseTypesNotifier.add(CourseType.added(
 			name: name,
 			courseCount: courseCount,
-			studentCount: studentCount
+			studentCount: studentCount,
+			certificatesAreIssuedByTrainingCenter: certificatesAreIssuedByTrainingCenter.value
 		));
 		context.closePage(type);
 	}

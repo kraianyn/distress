@@ -1,5 +1,5 @@
 abstract class Field {
-	static const roles = 'roles';
+	static const certificatesAreIssuedByTrainingCenter = 'certificatesAreIssuedByTrainingCenter';
 	static const city = 'city';
 	static const code = 'code';
 	static const codeName = 'codeName';
@@ -12,6 +12,7 @@ abstract class Field {
 	static const name = 'name';
 	static const note = 'note';
 	static const number = 'number';
+	static const roles = 'roles';
 	static const studentCount = 'studentCount';
 	static const type = 'type';
 }
