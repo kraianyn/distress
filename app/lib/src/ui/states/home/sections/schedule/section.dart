@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:distress/src/ui/core/extensions/providers_references.dart';
 
 import '../entities_section.dart';
+import '../section.dart';
 
 import 'form.dart';
 import 'tile.dart';
@@ -24,6 +25,7 @@ class ScheduleSection extends ConsumerWidget {
 		final showButton = userCanAdd && componentsFetched;
 
 		return EntitiesSection(
+			section: Section.schedule,
 			entities: courses,
 			tileBuilder: CourseTile.new,
 			formBuilder: showButton ? CourseForm.new : null

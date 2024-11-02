@@ -11,7 +11,7 @@ final seed = ThemeData(
 		surface: primaryColor.withSaturation(.7).withLightness(.9).toColor()
 	),
 	textTheme: GoogleFonts.ubuntuTextTheme(const TextTheme(
-		headlineLarge: TextStyle(fontSize: 28, height: 1, fontWeight: FontWeight.bold),
+		headlineLarge: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
 		headlineMedium: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
 		headlineSmall: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
 		titleMedium: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),

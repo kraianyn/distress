@@ -1,12 +1,15 @@
-import 'package:distress/src/ui/core/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:distress/src/ui/core/app_icon.dart';
+import 'package:distress/src/ui/core/theme.dart';
 import 'package:distress/src/ui/core/extensions/build_context.dart';
 import 'package:distress/src/ui/core/extensions/providers_references.dart';
 
+import '../../widgets/app_bar.dart';
 import '../../widgets/show_action_confirmation.dart';
+import '../section.dart';
+
 import 'new_user_page.dart';
 
 
@@ -18,6 +21,10 @@ class AccountSection extends ConsumerWidget {
 		final userCanAddUsers = ref.user()!.canManageUsers;
 
 		return Scaffold(
+			appBar: HomeAppBar(
+				context: context,
+				section: Section.account
+			),
 			body: Container(
 				alignment: Alignment.center,
 				child: Column(

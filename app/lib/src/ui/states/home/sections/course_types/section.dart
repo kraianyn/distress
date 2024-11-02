@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:distress/src/ui/core/extensions/providers_references.dart';
-import 'package:distress/src/ui/states/home/providers/courses.dart';
 
+import '../../providers/courses.dart';
 import '../entities_section.dart';
+import '../section.dart';
 
 import 'form.dart';
 import 'tile.dart';
@@ -20,6 +21,7 @@ class CourseTypesSection extends ConsumerWidget {
 		final userCanAdd = ref.user()!.canManageSchedule;
 
 		return EntitiesSection(
+			section: Section.courseTypes,
 			entities: types,
 			tileBuilder: (type) => CourseTypeTile(
 				type,
