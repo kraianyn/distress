@@ -86,4 +86,6 @@ extension CourseModel on Course {
 				Field.firstCertificateNumber: course.firstCertificateNumber
 		};
 	}
+
+	String get scheduleId => '${date.year}.${date.month}';
 }

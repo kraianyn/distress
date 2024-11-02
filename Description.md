@@ -1,4 +1,4 @@
-# Attending a course as it is now
+# Attending a course as it is without this app
 
 1. The student fills the registration form.
 1. The training center (TC) provides the payment info.
@@ -78,6 +78,8 @@ the course.
 
 # Ideas
 
-Split course types into military and non-military ones.
+Add price to course types.
 
 Highlight the user's courses and today's course.
+
+Split course types into military and non-military ones.

@@ -9,7 +9,6 @@ import 'package:distress/src/domain/entities/instructor.dart';
 import 'package:distress/src/domain/entities/location.dart';
 
 import '../types.dart';
-
 import '../models/course.dart';
 import '../models/course_type.dart';
 import '../models/instructor.dart';
@@ -46,7 +45,7 @@ class ScheduleRepository {
 		)).toList();
 	}
 
-	Future<FinishedCourse> finishCourse(Course course, int studentCount) async {
+	Future<FinishedCourse> finishCourse(Course course, {required int studentCount}) async {
 		final typeId = course.type.id;
 		await _Document.courseTypes.ref.update({
 			'$typeId.${Field.courseCount}': FieldValue.increment(1),
@@ -54,7 +53,6 @@ class ScheduleRepository {
 		});
 		final types = await courseTypes(useCache: false);
 		final type = types.firstWhere((t) => t == course.type);
-
 		final finishedCourse = course.finished(
 			number: type.courseCount,
 			studentCount: studentCount,
@@ -62,9 +60,20 @@ class ScheduleRepository {
 				? type.studentCount - studentCount + 1
 				: null
 		);
-		await _Document.courses.updateEntity(
-			finishedCourse.id, finishedCourse.toObject()
+
+		final scheduleDocument = _Document.courses.ref.collection('archive').doc(
+			finishedCourse.scheduleId
 		);
+		final scheduleDocumentExists = (await scheduleDocument.get()).exists;
+		final scheduleDocumentData = {
+			finishedCourse.id: finishedCourse.toObject()
+		};
+		await Future.wait([
+			scheduleDocumentExists
+				? scheduleDocument.update(scheduleDocumentData)
+				: scheduleDocument.set(scheduleDocumentData),
+			_Document.courses.deleteEntity(finishedCourse.id)
+		]);
 
 		return finishedCourse;
 	}
@@ -204,7 +213,7 @@ enum _Document {
 	}
 
 	DocumentReference<ObjectMap> get ref =>
-		FirebaseFirestore.instance.collection('schedule').doc(name);
+		FirebaseFirestore.instance.doc('schedule/$name');
 }
 
 typedef _DocumentMap = Map<String, ObjectMap>;

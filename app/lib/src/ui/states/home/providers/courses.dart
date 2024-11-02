@@ -24,7 +24,10 @@ class CoursesNotifier extends _$CoursesNotifier {
 	}
 
 	Future<FinishedCourse> finish(Course course, {required int studentCount}) async {
-		final finishedCourse = await ref.scheduleRepository.finishCourse(course, studentCount);
+		final finishedCourse = await ref.scheduleRepository.finishCourse(
+			course,
+			studentCount: studentCount
+		);
 		_updateCourseInState(finishedCourse);
 		return finishedCourse;
 	}

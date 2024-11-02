@@ -2,6 +2,8 @@
 
 ## Do
 
+Change how the info of a finished course is displayed.
+
 Decide on the colors.
 
 Change the app logo.
@@ -38,6 +40,8 @@ If schedule forms become more complex, create classes for form data to avoid
 duplication of field processing logic.
 
 # Cloud
+
+Define security rules.
 
 # Questions
 
