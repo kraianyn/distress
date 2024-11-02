@@ -151,7 +151,7 @@ class CourseForm extends HookConsumerWidget {
 		final picked = await showDatePicker(
 			context: context,
 			initialDate: date.value,
-			firstDate: today,
+			firstDate: date.value ?? today,
 			lastDate: today.add(const Duration(days: 365))
 		);
 		if (picked != null) {

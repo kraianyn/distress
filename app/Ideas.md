@@ -15,10 +15,6 @@ Change the splash screen.
 Entity pages watch the entities, so deleting an entity before the page is closed 
 causes en error.
 
-Updating the date of a course with a date before today causes an error, since 
-the initial date of the calendar widget is no longer in the valid range.
-Make it impossible to update past courses (might still be needed)?
-
 ## Consider
 
 Restyle the bottom navigation bar.
@@ -29,6 +25,8 @@ course on the chosen date).
 # Code
 
 ## Consider
+
+Make `ObjectField`s use `ListTile`s instead.
 
 Reorder imports.
 
