@@ -39,6 +39,10 @@ duplication of field processing logic.
 
 # Cloud
 
+## Do
+
+Archive deleted course types so that schedule archive works.
+
 Define security rules.
 
 # Questions

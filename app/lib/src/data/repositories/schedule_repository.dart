@@ -55,6 +55,7 @@ class ScheduleRepository {
 			'$typeId.${Field.courseCount}': FieldValue.increment(1),
 			'$typeId.${Field.studentCount}': FieldValue.increment(studentCount)
 		});
+
 		final types = await courseTypes(useCache: false);
 		final type = types.firstWhere((t) => t == course.type);
 		final finishedCourse = course.finished(
@@ -65,17 +66,14 @@ class ScheduleRepository {
 				: null
 		);
 
-		final scheduleDocument = _EntitiesDocument.courses.reference.collection('archive').doc(
-			finishedCourse.scheduleId
-		);
+		final scheduleDocument = _courseScheduleDocument(finishedCourse);
 		final scheduleDocumentExists = (await scheduleDocument.get()).exists;
-		final scheduleDocumentData = {
-			finishedCourse.id: finishedCourse.toObject()
-		};
 		await Future.wait([
 			scheduleDocumentExists
-				? scheduleDocument.update(scheduleDocumentData)
-				: scheduleDocument.set(scheduleDocumentData),
+				? scheduleDocument.setEntity(finishedCourse, finishedCourse.toObject())
+				: scheduleDocument.set({
+					finishedCourse.id: finishedCourse.toObject()
+				}),
 			_EntitiesDocument.courses.reference.deleteEntity(finishedCourse)
 		]);
 
@@ -87,7 +85,20 @@ class ScheduleRepository {
 	}
 
 	Future<void> deleteCourse(Course course) async {
-		await _EntitiesDocument.courses.reference.deleteEntity(course);
+		if (course is! FinishedCourse) {
+			await _EntitiesDocument.courses.reference.deleteEntity(course);
+		}
+		else {
+			await _courseScheduleDocument(course).update({
+				course.id: FieldValue.delete()
+			});
+		}
+	}
+
+	DocumentReference<ObjectMap> _courseScheduleDocument(FinishedCourse course) {
+		return _EntitiesDocument.courses.reference.collection('archive').doc(
+			course.scheduleId
+		);
 	}
 
 	Future<void> deleteCoursesWithType(CourseType type) =>
@@ -179,9 +190,9 @@ enum _EntitiesDocument {
 	DocumentReference<ObjectMap> get reference =>
 		FirebaseFirestore.instance.doc('schedule/$name');
 	
-	Future<_DocumentMap> data() async {
+	Future<_EntitiesDocumentMap> data() async {
 		final snapshot = await reference.get();
-		return _DocumentMap.from(snapshot.data()!);
+		return _EntitiesDocumentMap.from(snapshot.data()!);
 	}
 }
 
@@ -195,4 +206,4 @@ extension on DocumentReference {
 	});
 }
 
-typedef _DocumentMap = Map<String, ObjectMap>;
+typedef _EntitiesDocumentMap = Map<String, ObjectMap>;
