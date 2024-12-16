@@ -87,5 +87,5 @@ extension CourseModel on Course {
 		};
 	}
 
-	String get scheduleId => '${date.year}.${date.month}';
+	String get scheduleId => '${date.year}-${date.month}';
 }

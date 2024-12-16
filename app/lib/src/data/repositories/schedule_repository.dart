@@ -67,18 +67,33 @@ class ScheduleRepository {
 		);
 
 		final scheduleDocument = _courseScheduleDocument(finishedCourse);
+		final scheduleCourseCountField = '${finishedCourse.scheduleId}.${Field.courseCount}';
 		final scheduleDocumentExists = (await scheduleDocument.get()).exists;
-		await Future.wait([
-			scheduleDocumentExists
-				? scheduleDocument.setEntity(finishedCourse, finishedCourse.toObject())
-				: scheduleDocument.set({
+		if (scheduleDocumentExists) {
+			await Future.wait([
+				scheduleDocument.setEntity(finishedCourse, finishedCourse.toObject()),
+				_courseArchiveIndexDocument.update({
+					scheduleCourseCountField: FieldValue.increment(1)
+				})
+			]);
+		}
+		else {
+			await Future.wait([
+				scheduleDocument.set({
 					finishedCourse.id: finishedCourse.toObject()
 				}),
-			_EntitiesDocument.courses.reference.deleteEntity(finishedCourse)
-		]);
+				_courseArchiveIndexDocument.update({
+					scheduleCourseCountField: 1
+				})
+			]);
+		}
+		await _EntitiesDocument.courses.reference.deleteEntity(finishedCourse);
 
 		return finishedCourse;
 	}
+
+	DocumentReference<ObjectMap> get _courseArchiveIndexDocument =>
+		_courseArchiveCollection.doc('index');
 
 	Future<void> updateCourse(Course course) async {
 		await _EntitiesDocument.courses.reference.setEntity(course, course.toObject());
@@ -95,11 +110,11 @@ class ScheduleRepository {
 		}
 	}
 
-	DocumentReference<ObjectMap> _courseScheduleDocument(FinishedCourse course) {
-		return _EntitiesDocument.courses.reference.collection('archive').doc(
-			course.scheduleId
-		);
-	}
+	DocumentReference<ObjectMap> _courseScheduleDocument(FinishedCourse course) =>
+		_courseArchiveCollection.doc(course.scheduleId);
+
+	CollectionReference<ObjectMap> get _courseArchiveCollection =>
+		_EntitiesDocument.courses.reference.collection('archive');
 
 	Future<void> deleteCoursesWithType(CourseType type) =>
 		_deleteCoursesWithEntity(type, Field.type);
