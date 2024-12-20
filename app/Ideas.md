@@ -28,6 +28,8 @@ course on the chosen date).
 
 Make `ObjectField`s use `ListTile`s instead.
 
+Define a `typedef` for `DocumentReference<ObjectMap>`.
+
 Reorder imports.
 
 Reduce duplication across `AsyncNotifier`s.

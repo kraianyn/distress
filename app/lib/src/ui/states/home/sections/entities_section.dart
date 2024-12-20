@@ -6,7 +6,7 @@ import 'package:distress/src/ui/core/extensions/build_context.dart';
 import 'package:distress/src/ui/core/widgets/error.dart';
 import 'package:distress/src/ui/core/widgets/loading.dart';
 
-import '../widgets/app_bar.dart';
+import '../widgets/home_app_bar.dart';
 import 'section.dart';
 
 
@@ -15,12 +15,14 @@ class EntitiesSection<E> extends StatelessWidget {
 		required this.section,
 		required this.entities,
 		required this.tileBuilder,
+		this.appBarAction,
 		this.formBuilder
 	});
 
 	final Section section;
 	final AsyncValue<List<E>> entities;
 	final Widget Function(E) tileBuilder;
+	final void Function()? appBarAction;
 	final Widget Function()? formBuilder;
 
 	@override
@@ -29,7 +31,8 @@ class EntitiesSection<E> extends StatelessWidget {
 			data: (entities) => Scaffold(
 				appBar: HomeAppBar(
 					context: context,
-					section: section
+					section: section,
+					action: appBarAction,
 				),
 				body: ListView(
 					children: entities.map(tileBuilder).toList()

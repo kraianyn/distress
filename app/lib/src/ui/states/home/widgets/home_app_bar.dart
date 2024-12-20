@@ -7,26 +7,35 @@ import '../sections/section.dart';
 
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
-	const HomeAppBar({required this.context, required this.section});
+	const HomeAppBar({
+		required this.context,
+		required this.section,
+		this.action
+	});
 
 	final BuildContext context;
 	final Section section;
+	final void Function()? action;
 	static const double lineHeight = 2;
 
 	@override
 	Widget build(BuildContext context) {
-		return SafeArea(child: Column(
-			crossAxisAlignment: CrossAxisAlignment.start,
-			children: [
-				Text(
-					section.name,
-					style: Theme.of(context).textTheme.headlineLarge
-				).withPaddingAround,
-				Container(
-					height: lineHeight,
-					color: Colors.black
-				).withHorizontalPadding
-			]
+		return SafeArea(child: GestureDetector(
+			onTap: action,
+			behavior: HitTestBehavior.opaque,
+			child: Column(
+				crossAxisAlignment: CrossAxisAlignment.start,
+				children: [
+					Text(
+						section.name,
+						style: Theme.of(context).textTheme.headlineLarge
+					).withPaddingAround,
+					Container(
+						height: lineHeight,
+						color: Colors.black
+					).withHorizontalPadding
+				]
+			)
 		));
 	}
 

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide ErrorWidget;
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:distress/src/ui/core/extensions/providers_references.dart';
@@ -28,7 +28,13 @@ class ScheduleSection extends ConsumerWidget {
 			section: Section.schedule,
 			entities: courses,
 			tileBuilder: CourseTile.new,
+			appBarAction: () => _showArchive(context),
 			formBuilder: showButton ? CourseForm.new : null
 		);
 	}
+
+	void _showArchive(BuildContext context) => showModalBottomSheet(
+		context: context,
+		builder: (context) => Text("Місяці")
+	);
 }

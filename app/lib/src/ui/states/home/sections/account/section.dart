@@ -6,7 +6,7 @@ import 'package:distress/src/ui/core/theme.dart';
 import 'package:distress/src/ui/core/extensions/build_context.dart';
 import 'package:distress/src/ui/core/extensions/providers_references.dart';
 
-import '../../widgets/app_bar.dart';
+import '../../widgets/home_app_bar.dart';
 import '../../widgets/show_action_confirmation.dart';
 import '../section.dart';
 
