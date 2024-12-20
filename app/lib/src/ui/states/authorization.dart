@@ -51,7 +51,7 @@ class Authorization extends HookConsumerWidget {
 		final code = field.trimmedText;
 		if (code.isEmpty) return;
 
-		final showSnackBar = context.showSnackBar;
+		final showSnackBar = context.showTextSnackBar;
 		final roles = await ref.usersRepository.accessCodeRoles(code);
 
 		if (roles != null) {

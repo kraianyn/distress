@@ -1,27 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'course_types.dart';
+part of 'course_archive_months.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$courseTypesNotifierHash() =>
-    r'46c7ce8f65dfdd1e504be264c3e62b652086d5e9';
+String _$courseArchiveMonthsHash() =>
+    r'b36940420698e4d4422b57f80bbe6e3a0ce01f60';
 
-/// See also [CourseTypesNotifier].
-@ProviderFor(CourseTypesNotifier)
-final courseTypesNotifierProvider =
-    AsyncNotifierProvider<CourseTypesNotifier, List<CourseType>>.internal(
-  CourseTypesNotifier.new,
-  name: r'courseTypesNotifierProvider',
+/// See also [courseArchiveMonths].
+@ProviderFor(courseArchiveMonths)
+final courseArchiveMonthsProvider = FutureProvider<List<DateTime>>.internal(
+  courseArchiveMonths,
+  name: r'courseArchiveMonthsProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$courseTypesNotifierHash,
+      : _$courseArchiveMonthsHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$CourseTypesNotifier = AsyncNotifier<List<CourseType>>;
+typedef CourseArchiveMonthsRef = FutureProviderRef<List<DateTime>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

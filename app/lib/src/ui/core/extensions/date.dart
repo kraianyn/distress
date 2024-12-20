@@ -22,6 +22,6 @@ extension Date on DateTime {
 	}
 }
 
-extension on int {
+extension DateInt on int {
 	String get twoDigitString => toString().padLeft(2, '0');
 }

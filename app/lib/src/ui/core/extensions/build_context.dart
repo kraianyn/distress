@@ -7,9 +7,10 @@ extension ExtendedBuildContext on BuildContext {
 	
 	void closePage<T extends Object?>([T? data]) => Navigator.of(this).pop(data);
 
-	void showSnackBar(String text) =>
-		ScaffoldMessenger.of(this).showSnackBar(SnackBar(
+	void showTextSnackBar(String text) => ScaffoldMessenger.of(this).showSnackBar(
+		SnackBar(
 			content: Text(text),
 			duration: const Duration(seconds: 2)
-		));
+		)
+	);
 }

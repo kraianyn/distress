@@ -56,7 +56,7 @@ class LocationPage extends ConsumerWidget {
 	}
 
 	Future<void> _openLink(BuildContext context) async {
-		final showSnackBar = context.showSnackBar;
+		final showSnackBar = context.showTextSnackBar;
 		try {
 			await launchUrl(Uri.parse(location.link));
 		}

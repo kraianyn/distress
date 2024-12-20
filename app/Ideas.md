@@ -2,6 +2,11 @@
 
 ## Do
 
+Make course archive sheet shrink in height while loading.
+Consider removing `Center` from `LoadingWidget`.
+
+Change the shape of course archive month tiles to rounded squares.
+
 Change how the info of a finished course is displayed.
 
 Decide on the colors.

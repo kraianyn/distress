@@ -145,6 +145,14 @@ class ScheduleRepository {
 		return _courseTypesFuture!;
 	}
 
+	Future<List<DateTime>> courseArchiveMonths() async {
+		final snapshot = await _courseArchiveIndexDocument.get();
+		return snapshot.data()!.keys.map((scheduleId) {
+			final [yearString, monthString] = scheduleId.split('-');
+			return DateTime(int.parse(yearString), int.parse(monthString));
+		}).toList();
+	}
+
 	Future<void> addCourseType(CourseType type) async {
 		await _EntitiesDocument.courseTypes.reference.setEntity(type, type.toObject());
 	}

@@ -60,7 +60,7 @@ class FinishingCoursePage extends HookConsumerWidget {
 		final studentCount = field.number;
 		if (studentCount == null) return;
 
-		final showSnackBar = context.showSnackBar;
+		final showSnackBar = context.showTextSnackBar;
 		await ref.coursesNotifier.finish(course, studentCount: studentCount);
 
 		ref.invalidate(courseTypesNotifierProvider);
